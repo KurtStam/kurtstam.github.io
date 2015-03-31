@@ -1,10 +1,1 @@
-{
-  "meta": {
-    "username": "KurtStam",
-    "repositoryName": "kurtstam.github.io",
-    "branch": "master"
-  },
-  "theme": {
-    "name": "Casper"
-  }
-}
+{"meta":{"username":"KurtStam","repositoryName":"kurtstam.github.io","branch":"master"},"site":{"title":"Kurt Blog","description":"test","postsPerPage":"1","url":"https://KurtStam.github.io"},"socialnetwork":{},"theme":{"name":"Casper","url":"//KurtStam.github.io/themes/Casper"}}
