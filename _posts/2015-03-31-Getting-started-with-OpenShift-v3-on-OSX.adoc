@@ -1,3 +1,3 @@
-= Test
+= Getting started with OpenShift v3 on OSX
 
-This is my first post
+OSX does not support Docker natively. 
