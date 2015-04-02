@@ -1,3 +1,6 @@
 = Getting started with OpenShift v3 on OSX
+:hp-tags: OpenShift, Fabric8, OSX
 
-OSX does not support Docker natively. 
+OSX does not support Docker natively. The http://fabric8.io/v2/openShiftDocker.html[recommended way] is to use vagrant to create a VM with the right Docker configuration.
+
+Prerequisites: Docker client and Vagrant
