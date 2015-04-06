@@ -20,17 +20,17 @@
     <meta property="og:site_name" content="Fresh Espresso &amp; Open Source Cloud" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Getting started with OpenShift v3 on OSX" />
-    <meta property="og:description" content="OSX does not support Docker natively. The recommended way is to use vagrant to create a VM with the right Docker configuration. Prerequisites: Docker client and Vagrant..." />
+    <meta property="og:description" content="OSX does not support Docker natively. The recommended way is to use vagrant to create a VM with the right Docker configuration. Prerequisites: Docker client and Vagrant &amp;#8230;&amp;#8203; vagrant@vagrant-ubuntu-trusty-64:~$ bash &amp;lt;(curl -sSL https://bit.ly/get-fabric8) Validating..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/03/31/Getting-started-with-OpenShift-v3-on-OSX.html" />
     <meta property="article:published_time" content="2015-03-31T04:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-04-06T18:53:01.591Z" />
+    <meta property="article:modified_time" content="2015-04-06T19:00:31.661Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="OSX" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Getting started with OpenShift v3 on OSX" />
-    <meta name="twitter:description" content="OSX does not support Docker natively. The recommended way is to use vagrant to create a VM with the right Docker configuration. Prerequisites: Docker client and Vagrant..." />
+    <meta name="twitter:description" content="OSX does not support Docker natively. The recommended way is to use vagrant to create a VM with the right Docker configuration. Prerequisites: Docker client and Vagrant &amp;#8230;&amp;#8203; vagrant@vagrant-ubuntu-trusty-64:~$ bash &amp;lt;(curl -sSL https://bit.ly/get-fabric8) Validating..." />
     <meta name="twitter:url" content="https://KurtStam.github.io/2015/03/31/Getting-started-with-OpenShift-v3-on-OSX.html" />
     
     <script type="application/ld+json">
@@ -48,9 +48,9 @@
     "headline": "Getting started with OpenShift v3 on OSX",
     "url": "https://KurtStam.github.io/2015/03/31/Getting-started-with-OpenShift-v3-on-OSX.html",
     "datePublished": "2015-03-31T04:00:00.000Z",
-    "dateModified": "2015-04-06T18:53:01.591Z",
+    "dateModified": "2015-04-06T19:00:31.661Z",
     "keywords": "OpenShift,  Fabric8,  OSX",
-    "description": "OSX does not support Docker natively. The recommended way is to use vagrant to create a VM with the right Docker configuration. Prerequisites: Docker client and Vagrant..."
+    "description": "OSX does not support Docker natively. The recommended way is to use vagrant to create a VM with the right Docker configuration. Prerequisites: Docker client and Vagrant &amp;#8230;&amp;#8203; vagrant@vagrant-ubuntu-trusty-64:~$ bash &amp;lt;(curl -sSL https://bit.ly/get-fabric8) Validating..."
 }
     </script>
 
@@ -87,6 +87,80 @@
 </div>
 <div class="paragraph">
 <p>Prerequisites: Docker client and Vagrant</p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;
+vagrant@vagrant-ubuntu-trusty-64:~$ bash &lt;(curl -sSL <a href="https://bit.ly/get-fabric8" class="bare">https://bit.ly/get-fabric8</a>)
+Validating your environment&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Validating firewall rules</p>
+</div>
+<div class="paragraph">
+<p>Configuring OpenShift authentication
+time="2015-04-06T18:20:33Z" level="fatal" msg="Error response from daemon: Conflict. The name \"openshift\" is already in use by container 2057970e35cc. You have to delete (or rename) that container to be able to reuse that name."
+Waiting for Kubernetes master
+router
+router
+docker-registry
+docker-registry
+Manage authorization policy</p>
+</div>
+<div class="paragraph">
+<p>Available Commands:
+  add-role-to-user       add users to a role
+  remove-role-from-user  remove user from role
+  remove-user            remove user from project
+  add-role-to-group      add groups to a role
+  remove-role-from-group remove group from role
+  remove-group           remove group from project
+  who-can                who-can &lt;verb&gt; &lt;resource&gt;</p>
+</div>
+<div class="paragraph">
+<p>Use "openshift ex --help" for a list of all commands available in openshift ex.
+Use "openshift ex &lt;command&gt; --help" for more information about a given command.
+Use "openshift ex options" for a list of global command-line options (applies to all commands).
+services/fabric8-console-service
+replicationControllers/fabric8-console-controller
+services/app-library
+replicationControllers/app-library-controller
+services/app-library-jolokia
+services/fabric8-forge
+replicationControllers/fabric8-forge-controller</p>
+</div>
+<div class="paragraph">
+<p>Waiting for services to fully come up - shouldn&#8217;t be too long for you to wait</p>
+</div>
+<div class="paragraph">
+<p>Waiting for Fabric8 console
+Configuring OpenShift oauth
+oAuthClients/fabric8-console</p>
+</div>
+<div class="paragraph">
+<p>Waiting for Docker registry</p>
+</div>
+<div class="paragraph">
+<p>You&#8217;re all up &amp; running! Here are the available services:</p>
+</div>
+<div class="paragraph">
+<p>Service              | URL
+-------              | ---
+Kubernetes master    | <a href="https://127.0.0.1:8443" class="bare">https://127.0.0.1:8443</a>
+Fabric8 console      | <a href="http://172.30.17.107/" class="bare">http://172.30.17.107/</a>
+Docker Registry      | 172.30.17.14:5000</p>
+</div>
+<div class="paragraph">
+<p>Set these environment variables on your development machine:</p>
+</div>
+<div class="paragraph">
+<p>export FABRIC8_CONSOLE=http://172.30.17.107/
+export DOCKER_REGISTRY=172.30.17.14:5000
+export KUBERNETES_TRUST_CERT=true
+export DOCKER_IP=172.28.128.4
+export DOCKER_HOST=tcp://172.28.128.4:2375
+export KUBERNETES_MASTER=https://172.28.128.4:8443
+vagrant
+&#8230;&#8203;</p>
 </div>
         </section>
 
