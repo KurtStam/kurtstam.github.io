@@ -4,3 +4,66 @@
 OSX does not support Docker natively. The http://fabric8.io/v2/openShiftDocker.html[recommended way] is to use vagrant to create a VM with the right Docker configuration.
 
 Prerequisites: Docker client and Vagrant
+
+
+...
+vagrant@vagrant-ubuntu-trusty-64:~$ bash <(curl -sSL https://bit.ly/get-fabric8)
+Validating your environment...
+
+Validating firewall rules
+
+Configuring OpenShift authentication
+time="2015-04-06T18:20:33Z" level="fatal" msg="Error response from daemon: Conflict. The name \"openshift\" is already in use by container 2057970e35cc. You have to delete (or rename) that container to be able to reuse that name." 
+Waiting for Kubernetes master
+router
+router
+docker-registry
+docker-registry
+Manage authorization policy
+
+Available Commands: 
+  add-role-to-user       add users to a role
+  remove-role-from-user  remove user from role
+  remove-user            remove user from project
+  add-role-to-group      add groups to a role
+  remove-role-from-group remove group from role
+  remove-group           remove group from project
+  who-can                who-can <verb> <resource>
+
+Use "openshift ex --help" for a list of all commands available in openshift ex.
+Use "openshift ex <command> --help" for more information about a given command.
+Use "openshift ex options" for a list of global command-line options (applies to all commands).
+services/fabric8-console-service
+replicationControllers/fabric8-console-controller
+services/app-library
+replicationControllers/app-library-controller
+services/app-library-jolokia
+services/fabric8-forge
+replicationControllers/fabric8-forge-controller
+
+Waiting for services to fully come up - shouldn't be too long for you to wait
+
+Waiting for Fabric8 console
+Configuring OpenShift oauth
+oAuthClients/fabric8-console
+
+Waiting for Docker registry
+
+You're all up & running! Here are the available services:
+
+Service              | URL                                                         
+-------              | ---                                                         
+Kubernetes master    | https://127.0.0.1:8443                                      
+Fabric8 console      | http://172.30.17.107/                                       
+Docker Registry      | 172.30.17.14:5000                                           
+
+Set these environment variables on your development machine:
+
+export FABRIC8_CONSOLE=http://172.30.17.107/
+export DOCKER_REGISTRY=172.30.17.14:5000
+export KUBERNETES_TRUST_CERT=true
+export DOCKER_IP=172.28.128.4
+export DOCKER_HOST=tcp://172.28.128.4:2375
+export KUBERNETES_MASTER=https://172.28.128.4:8443
+vagrant
+...
