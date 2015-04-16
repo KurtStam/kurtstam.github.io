@@ -7,7 +7,7 @@ OSX does not support Docker natively. The http://fabric8.io/v2/openShiftDocker.h
 Before you get started you need to have the following tools installed:
 
 * `Docker` client, go ahead and install the https://docs.docker.com/installation/mac/[full Docker], but just know we will not be using `boot2docker` for this.
-* `Vagrant` download from http://www.vagrantup.com/downloads.html[vagrantup.com/.
+* `Vagrant` download from http://www.vagrantup.com/downloads.html[vagrantup.com].
 * `VirtualBox` you can download from https://www.virtualbox.org/wiki/Downloads[vitualbox.org]
 
 Just grab the latest versions of whatever you can find.
