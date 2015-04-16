@@ -28,7 +28,9 @@ With that taken care off lets bring up the VM running
 ....
 vagrant up
 ....
-It may take 10 minutes or so for this to finish depending on your download speed.
+It may take 10 minutes or so for this to finish depending on your machine and download speed.
+
+
 
 
 image::images/vagrant.png[]
