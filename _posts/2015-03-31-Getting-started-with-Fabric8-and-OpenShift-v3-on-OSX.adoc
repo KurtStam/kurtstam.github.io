@@ -28,12 +28,13 @@ With that taken care off lets bring up the VM running
 ....
 vagrant up
 ....
-It may take 10 minutes or so for this to finish depending on your download speed.
+It may take 10 minutes or so for this to finish depending on your download speed. In the end you will have a nice VM called 'fabric8_default' followed by some uuid.
 
 
 image::vagrant.png[]
 
 ....
+[caption="Figure 1: Vagrant creating the fabric8_default virtual machine"]
 
 vagrant@vagrant-ubuntu-trusty-64:~$ bash <(curl -sSL https://bit.ly/get-fabric8)
 Validating your environment...
