@@ -33,8 +33,10 @@ It may take 10 minutes or so for this to finish depending on your download speed
 
 image::vagrant.png[]
 
-....
+
 .Vagrant creating the fabric8_default virtual machine [caption="Figure 1: "]
+
+....
 
 vagrant@vagrant-ubuntu-trusty-64:~$ bash <(curl -sSL https://bit.ly/get-fabric8)
 Validating your environment...
