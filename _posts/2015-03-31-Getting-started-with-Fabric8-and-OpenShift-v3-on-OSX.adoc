@@ -3,7 +3,7 @@
 
 OSX does not support Docker natively. The http://fabric8.io/v2/openShiftDocker.html[recommended way] is to use vagrant to create a VM with the right Docker configuration. Your machine will be called 
 
-== Prerequisites
+== Prerequisitess
 Before you get started you need to have the following tools installed:
 
 * `Docker` client, go ahead and install the https://docs.docker.com/installation/mac/[full Docker], but just know we will not be using `boot2docker` for this.
