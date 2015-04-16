@@ -31,7 +31,7 @@ vagrant up
 It may take 10 minutes or so for this to finish depending on your download speed. In the end you will have a nice VM called 'fabric8_default' followed by some uuid.
 
 
-.Vagrant creating the fabric8_default virtual machine
+.Vagrant creating the fabric8_default virtual machine.
 [caption="Figure 1: "]
 image::vagrant.png[]
 
