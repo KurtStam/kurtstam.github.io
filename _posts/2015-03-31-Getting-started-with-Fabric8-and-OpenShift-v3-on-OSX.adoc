@@ -31,7 +31,7 @@ vagrant up
 It may take 10 minutes or so for this to finish depending on your download speed.
 
 
-image::images/vagrant.png[]
+image::vagrant.png[]
 
 ....
 
