@@ -22,7 +22,7 @@ git clone git@github.com:fabric8io/fabric8.git
 You can use the default Vagrant file in the rout of the tree, or select one of other distributions in the `/support/vagrant` directory.
 At the moment the default Vagrant file builds an Ubuntu VM.
 
-NOTE: Before you start edit the Vagrantfile, and set the max memory and number of cpu's to about half of what your machine has, or else your machine might become *really* slow later.
+WARNING: Before you start edit the Vagrantfile, and set the max memory and number of cpu's to about half of what your machine has, or else your machine might become *really* slow later.
 
 With that taken care off lets bring up the VM running
 ....
