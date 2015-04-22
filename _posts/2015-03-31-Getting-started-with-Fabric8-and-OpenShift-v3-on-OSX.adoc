@@ -28,6 +28,11 @@ Now that we have updates the Vagrantfile with resonable settings for your machin
 ....
 vagrant up
 ....
+
+image:vagrant.png[]
+[caption="Figure 1: "]
+.Figure 1. Creating of a VM using Vagrant.
+
 This can take a bit depending on your network speed. Currently it builds Ubuntu-trusty-64 image, but hopefully it will build a Centos-7 image soon. Alternatively there are a few other linux distros at https://github.com/fabric8io/fabric8/tree/master/support/vagrant[here]. I tried the Centos-7 distro but ran into an issue with Docker, so for now I'm staying with the Ubuntu image.
 
 If don't have the Vagrant Snapshot plugin installed yet run
@@ -45,9 +50,16 @@ vagrant snapshot go default cleanstart
 ....
 
 
-== Deploying fabric8 onto the Virtual Machine
+== Deploying Fabric8 onto the Virtual Machine
 
-Now that you have a running VM it is time to install OpenShift and Fabric8. To make things easy everything you need is shipped in Docker containers. Simply log in using
+Now that you have a running VM it is time to install OpenShift and Fabric8. To make things easy everything you need is shipped in Docker containers. 
+
+image:mac_docker_host.png[]
+[caption="Figure 2: "]
+.Figure 2. Docker running inside the Fabric8 VM.
+
+
+Simply log into the Fabric8 VM using
 ....
 vagrant ssh
 ....
@@ -226,4 +238,7 @@ sudo route -n delete 172.0.0.0/8
 sudo route -n add 172.0.0.0/8 $DOCKER_IP
 ....
 
-
+Going back to the bash shell on the VM we can now get a list of all running containers by running
+....
+docker ps
+....
