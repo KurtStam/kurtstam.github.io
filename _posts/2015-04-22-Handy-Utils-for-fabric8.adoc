@@ -1,4 +1,6 @@
 = Handy Utils for fabric8
+:hp-tags: OpenShift, Fabric8, Utilies
+:numbered:
 
 A running list of commands and utilities to move around the fabric
 
