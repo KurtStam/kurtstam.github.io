@@ -258,3 +258,19 @@ c6c2a2fce85e        openshift/origin-pod:v0.4.3                            "/pod
 22f2ac9b66e9        openshift/origin-pod:v0.4.3                            "/pod"                 About a minute ago   Up About a minute                                              k8s_POD.7c22fc76_fabric8-forge-controller-8hjqp_default_8c7ff6e8-e91c-11e4-b222-080027381590_85d16287                           
 a1ccd1ffd4df        openshift/origin:v0.4.3                                "/usr/bin/openshift    2 minutes ago        Up 2 minutes                                                   openshift      
 ....
+
+If you see all of these containers running you are now ready to open the console.
+
+== Fabric8 Console
+
+On your developer machine you can now open a browers to http://172.28.128.4[http://172.28.128.4]
+
+image:origin.png[]
+[caption="Figure 3: "]
+.Figure 3. The Fabric8/Origin Console.
+
+and login using admin/<anypasswd>, and get a list of all the services that are running by default.
+
+image:hawtio.png[]
+[caption="Figure 4: "]
+.Figure 4. Overview of all Services.
