@@ -1,0 +1,9 @@
+= Handy Utils for fabric8
+
+A running list of commands and utilities to move around the fabric
+
+* Log into a running docker container
+....
+docker exec -it CONTAINER_NAME /bin/bash
+....
+* next point
