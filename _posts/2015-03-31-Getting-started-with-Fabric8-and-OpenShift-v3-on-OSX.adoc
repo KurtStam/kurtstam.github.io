@@ -1,45 +1,16 @@
 = Getting started with Fabric8 and OpenShift v3 on OSX
 :hp-tags: OpenShift, Fabric8, OSX
 
-OSX does not support Docker natively. The http://fabric8.io/v2/openShiftDocker.html[recommended way] is to use vagrant to create a VM with the right Docker configuration. Your machine will be called 
+The full fabric8 docs can be found http://fabric8.io/v2/openShiftDocker.html[here]. Here I took the relavant sections applicable to running on OSX, and I added some notes. OpenShift v3 relies on Docker for its container management. OSX does not support Docker natively. The http://fabric8.io/v2/openShiftDocker.html[recommended way] is to use vagrant to create a VM with the correct Docker configuration.
 
 == Prerequisites
-Before you get started you need to have the following tools installed:
 
-* `Docker` client, go ahead and install the https://docs.docker.com/installation/mac/[full Docker], but just know we will not be using `boot2docker` for this.
-* `Vagrant` download from http://www.vagrantup.com/downloads.html[vagrantup.com].
-* `VirtualBox` you can download from https://www.virtualbox.org/wiki/Downloads[vitualbox.org]
-
-Just grab the latest versions of whatever you can find.
-
-== Build and start the Virtual Machine
-
-To obtain the vagrantfile, download a repository https://github.com/fabric8io/fabric8/archive/master.zip[snapshot zip] or check out the Fabric8 Git Repo
-....
-git clone git@github.com:fabric8io/fabric8.git
-....
-
-You can use the default Vagrant file in the rout of the tree, or select one of other distributions in the `/support/vagrant` directory.
-At the moment the default Vagrant file builds an Ubuntu VM.
-
-WARNING: Before you start edit the Vagrantfile, and set the max memory and number of cpu's to about half of what your machine has, or else your machine might become *really* slow later.
-
-With that taken care off lets bring up the VM running
-....
-vagrant up
-....
-It may take 10 minutes or so for this to finish depending on your download speed. In the end you will have a nice VM called 'fabric8_default' followed by some uuid.
-
-
-.Vagrant creating the fabric8_default virtual machine.
-[caption="Figure 1: "]
-image::vagrant.png[]
-
+* Docker Client
+* Vagrant
 
 
 
 ....
-
 vagrant@vagrant-ubuntu-trusty-64:~$ bash <(curl -sSL https://bit.ly/get-fabric8)
 Validating your environment...
 
