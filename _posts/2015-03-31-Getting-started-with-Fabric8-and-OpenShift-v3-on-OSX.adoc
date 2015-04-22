@@ -5,9 +5,28 @@ The full fabric8 docs can be found http://fabric8.io/v2/openShiftDocker.html[her
 
 == Prerequisites
 
-* Docker Client
-* Vagrant
+Install whatever the newest version is of the following:
 
+* Docker Client - Just following the https://docs.docker.com/installation/mac/[instructions for Docker on OSX], but know we will not be using Boot2Docker.
+* Vagrant - Download the OSX version from http://www.vagrantup.com/downloads.html[Vagrant] and install.
+* VirtualBox - Download the OSX version from https://www.virtualbox.org/wiki/Downloads[VirtualBox] and install.
+
+
+== Creating the fabric8 Virtual Machine
+
+To create the VM on Virtual Box we simply use the https://github.com/fabric8io/fabric8/blob/master/Vagrantfile[Vagrantfile] in the root of the https://github.com/fabric8io/fabric8[fabric8] root directory. Either download the https://github.com/HubPress/hubpress.io/archive/master.zip[zip] of use git to get a clone of the repository
+....
+git clone https://github.com/fabric8io/fabric8.git
+....
+
+WARNING: The Vagrantfile is configured to build a VM with https://github.com/fabric8io/fabric8/blob/master/Vagrantfile#L32[4 VPUs  and 8192MB of Ram]. It is recommended to not exceed about half of your machine's resources. In my case that meant having to set this to 2 VPUs and 4096MB of Ram.
+
+NOTE: Hopefully we can reduce the resource usage!
+
+Now that we have updates the Vagrantfile with resonable settings for your machine we can create it using
+....
+vagrant up
+....
 
 
 ....
