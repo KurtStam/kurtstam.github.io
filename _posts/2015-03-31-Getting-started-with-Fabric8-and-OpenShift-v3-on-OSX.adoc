@@ -1,6 +1,6 @@
 = Getting started with Fabric8 and OpenShift v3 on OSX
 :hp-tags: OpenShift, Fabric8, OSX
-:numbered!:
+:numbered:
 
 The full fabric8 docs can be found http://fabric8.io/v2/openShiftDocker.html[here]. Here I took the relavant sections applicable to running on OSX, and I added some notes. OpenShift v3 relies on Docker for its container management. OSX does not support Docker natively. The http://fabric8.io/v2/openShiftDocker.html[recommended way] is to use vagrant to create a VM with the correct Docker configuration.
 
