@@ -32,7 +32,7 @@
     <meta property="og:description" content="The full fabric8 docs can be found here. Here I took the relavant sections applicable to running on OSX, and I added some notes. OpenShift v3 relies on Docker for its container management. OSX does not support Docker natively. The..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/03/31/Getting-started-with-Fabric8-and-OpenShift-v3-on-OSX.html" />
     <meta property="article:published_time" content="2015-03-31T04:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-04-22T18:22:22.906Z" />
+    <meta property="article:modified_time" content="2015-04-22T18:26:00.785Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="OSX" />
@@ -57,7 +57,7 @@
     "headline": "Getting started with Fabric8 and OpenShift v3 on OSX",
     "url": "https://KurtStam.github.io/2015/03/31/Getting-started-with-Fabric8-and-OpenShift-v3-on-OSX.html",
     "datePublished": "2015-03-31T04:00:00.000Z",
-    "dateModified": "2015-04-22T18:22:22.906Z",
+    "dateModified": "2015-04-22T18:26:00.785Z",
     "keywords": "OpenShift,  Fabric8,  OSX",
     "description": "The full fabric8 docs can be found here. Here I took the relavant sections applicable to running on OSX, and I added some notes. OpenShift v3 relies on Docker for its container management. OSX does not support Docker natively. The..."
 }
@@ -446,10 +446,8 @@ export KUBERNETES_MASTER=https://172.28.128.4:8443</pre>
 <div class="paragraph">
 <p>Note that when it says: 'Waiting for' something it is looking for a docker container to get started. You should not need to wait longer then about a minute or so per container. Note that if something is wrong, it may sit there forever, and you should stop the script and try to rerun it, and seek help from one of us if that does not help.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">The script ends with a final instruction to set 6 environment variables on your development machine. Please go ahead and copy and paste that fragment at the end of your .back_profile on your development machine, and make sure they are set. Finally you will need to add some routes on your developement machine so you can access the IP addresses of services and pods hosted in your Virtual Machine (e.g. the Fabric8 Console), you&#8217;ll need to add a network route for the 172.X.X.X IP range</dt>
-</dl>
+<div class="paragraph">
+<p>The script ends with a final instruction to set 6 environment variables on your development machine. Please go ahead and copy and paste that fragment at the end of your .back_profile on your development machine, and make sure they are set. Finally you will need to add some routes on your developement machine so you can access the IP addresses of services and pods hosted in your Virtual Machine (e.g. the Fabric8 Console), you&#8217;ll need to add a network route for the 172.X.X.X IP range:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -463,6 +461,25 @@ sudo route -n add 172.0.0.0/8 $DOCKER_IP</pre>
 <div class="literalblock">
 <div class="content">
 <pre>docker ps</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see 11 containers:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>CONTAINER ID        IMAGE                                                  COMMAND                CREATED              STATUS             PORTS                                      NAMES
+85c9a58b44dc        fabric8/app-library:2.0.46                             "/fabric8/run.sh"      About a minute ago   Up About a minute                                              k8s_app-library-container.7f4176cd_app-library-controller-a1zr7_default_8bea7eae-e91c-11e4-b222-080027381590_174b1b5a
+c85c2f4f33c8        registry.hub.docker.com/fabric8/fabric8-forge:2.0.46   "/bin/sh -c /opt/jet   About a minute ago   Up About a minute                                              k8s_fabric8-forge-container.3e353d17_fabric8-forge-controller-8hjqp_default_8c7ff6e8-e91c-11e4-b222-080027381590_947d1770
+fafa98bb8483        openshift/origin-haproxy-router:v0.4.3                 "/usr/bin/openshift-   About a minute ago   Up About a minute                                              k8s_router.2612a6d6_router-1-4k3ly_default_8f05c5ee-e91c-11e4-b222-080027381590_73a9ad9a
+6e69c8e9599e        openshift/origin-docker-registry:v0.4.3                "/openshift-docker-r   About a minute ago   Up About a minute                                              k8s_registry.7a1964a2_docker-registry-1-504e8_default_8f654398-e91c-11e4-b222-080027381590_82b7c335
+9f9c3d9976de        openshift/origin-pod:v0.4.3                            "/pod"                 About a minute ago   Up About a minute                                              k8s_POD.9e16f974_docker-registry-1-504e8_default_8f654398-e91c-11e4-b222-080027381590_e6b13c0e
+c6c2a2fce85e        openshift/origin-pod:v0.4.3                            "/pod"                 About a minute ago   Up About a minute   0.0.0.0:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp   k8s_POD.f301bdd_router-1-4k3ly_default_8f05c5ee-e91c-11e4-b222-080027381590_af615f8e
+0d61e479bf45        fabric8/hawtio-kubernetes:latest                       "/kuisp -p 9090 -c /   About a minute ago   Up About a minute                                              k8s_fabric8-console-container.d5a565b4_fabric8-console-controller-9aqxo_default_8d01fe5b-e91c-11e4-b222-080027381590_b07c75f1
+2d10edbd91ab        openshift/origin-pod:v0.4.3                            "/pod"                 About a minute ago   Up About a minute                                              k8s_POD.b741f981_fabric8-console-controller-9aqxo_default_8d01fe5b-e91c-11e4-b222-080027381590_5c59972d
+5c9806a584a3        openshift/origin-pod:v0.4.3                            "/pod"                 About a minute ago   Up About a minute                                              k8s_POD.fe4b208e_app-library-controller-a1zr7_default_8bea7eae-e91c-11e4-b222-080027381590_0b6118d8
+22f2ac9b66e9        openshift/origin-pod:v0.4.3                            "/pod"                 About a minute ago   Up About a minute                                              k8s_POD.7c22fc76_fabric8-forge-controller-8hjqp_default_8c7ff6e8-e91c-11e4-b222-080027381590_85d16287
+a1ccd1ffd4df        openshift/origin:v0.4.3                                "/usr/bin/openshift    2 minutes ago        Up 2 minutes                                                   openshift</pre>
 </div>
 </div>
 </div>
