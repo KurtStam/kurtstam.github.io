@@ -32,7 +32,7 @@
     <meta property="og:description" content="The full fabric8 docs can be found here. Here I took the relavant sections applicable to running on OSX, and I added some notes. OpenShift v3 relies on Docker for its container management. OSX does not support Docker natively. The..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/03/31/Getting-started-with-Fabric8-and-OpenShift-v3-on-OSX.html" />
     <meta property="article:published_time" content="2015-03-31T04:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-04-22T16:07:59.302Z" />
+    <meta property="article:modified_time" content="2015-04-22T17:42:59.691Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="OSX" />
@@ -57,7 +57,7 @@
     "headline": "Getting started with Fabric8 and OpenShift v3 on OSX",
     "url": "https://KurtStam.github.io/2015/03/31/Getting-started-with-Fabric8-and-OpenShift-v3-on-OSX.html",
     "datePublished": "2015-03-31T04:00:00.000Z",
-    "dateModified": "2015-04-22T16:07:59.302Z",
+    "dateModified": "2015-04-22T17:42:59.691Z",
     "keywords": "OpenShift,  Fabric8,  OSX",
     "description": "The full fabric8 docs can be found here. Here I took the relavant sections applicable to running on OSX, and I added some notes. OpenShift v3 relies on Docker for its container management. OSX does not support Docker natively. The..."
 }
@@ -205,7 +205,7 @@ The Vagrantfile is configured to build a VM with <a href="https://github.com/fab
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Hopefully we can reduce the resource usage!
+Hopefully we can reduce the resource usage, we can bundle it up in a less resource intensive VM!
 </td>
 </tr>
 </table>
@@ -219,52 +219,195 @@ Hopefully we can reduce the resource usage!
 </div>
 </div>
 <div class="paragraph">
-<p>This can take a bit depending on your network speed. Currently it builds Ubuntu-trusty-64 image, but hopefully it will build a Centos-7 image soon. You can ty other images from <a href="https://github.com/fabric8io/fabric8/tree/master/support/vagrant">here</a>.</p>
+<p>This can take a bit depending on your network speed. Currently it builds Ubuntu-trusty-64 image, but hopefully it will build a Centos-7 image soon. Alternatively there are a few other linux distros at <a href="https://github.com/fabric8io/fabric8/tree/master/support/vagrant">here</a>. I tried the Centos-7 distro but ran into an issue with Docker, so for now I&#8217;m staying with the Ubuntu image.</p>
+</div>
+<div class="paragraph">
+<p>If don&#8217;t have the Vagrant Snapshot plugin installed yet run</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>vagrant plugin install vagrant-vbox-snapshot</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So that you can create a snapshot from the command line</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>vagrant snapshot take default cleanstart</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can revert to the current clean state using</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>vagrant snapshot go default cleanstart</pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_deploying_fabric8_onto_the_virtual_machine">3. Deploying fabric8 onto the Virtual Machine</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Now that you have a running VM it is time to install OpenShift and Fabric8. To make things easy everything you need is shipped in Docker containers. Simply log in using</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>vagrant@vagrant-ubuntu-trusty-64:~$ bash &lt;(curl -sSL https://bit.ly/get-fabric8)
+<pre>vagrant ssh</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and then run the get-fabric8 script to install the minimal installation.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> bash &lt;(curl -sSL https://bit.ly/get-fabric8) -fu -m 172.28.128.4</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I&#8217;m using <code>-f</code> to force a clean refresh of all the containers. This is needed because you actually already have the openshift container installed in the VM and we want to make sure we have the latest. The <code>-m</code> flag allows us to pass in the IP address of the SSO server. The output of the script looks something like this:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Cleaning up all existing k8s containers
+openshift
+56a1f113c23f
+e733a45e9c2c
+370647a0100b
+9ae886fad365
+79f5c9f95822
+e10401999205
+1385573c0c69
+da837413817c
+4d786fa113ec
+5746daf54ecc
+b7865d8b5375
+249c855b9c69
+5baab2eb88af
+ed7cbe3ded31
+8f9613b2d988
+
 Validating your environment...
+
+Updating all necessary images
+Pulling repository openshift/origin
+a00a12aa8e24: Download complete
+511136ea3c5a: Download complete
+b6718650e87e: Download complete
+493bab5fff45: Download complete
+9dbcac75201e: Download complete
+7f6603425b89: Download complete
+c217dd459af6: Download complete
+b0bfd5cae454: Download complete
+3397ad7cd1bf: Download complete
+566013b60517: Download complete
+6215b28d51bb: Download complete
+d2ea575b9c95: Download complete
+Status: Image is up to date for openshift/origin:v0.4.3
+Pulling repository fabric8/hawtio-kubernetes
+2eb1b077c165: Download complete
+511136ea3c5a: Download complete
+b6718650e87e: Download complete
+3d3c8202a574: Download complete
+0114405f9ff1: Download complete
+cfa5ae1c5323: Download complete
+80e9f2334b20: Download complete
+06d6147d139d: Download complete
+d26b5293026b: Download complete
+4f56bb054109: Download complete
+25172d8560c5: Download complete
+a2df1b022f72: Download complete
+6c57ae774233: Download complete
+fde24c85ca36: Download complete
+Status: Downloaded newer image for fabric8/hawtio-kubernetes:latest
+Pulling repository fabric8/app-library
+a46290b40e53: Download complete
+511136ea3c5a: Download complete
+50215b109eda: Download complete
+53f380325ee9: Download complete
+c833f22e5538: Download complete
+09bea8871551: Download complete
+a5dc33fb8f1c: Download complete
+53785b8e884b: Download complete
+4f3361619fcb: Download complete
+7f5939cb73c2: Download complete
+e7728f6ab005: Download complete
+87cb51defb50: Download complete
+031a623046a2: Download complete
+05e53cd6074a: Download complete
+3274fd4092b9: Download complete
+9d14c20bac47: Download complete
+81e044fcdef5: Download complete
+ac24517ff7a4: Download complete
+464dc85702b5: Download complete
+a4f30ff92248: Download complete
+10591d43d892: Download complete
+e26a89208727: Download complete
+aabb26bbc9a4: Download complete
+410212c37a39: Download complete
+Status: Image is up to date for fabric8/app-library:2.0.43
+Pulling repository openshift/origin-docker-registry
+e8ea8243a325: Download complete
+511136ea3c5a: Download complete
+b6718650e87e: Download complete
+493bab5fff45: Download complete
+9dbcac75201e: Download complete
+2b883fe33571: Download complete
+6717803bd751: Download complete
+f237ceb6de05: Download complete
+48fe0adfcfc8: Download complete
+8733545185a5: Download complete
+c78f4c43001e: Download complete
+ac15356be874: Download complete
+Status: Image is up to date for openshift/origin-docker-registry:v0.4.3
+Pulling repository openshift/origin-haproxy-router
+b90784c8d1eb: Download complete
+511136ea3c5a: Download complete
+b6718650e87e: Download complete
+493bab5fff45: Download complete
+9dbcac75201e: Download complete
+7f6603425b89: Download complete
+24ccc2b386a5: Download complete
+e639971f7494: Download complete
+e1e0614115b2: Download complete
+a508fd6ff7c9: Download complete
+ffc24809af88: Download complete
+e592f593e680: Download complete
+8f8879d7450d: Download complete
+085b86fb230d: Download complete
+b200c70dcd8f: Download complete
+Status: Image is up to date for openshift/origin-haproxy-router:v0.4.3
 
 Validating firewall rules
 
-Configuring OpenShift authentication
-time="2015-04-06T18:20:33Z" level="fatal" msg="Error response from daemon: Conflict. The name \"openshift\" is already in use by container 2057970e35cc. You have to delete (or rename) that container to be able to reuse that name."
 Waiting for Kubernetes master
-router
-router
-docker-registry
-docker-registry
-Manage authorization policy
-
-Available Commands:
-  add-role-to-user       add users to a role
-  remove-role-from-user  remove user from role
-  remove-user            remove user from project
-  add-role-to-group      add groups to a role
-  remove-role-from-group remove group from role
-  remove-group           remove group from project
-  who-can                who-can &lt;verb&gt; &lt;resource&gt;
-
-Use "openshift ex --help" for a list of all commands available in openshift ex.
-Use "openshift ex &lt;command&gt; --help" for more information about a given command.
-Use "openshift ex options" for a list of global command-line options (applies to all commands).
-services/fabric8-console-service
-replicationControllers/fabric8-console-controller
+services/router
+deploymentConfigs/router
+services/docker-registry
+deploymentConfigs/docker-registry
+secrets/openshift-cert-secrets
 services/app-library
 replicationControllers/app-library-controller
 services/app-library-jolokia
 services/fabric8-forge
 replicationControllers/fabric8-forge-controller
+services/fabric8-console-service
+replicationControllers/fabric8-console-controller
 
 Waiting for services to fully come up - shouldn't be too long for you to wait
 
 Waiting for Fabric8 console
+Configuring OpenShift routes for Fabric8
+routes/fabric8-console-route
+routes/fabric8-logs-route
+routes/fabric8-metrics-console-route
+routes/letschat-route
+routes/gogs-http-service-route
+routes/jbpm-designer-route
+routes/orion-route
+routes/taiga-route
 Configuring OpenShift oauth
 oAuthClients/fabric8-console
 
@@ -275,19 +418,21 @@ You're all up &amp; running! Here are the available services:
 Service              | URL
 -------              | ---
 Kubernetes master    | https://127.0.0.1:8443
-Fabric8 console      | http://172.30.17.107/
-Docker Registry      | 172.30.17.14:5000
+Fabric8 console      | http://172.28.128.4
+Docker Registry      | 172.30.17.159:5000
 
 Set these environment variables on your development machine:
 
-export FABRIC8_CONSOLE=http://172.30.17.107/
-export DOCKER_REGISTRY=172.30.17.14:5000
+export FABRIC8_CONSOLE=http://172.28.128.4
+export DOCKER_REGISTRY=172.30.17.159:5000
 export KUBERNETES_TRUST_CERT=true
 export DOCKER_IP=172.28.128.4
 export DOCKER_HOST=tcp://172.28.128.4:2375
-export KUBERNETES_MASTER=https://172.28.128.4:8443
-vagrant</pre>
+export KUBERNETES_MASTER=https://172.28.128.4:8443</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Note that when it says: 'Waiting for' something it is looking for a docker container to get started. You should not need to wait longer then about a minute or so per container. However, if something is wrong, it may sit there forever..</p>
 </div>
 </div>
 </div>
