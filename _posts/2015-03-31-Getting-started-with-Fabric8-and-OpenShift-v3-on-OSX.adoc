@@ -263,7 +263,7 @@ If you see all of these containers running you are now ready to open the console
 
 == Fabric8 Console
 
-On your developer machine you can now open a browers to http://172.28.128.4[http://172.28.128.4]
+On your developer machine you can now open your brower to http://172.28.128.4[http://172.28.128.4]
 
 image:origin.png[]
 [caption="Figure 3: "]
@@ -274,3 +274,13 @@ and login using admin/<anypasswd>, and get a list of all the services that are r
 image:hawtio.png[]
 [caption="Figure 4: "]
 .Figure 4. Overview of all Services.
+
+You can start a new App of Quickstart by navigating to the `Library` tab. Figure 5 shows a the list of apps. You can select and run any of the apps or quickstarts.
+
+
+== Conclusion
+You now have a running Fabric8 installation on OSX and are  ready to explore its functionality. Look for more post on this on this blog.
+
+Cheers!
+
+--Kurt
