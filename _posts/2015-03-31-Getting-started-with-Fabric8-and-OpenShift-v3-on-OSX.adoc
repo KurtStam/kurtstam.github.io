@@ -55,7 +55,8 @@ and then run the get-fabric8 script to install the minimal installation.
 ....
  bash <(curl -sSL https://bit.ly/get-fabric8) -fu -m 172.28.128.4
 ....
-I'm using `-f` to force a clean refresh of all the containers. This is needed because you actually already have the openshift container installed in the VM and we want to make sure we have the latest. The `-m` flag allows us to pass in the IP address of the SSO server. The output of the script looks something like this:
+I'm using `-u` to update, `-f` to force a clean refresh of all the containers. This is needed because you actually already have the openshift container installed in the VM and we want to make sure we have the latest. The `-m` flag allows us to pass in the IP address of the SSO server. Optionally you can add -P password123` to set a password - if you do not *any* password will be valid.
+The output of the script looks something like this:
 ....
 Cleaning up all existing k8s containers
 openshift
@@ -216,5 +217,13 @@ export DOCKER_IP=172.28.128.4
 export DOCKER_HOST=tcp://172.28.128.4:2375
 export KUBERNETES_MASTER=https://172.28.128.4:8443
 ....
-Note that when it says: 'Waiting for' something it is looking for a docker container to get started. You should not need to wait longer then about a minute or so per container. However, if something is wrong, it may sit there forever..
+
+Note that when it says: 'Waiting for' something it is looking for a docker container to get started. You should not need to wait longer then about a minute or so per container. Note that if something is wrong, it may sit there forever, and you should stop the script and try to rerun it, and seek help from one of us if that does not help.
+
+The script ends with a final instruction to set 6 environment variables on your development machine. Please go ahead and copy and paste that fragment at the end of your .back_profile on your development machine, and make sure they are set. Finally you will need to add some routes on your developement machine so you can access the IP addresses of services and pods hosted in your Virtual Machine (e.g. the Fabric8 Console), you'll need to add a network route for the 172.X.X.X IP range::
+....
+sudo route -n delete 172.0.0.0/8
+sudo route -n add 172.0.0.0/8 $DOCKER_IP
+....
+
 
