@@ -277,6 +277,10 @@ image:hawtio.png[]
 
 You can start a new App of Quickstart by navigating to the `Library` tab. Figure 5 shows a the list of apps. You can select and run any of the apps or quickstarts.
 
+image:apps.png[]
+[caption="Figure 5: "]
+.Figure 5. Overview of Fabric8 applications you can run.
+
 
 == Conclusion
 You now have a running Fabric8 installation on OSX and are  ready to explore its functionality. Look for more post on this on this blog.
