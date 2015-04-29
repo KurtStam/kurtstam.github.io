@@ -303,7 +303,7 @@ image:apps.png[]
 
 
 == Conclusion
-You now have a running Fabric8 installation on OSX and are  ready to explore its functionality. Look for more post on this on this blog.
+You now have a running Fabric8 installation on OSX and are  ready to explore its functionality. Look for more posts on this on this blog.
 
 Cheers!
 
