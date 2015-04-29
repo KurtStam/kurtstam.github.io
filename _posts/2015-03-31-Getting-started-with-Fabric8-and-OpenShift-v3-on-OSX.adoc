@@ -258,7 +258,28 @@ c6c2a2fce85e        openshift/origin-pod:v0.4.3                            "/pod
 a1ccd1ffd4df        openshift/origin:v0.4.3                                "/usr/bin/openshift    2 minutes ago        Up 2 minutes                                                   openshift      
 ....
 
-If you see all of these containers running you are now ready to open the console.
+== Fabric8 and the OpenShift Commandline (OSC)
+To be able to connect to docker as well as your local registry running in the VM we need to add some routing to Docker. On Ubuntu locate the `/etc/default/docker` file and add the following options:
+....
+DOCKER_OPTS="-H unix://var/run/docker.sock -H tcp://0.0.0.0:2375 --insecure-registry 172.0.0.0/8"
+....
+
+now restart Docker using
+....
+restart docker
+docker start openshift
+....
+Now on your development machine you can connect to Docker, and it is convenient to create the following alias (make sure to use the origin version *you* have installed.
+....
+alias osc="docker run --rm -i -e KUBERNETES_MASTER=https://$DOCKER_IP:8443 --entrypoint=osc --net=host openshift/origin:v0.4.3 --insecure-skip-tls-verify"
+....
+Now you can talk to Kubernetes and issue commands like
+....
+osc get pods
+osc get services
+....
+
+If you see a nice list of services you are now ready to open the console.
 
 == Fabric8 Console
 
