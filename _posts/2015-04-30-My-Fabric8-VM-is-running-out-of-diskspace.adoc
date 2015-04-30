@@ -1,1 +1,21 @@
-= My VM is running out of diskspace!
+= My Fabric8 VM is running out of diskspace!
+:hp-tags: OpenShift, Fabric8, OSX
+:numbered:
+
+The default Ubuntu image has a dynamically sized 40 GB harddrive. You may find that if you are working with Docker images, that this space fills up quickly. Before you start download the http://gparted.sourceforge.net/[GParted] iso.
+
+== Resize the vmdk file
+VirtualBox cannot resize a vmdk file. Instead you will need to change over to use the vdi format, then resize (to 100 GB) and finally create vmdk formatted clone of this. Make sure to give it a different name.
+....
+VBoxManage clonehd box-disk1.vmdk box-disk1.vdi --format vdi
+VBoxManage modifyhd box-disk1.vdi --resize 102400
+VBoxManage clonehd box-disk1.vdi box-disk1-100.vmdk --format vmdk
+....
+Now you in the VirtualBox UI, Under Settings > Storage, hook up the new larger file `box-disk1-100.vmdk` instead of the original box-disk1.vmdk file. Next add a CD/DVD device and hook it up to the GParted iso file. Finally under System > Motherboard select the CD/DVD as bootable device and add it to the top of the list. Now you can boot the VM and it will boot to GParted.
+
+== Use the partition from 40 to 100GB
+In GParted select the /dev/sda1 partition and see that only 40GB is being used. You can now resize it to the maximum 100GB and then click 'apply'. When it finishes exit GParted and Shutdown the VM. Under settings unselect the CD/DVD drive from the bootable devices. You are now ready to boot up the Fabric8 VM with the larger hardrive.
+ 
+== References
+
+1. http://www.gitshah.com/2013/05/how-to-fix-out-of-space-problem-for.html
