@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>My Fabric8 VM is running out of diskspace!</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//KurtStam.github.io/themes/ichi/favicon.ico">
+
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/fastclick.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/modernizr.js?v=1.0.0"></script>
+
+   
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/normalize.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/foundation.min.css?v=1.0.0" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/outdatedBrowser.min.css?v=1.0.0">
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/fonts/foundation-icons/foundation-icons.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/styles.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,700,400|Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="hubpress/styles/asciidoctor.css" />
+    <link rel="canonical" href="https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html" />
+    
+    <meta property="og:site_name" content="Fresh Espresso &amp; Open Source Cloud" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="My Fabric8 VM is running out of diskspace!" />
+    <meta property="og:description" content="The default Ubuntu image has a dynamically sized 40 GB harddrive. You may find that if you are working with Docker images, that this space fills up quickly. Before you start download the GParted iso. 1. Resize the vmdk file..." />
+    <meta property="og:url" content="https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html" />
+    <meta property="article:published_time" content="2015-04-30T04:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-05-01T12:33:20.989Z" />
+    <meta property="article:tag" content="OpenShift" />
+    <meta property="article:tag" content="Fabric8" />
+    <meta property="article:tag" content="OSX" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="My Fabric8 VM is running out of diskspace!" />
+    <meta name="twitter:description" content="The default Ubuntu image has a dynamically sized 40 GB harddrive. You may find that if you are working with Docker images, that this space fills up quickly. Before you start download the GParted iso. 1. Resize the vmdk file..." />
+    <meta name="twitter:url" content="https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Fresh Espresso &amp; Open Source Cloud",
+    "author": {
+        "@type": "Person",
+        "name": "Kurt Stam",
+        "image": "https://avatars.githubusercontent.com/u/35576?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": null
+    },
+    "headline": "My Fabric8 VM is running out of diskspace!",
+    "url": "https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html",
+    "datePublished": "2015-04-30T04:00:00.000Z",
+    "dateModified": "2015-05-01T12:33:20.989Z",
+    "keywords": "OpenShift,  Fabric8,  OSX",
+    "description": "The default Ubuntu image has a dynamically sized 40 GB harddrive. You may find that if you are working with Docker images, that this space fills up quickly. Before you start download the GParted iso. 1. Resize the vmdk file..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="Fresh Espresso &amp; Open Source Cloud" href="https://KurtStam.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-OpenShift tag-Fabric8 tag-OSX">
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdate" href="http://outdatedbrowser.com/">Update my browser now</a></p>
+</div>
+
+<nav class="top-bar hide-for-large-up" data-topbar >
+  <ul class="title-area">
+    <li class="name">
+
+    </li>
+    <li class="home"><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+    <li class="toggle-topbar"><a href="#" id="trigger-overlay" class="fi-list"></a></li>
+  </ul>
+
+<div class="overlay overlay-scale">
+    <button type="button" class="overlay-close">Close</button>
+    <nav>
+        <ul>
+            <li><a href="https://KurtStam.github.io">Home</a></li>
+        </ul>
+    </nav>
+</div>
+
+</nav>
+
+<div class="row">
+
+<div class="small-16 medium-16 large-4 columns right head-area" >
+
+<header class="site-head">
+    <div class="vertical">
+        <div class="site-head-content inner">
+            <ul class="side-nav-ichi blog-menu show-for-large-up">
+                <li><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+                <li><a class="fi-torso" href="https://KurtStam.github.io/about"></a></li>
+                <li><a class="fi-mail" href="https://KurtStam.github.io/contact"></a></li>
+            </ul>
+            
+            <h1 class="blog-title">Fresh Espresso &amp; Open Source Cloud</h1>
+            <hr>
+            <p class="blog-description">I have a passion for all things open source. I live in Ipswich MA and work for Red Hat, on the fabric8 project. Fabric8 is cloud micro-services platform so you can deploy your applications to an all open source cloud. I kayak on the Atlantic Ocean along the North Shore whenever I can.</p>
+            <div class="blog-network">
+<!--                 <a href="#" class="fi-social-pinterest"></a>
+                <a href="#" class="fi-social-linkedin"></a>
+                <a href="#" class="fi-social-behance"></a>
+                <a href="#" class="fi-social-deviant-art"></a>
+                <a href="#" class="fi-social-dribbble"></a>
+                <a href="#" class="fi-social-flickr"></a>
+                <a href="#" class="fi-social-github"></a>
+                <a href="#" class="fi-social-skype"></a>
+                <a href="#" class="fi-social-snapchat"></a>
+                <a href="#" class="fi-social-steam"></a>
+                <a href="#" class="fi-social-xbox"></a>
+                <a href="#" class="fi-social-reddit"></a> -->
+                  <a href="kurt.stam@gmail.com" class="fi-social-google-plus"></a>
+                  <a href="kurtstam" class="fi-social-github"></a>
+                  <a href="kurtstam" class="fi-social-twitter"></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+</div>
+
+
+<div class="small-16 medium-16 large-12 columns main-column left">
+    
+
+<main class="content" role="main">
+
+    <article class="post tag-OpenShift tag-Fabric8 tag-OSX">
+
+
+            <h1 class="post-title">My Fabric8 VM is running out of diskspace!</h1>
+
+            <span class="post-meta label"><time datetime="2015-04-30">30 Apr 2015</time></span>
+
+            <section class="post-content">
+                <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The default Ubuntu image has a dynamically sized 40 GB harddrive. You may find that if you are working with Docker images, that this space fills up quickly. Before you start download the <a href="http://gparted.sourceforge.net/">GParted</a> iso.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resize_the_vmdk_file">1. Resize the vmdk file</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>VirtualBox cannot resize a vmdk file. Instead you will need to change over to use the vdi format, then resize (to 100 GB) and finally create vmdk formatted clone of this. Make sure to give it a different name.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>VBoxManage clonehd box-disk1.vmdk box-disk1.vdi --format vdi
+VBoxManage modifyhd box-disk1.vdi --resize 102400
+VBoxManage clonehd box-disk1.vdi box-disk1-100.vmdk --format vmdk</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you in the VirtualBox UI, Under Settings &gt; Storage, hook up the new larger file <code>box-disk1-100.vmdk</code> instead of the original box-disk1.vmdk file. Next add a CD/DVD device and hook it up to the GParted iso file. Finally under System &gt; Motherboard select the CD/DVD as bootable device and add it to the top of the list. Now you can boot the VM and it will boot to GParted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_use_the_partition_from_40_to_100gb">2. Use the partition from 40 to 100GB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In GParted select the /dev/sda1 partition and see that only 40GB is being used. You can now resize it to the maximum 100GB and then click 'apply'. When it finishes exit GParted and Shutdown the VM. Under settings unselect the CD/DVD drive from the bootable devices. You are now ready to boot up the Fabric8 VM with the larger hardrive.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">3. References</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="http://www.gitshah.com/2013/05/how-to-fix-out-of-space-problem-for.html">How To fix the Out Of Space Problem for Virtual Box with unused large hard disk space</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+                        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/OpenShift">OpenShift</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/OSX"> OSX</a></aside>
+            </section>
+            <hr>
+            <footer class="post-footer">
+
+                <section class="share">
+                    <h4>Liked this post ? Share it.</h4>
+                    <a class="fi-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    </a>
+                    <a class="fi-social-twitter" href="https://twitter.com/share?text=My%20Fabric8%20VM%20is%20running%20out%20of%20diskspace!&amp;url=https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    </a>
+                    <a class="fi-social-google-plus" href="https://plus.google.com/share?url=https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    </a>
+                </section>
+
+                <section class="author">
+                    <header>
+                        <span>About the author</span>
+                    </header>
+                    <section>
+                        <h4>Kurt Stam</h4>
+                        <img src="https://avatars.githubusercontent.com/u/35576?v=3">
+                        
+                        
+                    </section>
+                    <footer>
+                         <p></p>
+                    </footer>
+                </section>
+
+        <div class="clearfix"></div>
+                    <hr>
+
+            </footer>
+
+        <h3 class="title-disqus"><span class="fi-comments"></span>Discussions</h3>
+
+
+
+
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'kurtstamgithubio'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+</main>
+
+</div>
+
+</div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/outdatedBrowser.min.js?v=1.0.0"></script>
+    <![endif]-->
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/min/built.js?v=1.0.0"></script>
+
+    <script>
+      $(document).foundation();
+    </script>
+
+</body>
+</html>
