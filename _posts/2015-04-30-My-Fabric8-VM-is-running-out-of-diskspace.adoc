@@ -18,4 +18,4 @@ In GParted select the /dev/sda1 partition and see that only 40GB is being used. 
  
 == References
 
-1. http://www.gitshah.com/2013/05/how-to-fix-out-of-space-problem-for.html
+1. http://www.gitshah.com/2013/05/how-to-fix-out-of-space-problem-for.html[How To fix the Out Of Space Problem for Virtual Box with unused large hard disk space]
