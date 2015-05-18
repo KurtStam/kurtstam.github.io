@@ -304,8 +304,8 @@ image:apps.png[]
 == Deploy a new app to your install
 In my case I'm building the apiman-manager-api application, and to deploy it, I build it using the docker-build, and then I push it to my local docker registry:
 ....
-mvn clean install docker-build
-docker push $DOCKER_REGISTRY:5000/fabric8/apiman-manager-api:2.2-SNAPSHOT
+mvn clean install -Pdocker-build
+docker push $DOCKER_REGISTRY/fabric8/apiman-manager-api:2.2-SNAPSHOT
 ....
 Then, to run it, drag and drop the `apiman-manager-api-2.2-SNAPSHOT-app.zip` onto the library tab of the console, right on top of the apps and quickstarts folders that should turn green when you dragging on onto it. By the way -for me- this works on Safari but not on Firefox. If successful a apiman-manager-api folwer should appear, and when entering into this app folder you can click the green run button.
 
