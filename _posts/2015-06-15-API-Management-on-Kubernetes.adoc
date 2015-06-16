@@ -5,7 +5,7 @@
 
 I just returned from the http://www.redhatonline.com/uk/seminar/microservices-architecture-developer-day/[London MicroServices Architecture Developer Day]. Attendence was really great and the tickets actually sold out. http://www.infoq.com/news/2015/06/redhat-microservices-london[Here is nice writeup] if you missed it. 
 
-Marc Savy and yours truly presented API Management on Kubernetes. If you want to follow along you need to deploy the ElasticSearch app, the APIMan app and the Fabric8-HTTP-Gateway app - in that order. If all goes well the API Management tab will appear in your hawtio console. For now, when you are using APIMan for the first time there is some bootstrapping you will need to do. This will hopefully happen automatically very soon, so in that case you can skip this step.
+Marc Savy and yours truly presented API Management on Kubernetes. If you want to follow along you need to deploy the ElasticSearch app, the Fabric8-HTTP-Gateway app and the APIMan app - in that order. If all goes well the API Management tab will appear in your hawtio console. For now, when you are using APIMan for the first time there is some bootstrapping you will need to do. This will hopefully happen automatically very soon, so in that case you can skip this step.
 
 video::130801618[vimeo]
 
