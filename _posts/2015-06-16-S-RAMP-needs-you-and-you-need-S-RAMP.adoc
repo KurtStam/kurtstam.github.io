@@ -1,4 +1,4 @@
-= S-RAMP 
+= S-RAMP needs you and you need S-RAMP
 
 :hp-tags: SOA, Repository, Artifact Model, Protocol, Rest, Atom
 :numbered:
