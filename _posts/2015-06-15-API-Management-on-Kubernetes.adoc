@@ -1,6 +1,8 @@
 = API Management on Kubernetes
 
-:hp-tags: OpenShift, Fabric8, API Management
+:hp-tags: OpenShift, Fabric8, API Management, Micro Services
 :numbered:
 
-I just returned from the London http://www.infoq.com/news/2015/06/redhat-microservices-london[Developer Day]
+I just returned from the http://www.redhatonline.com/uk/seminar/microservices-architecture-developer-day/[London MicroServices Architecture Developer Day]. Attendence was really great and the tickets actually sold out. http://www.infoq.com/news/2015/06/redhat-microservices-london[Here is nice writeup] if you are looking for a nice overview of the day. 
+
+Marc Savy and yours truly presented API Management on Kubernetes.
