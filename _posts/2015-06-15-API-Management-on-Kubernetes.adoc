@@ -3,6 +3,18 @@
 :hp-tags: OpenShift, Fabric8, API Management, Micro Services
 :numbered:
 
-I just returned from the http://www.redhatonline.com/uk/seminar/microservices-architecture-developer-day/[London MicroServices Architecture Developer Day]. Attendence was really great and the tickets actually sold out. http://www.infoq.com/news/2015/06/redhat-microservices-london[Here is nice writeup] if you are looking for a nice overview of the day. 
+I just returned from the http://www.redhatonline.com/uk/seminar/microservices-architecture-developer-day/[London MicroServices Architecture Developer Day]. Attendence was really great and the tickets actually sold out. http://www.infoq.com/news/2015/06/redhat-microservices-london[Here is nice writeup] if you missed. 
 
-Marc Savy and yours truly presented API Management on Kubernetes.
+Marc Savy and yours truly presented API Management on Kubernetes. If you want to follow along you need to deploy the ElasticSearch app, the APIMan app and the Fabric8-HTTP-Gateway app - in that order. If all goes well the API Management tab will appear in your hawtio console. For now, when you are using APIMan for the first time there is some bootstrapping you will need to do. This will hopefully happen automatically very soon, so in that case you can skip this step.
+
+video::130801618[vimeo]
+
+When bootstrapping is complete and you have roles, policies and gateways configured you are ready to expose your first service on the gateway. In the demo I'm using the CXFCDI quickstart, and I'm exposing it as a public service. 'Public' means that we are exposing it without a service plan. This does not mean that you can't add any policies, it simply means those policies are applied to all users of the service. It also means the users do not need to send in an apikey. 
+
+The second demo is a bit more involved and requires the setup of 2 origanization and a plan/contract between them. In this case the consumer need to send in an apikey and policies will be applied specific to the plan setup between the two parties.
+
+video::130792455[vimeo]
+
+Cheers!
+
+--Kurt
