@@ -1,0 +1,20 @@
+= S-RAMP 
+
+:hp-tags: SOA, Repository, Artifact Model, Protocol, Rest, Atom
+:numbered:
+
+The OASIS SOA-Repository Artifact Model and Protocol specification S-RAMP v 1.0 has been out for a little over a year now and on jboss.org the http://artificer.jboss.org/[Artificer] project has reached compliance to the 1.0 spec. Some cool features the Artificer project has implemented using S-RAMP are
+
+* Artifact, metadata, and information repository (publish and consume)
+* Software lifecycle management and workflows
+* Impact analysis
+* Discovery and reuse
+* Relationship/dependence comprehension and hierarchical analysis
+* Common configuration and policy management
+* Data auditing
+
+The spec is very generic though, and can be used for a veriety of domains. JBoss is ready to take the next in developing the next version of the specification, however it has come to my attention that not many other companies have stepped up to work on this at OASIS. If you like Repositories, REST and Atom then I urge you to get involved. This is an opportunity to give direction of what happens next with S-RAMP. We've put in a lot of our time and are exited about it, but for the next step we really need your involvment! Please let your voice be heard at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=s-ramp[OASIS] or http://artificer.jboss.org/[Artificer] or both!
+
+Cheers,
+
+--Kurt
