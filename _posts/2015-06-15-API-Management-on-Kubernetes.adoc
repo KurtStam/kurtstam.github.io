@@ -11,7 +11,7 @@ video::130801618[vimeo]
 
 When bootstrapping is complete and you have roles, policies and gateways configured you are ready to expose your first service on the gateway. In the demo I'm using the CXFCDI quickstart, and I'm exposing it as a public service. 'Public' means that we are exposing it without a service plan. This does not mean that you can't add any policies, it simply means those policies are applied to all users of the service. It also means the users do not need to send in an apikey. 
 
-The second demo is a bit more involved and requires the setup of 2 origanization and a plan/contract between them. In this case the consumer need to send in an apikey and policies will be applied specific to the plan setup between the two parties.
+The second demo is a bit more involved and requires the setup of 2 origanization and a plan/contract between them. In this case the consumer needs to send in an apikey and policies will be applied specific to the plan setup between the two parties.
 
 video::130792455[vimeo]
 
