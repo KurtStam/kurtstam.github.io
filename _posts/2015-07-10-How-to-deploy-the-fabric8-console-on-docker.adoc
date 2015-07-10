@@ -1,0 +1,24 @@
+= How to deploy the fabric8 console on docker
+
+:hp-tags: angularjs, fabric8, console, docker
+:numbered:
+
+The fabric8 console is written in docker and the source lives on github at: https://github.com/fabric8io/fabric8-console. To package the console up as a docker container first run
+
+....
+gulp site
+....
+
+and then to create and deploy the docker container use
+
+....
+docker build -t fabric8/fabric8-console:<version> .
+....
+
+where <version> is the version you want it to have in your docker repository. 
+
+Now you are ready to docker kill a running console and fabric8 will fire up the new one (given that you picked the same version as was running before). Off course you can always start one yourself using docker run. Note that during development you probably simple want to use `gulp` to run it right from the source tree.
+
+Cheers!
+
+--Kurt
