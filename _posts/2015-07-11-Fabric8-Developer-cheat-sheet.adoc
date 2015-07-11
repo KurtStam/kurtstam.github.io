@@ -19,7 +19,7 @@ docker stats $(docker ps -q)
 ....
 
 
-== Maven & fabric8
+== Maven & Fabric8
 The following commands use the http://fabric8.io/gitbook/mavenPlugin.html[Maven Fabric8 Plugin]
 
 * Create a Docker image of your application
