@@ -1,7 +1,0 @@
-= Test
-:hp-tags: OpenShift, Fabric8, OSX
-:numbered:
-
-NOTE: testing
-
-For joy
