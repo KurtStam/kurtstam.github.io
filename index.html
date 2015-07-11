@@ -108,17 +108,17 @@
 <main class="content" role="main">
 
 
-    <article class="post tag-angularjs tag-fabric8 tag-console tag-docker">
+    <article class="post tag-OpenShift tag-Fabric8 tag-Utilies">
         <header class="post-header">
-            <span class="post-meta"><time datetime="2015-07-10">10 Jul 2015</time> </span>
-            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/07/10/How-to-deploy-the-fabric8-console-on-docker.html">How to deploy the fabric8 console on docker</a></h2>
+            <span class="post-meta"><time datetime="2015-07-11">11 Jul 2015</time> </span>
+            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/07/11/Fabric8-Developer-cheat-sheet.html">Fabric8 Developer cheat sheet</a></h2>
 
         </header>
         <section class="post-excerpt">
-            <p>The fabric8 console is written in docker and the source lives on github at: https://github.com/fabric8io/fabric8-console. To package the console up as a docker container first run gulp site and then to create and deploy the docker container use docker build -t fabric8/fabric8-console:&lt;version&gt; . where &lt;version&gt; is the version you want it to have in your docker repository. Now you are&hellip;</p>
+            <p>A running list of commands and utilities to move around the fabric 1. Docker Log into a running docker container docker exec -it CONTAINER_NAME /bin/bash See the log for a docker container docker logs -f CONTAINER_NAME Get some live stats for on all your containers docker stats $(docker ps -q) 2. Maven &amp; fabric8 Create a Docker image of your application mvn clean install -Pdocker-build Start&hellip;</p>
         </section>
-        <a class="button read-more right small" href="https://KurtStam.github.io/2015/07/10/How-to-deploy-the-fabric8-console-on-docker.html">Read more</a>
-        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/angularjs">angularjs</a>, <a href="https://KurtStam.github.io/tag/fabric8"> fabric8</a>, <a href="https://KurtStam.github.io/tag/console"> console</a>, <a href="https://KurtStam.github.io/tag/docker"> docker</a></aside>
+        <a class="button read-more right small" href="https://KurtStam.github.io/2015/07/11/Fabric8-Developer-cheat-sheet.html">Read more</a>
+        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/OpenShift">OpenShift</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/Utilies"> Utilies</a></aside>
         <div class="clearfix"></div>
     </article>
 
@@ -155,27 +155,12 @@
 
     <article class="post tag-OpenShift tag-Fabric8 tag-OSX">
         <header class="post-header">
-            <span class="post-meta"><time datetime="2015-04-30">30 Apr 2015</time> </span>
-            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html">My Fabric8 VM is running out of diskspace!</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p>The default Ubuntu image has a dynamically sized 40 GB harddrive. You may find that if you are working with Docker images, that this space fills up quickly. Before you start download the GParted iso. 1. Resize the vmdk file VirtualBox cannot resize a vmdk file. Instead you will need to change over to use the vdi format, then resize (to 100 GB) and finally create vmdk formatted clone of this. Make&hellip;</p>
-        </section>
-        <a class="button read-more right small" href="https://KurtStam.github.io/2015/04/30/My-Fabric8-VM-is-running-out-of-diskspace.html">Read more</a>
-        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/OpenShift">OpenShift</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/OSX"> OSX</a></aside>
-        <div class="clearfix"></div>
-    </article>
-
-
-    <article class="post tag-OpenShift tag-Fabric8 tag-OSX">
-        <header class="post-header">
             <span class="post-meta"><time datetime="2015-04-29">29 Apr 2015</time> </span>
             <h2 class="post-title"><a href="https://KurtStam.github.io/2015/04/29/Test.html">Test</a></h2>
 
         </header>
         <section class="post-excerpt">
-            <p>testing For joy&hellip;</p>
+            <p>testing For joy API Management on Kubernetes I just returned from the London http://www.infoq.com/news/2015/06/redhat-microservices-london|Developer Day&hellip;</p>
         </section>
         <a class="button read-more right small" href="https://KurtStam.github.io/2015/04/29/Test.html">Read more</a>
         <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/OpenShift">OpenShift</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/OSX"> OSX</a></aside>
