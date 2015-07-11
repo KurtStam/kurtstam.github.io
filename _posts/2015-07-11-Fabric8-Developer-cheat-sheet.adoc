@@ -1,5 +1,5 @@
 = Fabric8 Developer cheat sheet
-:hp-tags: OpenShift, Fabric8, Utilies
+:hp-tags: OpenShift, Fabric8, Utilities
 :numbered:
 
 A running list of commands and utilities to move around the fabric
