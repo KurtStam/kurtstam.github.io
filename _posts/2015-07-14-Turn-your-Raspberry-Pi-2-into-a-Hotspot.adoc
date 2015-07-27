@@ -7,8 +7,7 @@ Required: Raspberri Pi 2 with a Wifi dongle, Hypriot, ethernet cable
 On most OSX you cannot reshare over wifi. You can however share it over the ethernet port. Raspberry Pi to the rescue :). 
 
 1. Download and install http://blog.hypriot.com/downloads/[hypriot], because it's wonderfully small (384 MB). I used 0.4 Elizabeth. To install on your card see also http://kurtstam.blogspot.nl/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html[Pi-oneering]. On my mac I have the SD card plugged to the laptop and it comes up on /dev/disk3
-
-WARNING - make sure the SD card is on /dev/disk3 on your laptop or else you will be formatting something else you will regret!
+WARN : make sure the SD card is on /dev/disk3 on your laptop or else you will be formatting something else you will regret!
 ....
 sudo dd bs=1m if=~/Desktop/hypriot-rpi-20150301-140537.img of=/dev/disk<n>
 ....
