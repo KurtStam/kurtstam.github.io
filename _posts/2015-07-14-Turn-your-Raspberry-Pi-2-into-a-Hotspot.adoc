@@ -77,6 +77,17 @@ Shows that I have a Ralink Technology, Corp. RT5370 Wireless Adapter. So I neede
 ....
 apt-get install firmware-ralink
 ....
+Make sure you /var/log/messages file no longer reports errors and fix them before proceeding. You can try `ifconfig wlan0 up` and `down`. `ifconfig` should now show `wlan0`
+....
+wlan0     Link encap:Ethernet  HWaddr 00:0f:60:03:cf:08  
+          inet addr:192.168.1.1  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::20f:60ff:fe03:cf08/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2960969 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:3197658 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:654766015 (624.4 MiB)  TX bytes:3516119301 (3.2 GiB)
+....
 
 9. To see if your Wifi dongle support AP use
 ....
@@ -90,6 +101,7 @@ Supported interface modes:
 ....
 
 and hopefully find that 'AP' is supported.
+
 
 10. When your wlan0 type is AP you should be good
 ....
@@ -115,8 +127,24 @@ dhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h
 ....
 You may need to `service dnsmasq restart` for the changes to take effect.
 
+13. At this point you can connect but to the Access Point, but you can't actually do anything yet. To turn on masquerating
+....
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -j MASQUERADE
+....
+At this point you should have a working Access Point! I also used the instructions on [2] to help me debugging. Soon enough you will be curious how many devices you have connected
+....
+iw dev wlan0 station dump | grep Station | wc -l
+7
+....
+Seven!, looks like every one in our party is on it ;). 
+
+Cheers!
+
+--Kurt
+
 
 
 === References
 1. follywood http://follywood.no-ip.org/docs/Raspberry%20Pi/pi_wifi_ap.pdf 
-2. 
+2. http://sirlagz.net/2012/08/09/how-to-use-the-raspberry-pi-as-a-wireless-access-pointrouter-part-1/
