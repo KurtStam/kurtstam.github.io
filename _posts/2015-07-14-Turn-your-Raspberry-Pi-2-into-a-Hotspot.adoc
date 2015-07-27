@@ -6,16 +6,15 @@ Required: Raspberri Pi 2 with a Wifi dongle, Hypriot, ethernet cable
 
 On most OSX you cannot reshare over wifi. You can however share it over the ethernet port. Raspberry Pi to the rescue :). 
 
-1. Download and install http://blog.hypriot.com/downloads/[hypriot], because it's wonderfully small (384 MB). I used 0.4 Elizabeth. To install on your card see also http://kurtstam.blogspot.nl/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html[Pi-oneering]. On my mac I have the SD card plugged to the laptop and it comes up on /dev/disk3.
+- Download and install http://blog.hypriot.com/downloads/[hypriot], because it's wonderfully small (384 MB). I used 0.4 Elizabeth. To install on your card see also http://kurtstam.blogspot.nl/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html[Pi-oneering]. On my mac I have the SD card plugged to the laptop and it comes up on /dev/disk3.
 
 WARN : double check what number <n> disk your SD card is on /dev/disk<n> or else you will be formatting something else you will regret!
 ....
 sudo dd bs=1m if=~/Desktop/hypriot-rpi-20150301-140537.img of=/dev/disk<n>
 ....
 
-2. On your laptop share you internet connection over ethernet and use the ethernet cable to connect your laptop to your Pi.
-
-3. Boot up you Pi and use http://nmap.org/book/inst-macosx.html[nmap] to figure out what IP address was given to the Pi. From peeking in the /etc/bootpd.plist, you can see what subnet is being used, which is 192.168.2.* for me. So
+- On your laptop share you internet connection over ethernet and use the ethernet cable to connect your laptop to your Pi.
+- Boot up you Pi and use http://nmap.org/book/inst-macosx.html[nmap] to figure out what IP address was given to the Pi. From peeking in the /etc/bootpd.plist, you can see what subnet is being used, which is 192.168.2.* for me. So
 ....
 sudo nmap -sP 192.168.2.0/24
 
@@ -29,14 +28,14 @@ Nmap done: 256 IP addresses (2 hosts up) scanned in 2.29 seconds
 ....
 So in my case 192.168.2.9 is for the Pi.
 
-4. Login to the Pi using root@192.168.2.9 with the pw hypriot. Now we are ready to do the real work!
+- Login to the Pi using root@192.168.2.9 with the pw hypriot. Now we are ready to do the real work!
 
-5. Install the following packages if you don't have them already [1]:
+- Install the following packages if you don't have them already [1]:
 ....
 aptitude install rfkill zd1211-firmware hostapd hostap-utils iw dnsmasq
 ....
 
-6. edit /etc/network/interfaces
+- edit /etc/network/interfaces
 ....
 auto lo
 iface lo inet loopback
@@ -53,7 +52,7 @@ netmask 255.255.255.0
 
 Make sure 192.168.1.* is not the same subnet your laptop is using.
 
-7. edit /etc/hostapd/hostapd.conf
+- edit /etc/hostapd/hostapd.conf
 ....
 interface=wlan0
 driver=nl80211
@@ -64,7 +63,7 @@ channel=8
 ....
 You may need to `service dnsmasq restart` for the changes to take effect.
 
-8. I'm assuming you had your wifi dongle plugged in. If so at this point you should be able to turn on your wlan0 using `ifup wlan0`. But if that fails you may need different firmware. 
+- I'm assuming you had your wifi dongle plugged in. If so at this point you should be able to turn on your wlan0 using `ifup wlan0`. But if that fails you may need different firmware. 
 ....
 lsusb
 Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp. 
@@ -88,7 +87,7 @@ wlan0     Link encap:Ethernet  HWaddr 00:0f:60:03:cf:08
           RX bytes:654766015 (624.4 MiB)  TX bytes:3516119301 (3.2 GiB)
 ....
 
-9. To see if your Wifi dongle support AP use
+- To see if your Wifi dongle support AP use
 ....
 iw list
 ..
@@ -102,7 +101,7 @@ Supported interface modes:
 and hopefully find that 'AP' is supported.
 
 
-10. When your wlan0 type is AP you should be good
+- When your wlan0 type is AP you should be good
 ....
 iw wlan0 info
 Interface wlan0
@@ -111,9 +110,9 @@ Interface wlan0
 	wiphy 0
 ....
 
-11. If you have a `/etc/udev/rules.d/70-persistent-net.rules`, delete it, and reboot your Pi. At this point your AP should announce itself, but no DNS is configured yet.
+- If you have a `/etc/udev/rules.d/70-persistent-net.rules`, delete it, and reboot your Pi. At this point your AP should announce itself, but no DNS is configured yet.
 
-12. edit the /etc/dnsmasq.conf file.
+- edit the /etc/dnsmasq.conf file.
 ....
 # Never forward plain names (without a dot or domain part) 
 domain-needed 
@@ -126,7 +125,7 @@ dhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h
 ....
 You may need to `service dnsmasq restart` for the changes to take effect.
 
-13. At this point you can connect but to the Access Point, but you can't actually do anything yet. To turn on masquerating
+- At this point you can connect but to the Access Point, but you can't actually do anything yet. To turn on masquerating
 ....
 echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -t nat -A POSTROUTING -j MASQUERADE
