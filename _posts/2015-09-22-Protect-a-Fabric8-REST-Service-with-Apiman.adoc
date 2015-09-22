@@ -33,8 +33,9 @@ In the real world you would not expose the cxfcdi endpoint shown above. Instead 
 If you don't have an Organization already create one now by navigating to the API Management tab and clicking _Create a new Organization_. Create your Organization.
 
 === Import Services
-Within your Organization select _Services_ and then click on the little dropdown next to the _New Service_ button. Click on the _Import Service_ popup to enter the _Import Services_ wizzard. This wizzards allows you to bulp import services. In the _Find Services_ search box type '*' to find all services in the current namespace in _Kubernetes_. Then select to add the _CxfCdi Quickstart_, and when select the 'Public Service' check box (For this it's ok that we don't have any plans setup). Then click _Finish_ and your new Service should show up under the list of Services for your Organization. Go ahead and click on the CxfCdi Service. 
+Within your Organization select _Services_ and then click on the little dropdown next to the _New Service_ button. Click on the _Import Service_ popup to enter the _Import Services_ wizzard. This wizzards allows you to bulk import services. In the _Find Services_ 'quickstart' to find the quickstarts in the current namespace (or '*' for all services in the namespace). Then select to add the _CxfCdi Quickstart_, and when select the 'Public Service' check box (For this it's ok that we don't have any plans setup). Then click _Finish_ and your new Service should show up under the list of Services for your Organization. Go ahead and click on the CxfCdi Service. 
 
-At this point we really need to do is to _Publish_ the service. So let's click on the Publish button.
+=== Publish CxfCxf Service to the Gateway
+At this point we really need to do is to _Publish_ the service. So let's click on the Publish button. 
 
 
