@@ -26,7 +26,7 @@ image::CxfCdi.png[]
 [caption="Figure 2: "]
 .CxfCdi service listing.
 
-== Publish and Protect the CxfCdi with a Simple Authentication Policy on the Apiman Gateway
+== Publish the CxfCdi service to the Apiman Gateway
 In the real world you would not expose the cxfcdi endpoint shown above. Instead you would only expose the Apiman Gateway on your firewall, and you would only publish the services you'd want to expose publicly. So let's go ahead and publish the CxfCdi service as a _Public Service_. A *Public Service* is a service that consumers can use without having a _Contract_ in place. In this case all the'd need to have is a valid username/password combo. 
 
 === Add your Organization
@@ -41,7 +41,15 @@ The CxfCdi service publishes a swagger.json service definition file that was imp
 === Publish CxfCxf Service to the Gateway
 At this point we really need to do is to _Publish_ the service. So let's click on the Publish button. On the leftnav will now appear an 'Endpoint' entry. YOu can select this to see the URL under which the Gateway has now published the service. This should something like http://quickstart-java-cxfcdi.vagrant.f8/gateway/KurtOrg/v1.0/
 
+== Protect the CxfCdi service with a Simple Authentication Policy 
+
+
 === Add Simple Auth Policy
+
+=== Publish version 1.1
+
+
+== Conclusion
 
 
 
