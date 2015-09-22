@@ -1,8 +1,8 @@
-= Bleeding edge, steps to Deploy Apiman to Fabric8 on Vagrant and OSX
+= Bleeding edge, steps to Deploy Apiman to Fabric8
 :hp-tags: Apiman, Fabric8
 :numbered:
 
-Fabric8 is cloud infrastructure build on Kubernetes and Docker. Fabric8 is fun to work with but Fabric8 is a fast moving train! If you want to be on it you need to hold on tight. In this post I list the minimal steps to get Apiman running on Fabric with the latest code. I'm assuming you have recent versions of Git, Java, Maven and Virtual Box installed your machine. If you do, then the following steps will get you up and running with Apiman on Fabric8.
+Fabric8 is cloud infrastructure build on Kubernetes and Docker. Fabric8 is fun to work with but Fabric8 is a fast moving train! If you want to be on it you need to hold on tight. In this post I list the minimal steps to get Apiman running on Fabric with the latest code. I'm assuming you have recent versions of Git, Java, Maven and Virtual Box installed your machine. If you do, then the following steps will get you up and running with Apiman on Fabric8 on Vagrant and OSX.
 
 === Obtain the Fabric8 installer
 The following steps are for OSX, if you are running something else check with http://fabric8.io/guide/getStarted/vagrant.html
@@ -77,6 +77,10 @@ Go into the fabric8-ipaas/apiman-gateway directory and run
 ....
 mvn clean install fabric8:json docker:build  fabric8:apply
 ....
-In the fabric8-console nativate to the Admin portal and click on 'Add Gateway' to add this new gateway. 
+In the fabric8-console nativate to the Admin portal and click on 'Manage Gateway/New Gateway' to add this new gateway, and for the configuration endpoint use:
+_http://apiman-gateway.vagrant.f8/api/_ and creds _admin/admin123!_. Then to click on 'Test Gateway' to make sure apiman can connect to the apiman-gateway.
+
+
+
 
 
