@@ -16,6 +16,9 @@ mvn clean install fabric8:json docker:build  fabric8:apply
 ....
 When the build succeeds the CXFCDI service appears in the http://fabric8.vagrant.f8 console as shown below
 
+image::Fabric8CxfCdi.png[]
+[caption="Figure 1: "]
+.CxfCdi quickstart running on Fabric8.
 
 
 and you can access the endpoint in your browser at http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/
