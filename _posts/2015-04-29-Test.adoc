@@ -1,0 +1,11 @@
+= Test
+:hp-tags: OpenShift, Fabric8, OSX
+:numbered:
+
+NOTE: testing
+
+For joy
+
+API Management on Kubernetes
+
+I just returned from the London http://www.infoq.com/news/2015/06/redhat-microservices-london|Developer Day

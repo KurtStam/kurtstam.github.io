@@ -1,0 +1,148 @@
+= Turn your Raspberry Pi 2 into a Hotspot
+:hp-tags: Raspberry Pi 2, Hotspot, Hypriot, Wifi
+:numbered:
+
+Required: Raspberri Pi 2 with a Wifi dongle, Hypriot, ethernet cable
+
+On most OSX you cannot reshare over wifi. You can however share it over the ethernet port. Raspberry Pi to the rescue :). 
+
+- Download and install http://blog.hypriot.com/downloads/[hypriot], because it's wonderfully small (384 MB). I used 0.4 Elizabeth. To install on your card see also http://kurtstam.blogspot.nl/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html[Pi-oneering]. On my mac I have the SD card plugged to the laptop and it comes up on /dev/disk3.
+
+WARN : double check what number <n> disk your SD card is on /dev/disk<n> or else you will be formatting something else you will regret!
+....
+sudo dd bs=1m if=~/Desktop/hypriot-rpi-20150301-140537.img of=/dev/disk<n>
+....
+
+- On your laptop share you internet connection over ethernet and use the ethernet cable to connect your laptop to your Pi.
+- Boot up you Pi and use http://nmap.org/book/inst-macosx.html[nmap] to figure out what IP address was given to the Pi. From peeking in the /etc/bootpd.plist, you can see what subnet is being used, which is 192.168.2.* for me. So
+....
+sudo nmap -sP 192.168.2.0/24
+
+Starting Nmap 6.49BETA4 ( https://nmap.org ) at 2015-07-27 10:54 CEST
+Nmap scan report for 192.168.2.9
+Host is up (0.00070s latency).
+MAC Address: B8:27:EB:A6:5F:A8 (Raspberry Pi Foundation)
+Nmap scan report for 192.168.2.1
+Host is up.
+Nmap done: 256 IP addresses (2 hosts up) scanned in 2.29 seconds
+....
+So in my case 192.168.2.9 is for the Pi.
+
+- Login to the Pi using root@192.168.2.9 with the pw hypriot. Now we are ready to do the real work!
+
+- Install the following packages if you don't have them already [1]:
+....
+aptitude install rfkill zd1211-firmware hostapd hostap-utils iw dnsmasq
+....
+
+- edit /etc/network/interfaces
+....
+auto lo
+iface lo inet loopback
+
+allow-hotplug eth0
+iface eth0 inet dhcp
+iface eth0 inet6 auto
+
+iface wlan0 inet static
+hostapd /etc/hostapd/hostapd.conf
+address 192.168.1.1
+netmask 255.255.255.0
+....
+
+Make sure 192.168.1.* is not the same subnet your laptop is using.
+
+- edit /etc/hostapd/hostapd.conf
+....
+interface=wlan0
+driver=nl80211
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=0
+ssid=RaspAP
+channel=8
+....
+You may need to `service dnsmasq restart` for the changes to take effect.
+
+- I'm assuming you had your wifi dongle plugged in. If so at this point you should be able to turn on your wlan0 using `ifup wlan0`. But if that fails you may need different firmware. 
+....
+lsusb
+Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp. 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp. 
+Bus 001 Device 004: ID 148f:5370 Ralink Technology, Corp. RT5370 Wireless Adapter
+....
+Shows that I have a Ralink Technology, Corp. RT5370 Wireless Adapter. So I needed to install the ralink firmware.
+....
+apt-get install firmware-ralink
+....
+Make sure you /var/log/messages file no longer reports errors and fix them before proceeding. You can try `ifconfig wlan0 up` and `down`. `ifconfig` should now show `wlan0`
+....
+wlan0     Link encap:Ethernet  HWaddr 00:0f:60:03:cf:08  
+          inet addr:192.168.1.1  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::20f:60ff:fe03:cf08/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2960969 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:3197658 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:654766015 (624.4 MiB)  TX bytes:3516119301 (3.2 GiB)
+....
+
+- To see if your Wifi dongle support AP use
+....
+iw list
+..
+Supported interface modes:
+		 * IBSS
+		 * managed
+		 * AP
+..
+....
+
+and hopefully find that 'AP' is supported.
+
+
+- When your wlan0 type is AP you should be good
+....
+iw wlan0 info
+Interface wlan0
+	ifindex 3
+	type AP
+	wiphy 0
+....
+
+- If you have a `/etc/udev/rules.d/70-persistent-net.rules`, delete it, and reboot your Pi. At this point your AP should announce itself, but no DNS is configured yet.
+
+- edit the /etc/dnsmasq.conf file.
+....
+# Never forward plain names (without a dot or domain part) 
+domain-needed 
+# Only listen for DHCP on wlan0 
+interface=wlan0 
+# Create a dhcp range on your /24 wlan0 network with 12 hour lease time 
+dhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h 
+# Send an empty WPAD option. This may be REQUIRED to get windows 7 to behave. 
+#dhcp-option=252,"\n"
+....
+You may need to `service dnsmasq restart` for the changes to take effect.
+
+- At this point you can connect but to the Access Point, but you can't actually do anything yet. To turn on masquerating
+....
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -j MASQUERADE
+....
+At this point you should have a working Access Point! I also used the instructions on [2] to help me debugging. Soon enough you will be curious how many devices you have connected
+....
+iw dev wlan0 station dump | grep Station | wc -l
+7
+....
+Seven!, looks like every one in our party is on it ;). 
+
+Cheers!
+
+--Kurt
+
+
+
+=== References
+1. follywood http://follywood.no-ip.org/docs/Raspberry%20Pi/pi_wifi_ap.pdf 
+2. http://sirlagz.net/2012/08/09/how-to-use-the-raspberry-pi-as-a-wireless-access-pointrouter-part-1/
