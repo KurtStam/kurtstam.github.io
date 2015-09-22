@@ -1,8 +1,8 @@
-= Steps to Deploy Apiman to Fabric8 on Vagrant and OSX
+= Bleeding edge, steps to Deploy Apiman to Fabric8 on Vagrant and OSX
 :hp-tags: Apiman, Fabric8
 :numbered:
 
-Fabric8 is cloud infrastructure build on Kubernetes and DOcker. Fabric8 is fun to work with but Fabric8 is a fast moving train! If you want to be on it you need to hold on tight. In this post I list the minimal steps to get Apiman running on Fabric with the latest code. I'm assuming you have recent versions of Git, Java, Maven and Virtual Box installed your machine. If you do, then the following steps will get you up and running with Apiman on Fabric8.
+Fabric8 is cloud infrastructure build on Kubernetes and Docker. Fabric8 is fun to work with but Fabric8 is a fast moving train! If you want to be on it you need to hold on tight. In this post I list the minimal steps to get Apiman running on Fabric with the latest code. I'm assuming you have recent versions of Git, Java, Maven and Virtual Box installed your machine. If you do, then the following steps will get you up and running with Apiman on Fabric8.
 
 === Obtain the Fabric8 installer
 The following steps are for OSX, if you are running something else check with http://fabric8.io/guide/getStarted/vagrant.html
@@ -23,8 +23,12 @@ vagrant up
 Depending on how fast your machine and internet connection is, this will take at least 20 minutes. 
 Don't for get to set the following environment variables
 ....
+export KUBERNETES_TRUST_CERT=true
+export DOCKER_IP=172.28.128.4
+export DOCKER_HOST=tcp://172.28.128.4:2375
+export KUBERNETES_MASTER=https://172.28.128.4:8443
 export KUBERNETES_DOMAIN=vagrant.f8
-export DOCKER_HOST=tcp://vagrant.f8:2375
+export KUBERNETES_NAMESPACE=default
 ....
 So while this is going we can continue installing the client tooling. 
 
@@ -46,7 +50,33 @@ cd quikcstarts
 mvn install
 ....
 
-=== 
+=== Open the Fabric8 Console
+Once the vagrant install completes we can open the fabric8-console at 
+....
+http://fabric8.vagrant.f8/
+....
+It will redirect to the Openshift Login screen on secure screen. The certificate on this screen is self signed, so you will have to accept certificate. Try Chrome if you have issues with this.
 
+=== Run ElasticSearch
+Before we can install Apiman we need to have ElasticSearch running as the Storage layer. From the installer/app directory run
+....
+mvn install -DartifactId=elasticsearch -Dfabric8.version=<version>
+....
+
+Currently we are at fabric8.version 1.2.28.
+
+=== Run Apiman
+Go into the fabric8-ipaas/apiman directory and run
+....
+mvn clean install fabric8:json docker:build  fabric8:apply
+....
+This will start the Apiman Service and it will active the _Api Management_ tab in the fabric8 console.
+
+=== Run the Apiman-Gateway
+Go into the fabric8-ipaas/apiman-gateway directory and run
+....
+mvn clean install fabric8:json docker:build  fabric8:apply
+....
+In the fabric8-console nativate to the Admin portal and click on 'Add Gateway' to add this new gateway. 
 
 
