@@ -20,5 +20,12 @@ image::Fabric8CxfCdi.png[]
 [caption="Figure 1: "]
 .CxfCdi quickstart running on Fabric8.
 
+and you can access the endpoint in your browser at http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/, and http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/swagger.json for the swagger definition.
 
-and you can access the endpoint in your browser at http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/
+image::CxfCdi.png[]
+[caption="Figure 2: "]
+.CxfCdi service listing.
+
+== Publish and Protect the CxfCdi with a Simple Authentication Policy on the Apiman Gateway
+
+
