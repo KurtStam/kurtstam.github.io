@@ -6,3 +6,12 @@
 *Fabric8* is cloud infrastructure build on Kubernetes and Docker. Please follow https://kurtstam.github.io/2015/09/22/Bleeding-edge-steps-to-Deploy-Apiman-to-Fabric8.html[these steps] to get Apiman running on Fabric8. In this post I will show you how to deploy a REST quickstart to Fabric8 and how to publish it as a Public Service on the Apiman Gateway protect by Simple Authentication.
 
 == Deploy a REST based service to Fabric8
+When Fabric8 is running follow these steps to deploy the CXFCDI quickstart
+....
+git clone https://github.com/fabric8io/ipaas-quickstarts
+cd ipaas-quickstarts/quickstarts
+mvn install
+cd java/cxf-cdi/
+mvn clean install fabric8:json docker:build  fabric8:apply
+....
+When the build succeeds the CXFCDI service appears in the http://fabric8.vagrant.f8 console.
