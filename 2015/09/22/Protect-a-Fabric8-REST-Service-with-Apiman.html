@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Protect a Fabric8 REST Service with Apiman</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//KurtStam.github.io/themes/ichi/favicon.ico">
+
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/fastclick.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/modernizr.js?v=1.0.0"></script>
+
+   
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/normalize.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/foundation.min.css?v=1.0.0" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/outdatedBrowser.min.css?v=1.0.0">
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/fonts/foundation-icons/foundation-icons.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/styles.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,700,400|Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="hubpress/styles/asciidoctor.css" />
+    <link rel="canonical" href="https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html" />
+    
+    <meta property="og:site_name" content="Fresh Espresso &amp; Open Source Cloud" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Protect a Fabric8 REST Service with Apiman" />
+    <meta property="og:description" content="Apiman is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. Fabric8 is cloud infrastructure build on Kubernetes and Docker. Please follow these steps to get..." />
+    <meta property="og:url" content="https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html" />
+    <meta property="article:published_time" content="2015-09-22T04:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-09-22T17:10:12.974Z" />
+    <meta property="article:tag" content="Api Management" />
+    <meta property="article:tag" content="Fabric8" />
+    <meta property="article:tag" content="Policies" />
+    <meta property="article:tag" content="REST" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Protect a Fabric8 REST Service with Apiman" />
+    <meta name="twitter:description" content="Apiman is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. Fabric8 is cloud infrastructure build on Kubernetes and Docker. Please follow these steps to get..." />
+    <meta name="twitter:url" content="https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Fresh Espresso &amp; Open Source Cloud",
+    "author": {
+        "@type": "Person",
+        "name": "Kurt Stam",
+        "image": "https://avatars.githubusercontent.com/u/35576?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": null
+    },
+    "headline": "Protect a Fabric8 REST Service with Apiman",
+    "url": "https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html",
+    "datePublished": "2015-09-22T04:00:00.000Z",
+    "dateModified": "2015-09-22T17:10:12.974Z",
+    "keywords": "Api Management,  Fabric8,  Policies,  REST",
+    "description": "Apiman is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. Fabric8 is cloud infrastructure build on Kubernetes and Docker. Please follow these steps to get..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="Fresh Espresso &amp; Open Source Cloud" href="https://KurtStam.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-Api-Management tag-Fabric8 tag-Policies tag-REST">
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdate" href="http://outdatedbrowser.com/">Update my browser now</a></p>
+</div>
+
+<nav class="top-bar hide-for-large-up" data-topbar >
+  <ul class="title-area">
+    <li class="name">
+
+    </li>
+    <li class="home"><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+    <li class="toggle-topbar"><a href="#" id="trigger-overlay" class="fi-list"></a></li>
+  </ul>
+
+<div class="overlay overlay-scale">
+    <button type="button" class="overlay-close">Close</button>
+    <nav>
+        <ul>
+            <li><a href="https://KurtStam.github.io">Home</a></li>
+        </ul>
+    </nav>
+</div>
+
+</nav>
+
+<div class="row">
+
+<div class="small-16 medium-16 large-4 columns right head-area" >
+
+<header class="site-head">
+    <div class="vertical">
+        <div class="site-head-content inner">
+            <ul class="side-nav-ichi blog-menu show-for-large-up">
+                <li><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+                <li><a class="fi-torso" href="https://KurtStam.github.io/about"></a></li>
+                <li><a class="fi-mail" href="https://KurtStam.github.io/contact"></a></li>
+            </ul>
+            
+            <h1 class="blog-title">Fresh Espresso &amp; Open Source Cloud</h1>
+            <hr>
+            <p class="blog-description">I have a passion for all things open source. I live in Ipswich MA and work for Red Hat, on the fabric8 project. Fabric8 is cloud micro-services platform so you can deploy your applications to an all open source cloud. I kayak on the Atlantic Ocean along the coastal North East from Massachusetts to Maine whenever I can.</p>
+            <div class="blog-network">
+<!--                 <a href="#" class="fi-social-pinterest"></a>
+                <a href="#" class="fi-social-linkedin"></a>
+                <a href="#" class="fi-social-behance"></a>
+                <a href="#" class="fi-social-deviant-art"></a>
+                <a href="#" class="fi-social-dribbble"></a>
+                <a href="#" class="fi-social-flickr"></a>
+                <a href="#" class="fi-social-github"></a>
+                <a href="#" class="fi-social-skype"></a>
+                <a href="#" class="fi-social-snapchat"></a>
+                <a href="#" class="fi-social-steam"></a>
+                <a href="#" class="fi-social-xbox"></a>
+                <a href="#" class="fi-social-reddit"></a> -->
+                  <a href="kurt.stam@gmail.com" class="fi-social-google-plus"></a>
+                  <a href="kurtstam" class="fi-social-github"></a>
+                  <a href="kurtstam" class="fi-social-twitter"></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+</div>
+
+
+<div class="small-16 medium-16 large-12 columns main-column left">
+    
+
+<main class="content" role="main">
+
+    <article class="post tag-Api-Management tag-Fabric8 tag-Policies tag-REST">
+
+
+            <h1 class="post-title">Protect a Fabric8 REST Service with Apiman</h1>
+
+            <span class="post-meta label"><time datetime="2015-09-22">22 Sep 2015</time></span>
+
+            <section class="post-content">
+                <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Apiman</strong> is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers.
+<strong>Fabric8</strong> is cloud infrastructure build on Kubernetes and Docker. Please follow <a href="https://kurtstam.github.io/2015/09/22/Bleeding-edge-steps-to-Deploy-Apiman-to-Fabric8.html">these steps</a> to get Apiman running on Fabric8. In this post I will show you how to deploy a REST quickstart to Fabric8 and how to publish it as a Public Service on the Apiman Gateway protected by Simple Authentication.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_a_rest_based_service_to_fabric8">1. Deploy a REST based service to Fabric8</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When Fabric8 is running follow these steps to deploy the CXFCDI quickstart</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git clone https://github.com/fabric8io/ipaas-quickstarts
+cd ipaas-quickstarts/quickstarts
+mvn install
+cd java/cxf-cdi/
+mvn clean install fabric8:json docker:build  fabric8:apply</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the build succeeds the CXFCDI service appears in the <a href="http://fabric8.vagrant.f8" class="bare">http://fabric8.vagrant.f8</a> console as shown below</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/Fabric8CxfCdi.png" alt="Fabric8CxfCdi.png">
+</div>
+</div>
+<div class="paragraph">
+<div class="title">CxfCdi quickstart running on Fabric8.</div>
+<p>and you can access the endpoint in your browser at <a href="http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/" class="bare">http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/</a>, and <a href="http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/swagger.json" class="bare">http://quickstart-java-cxf-cdi.vagrant.f8/quickstart-java-cxf-cdi/cxfcdi/swagger.json</a> for the swagger definition.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/CxfCdi.png" alt="CxfCdi.png">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_publish_and_protect_the_cxfcdi_with_a_simple_authentication_policy_on_the_apiman_gateway">2. Publish and Protect the CxfCdi with a Simple Authentication Policy on the Apiman Gateway</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">CxfCdi service listing.</div>
+<p>In the real world you would not expose the cxfcdi endpoint shown above. Instead you would only expose the Apiman Gateway on your firewall, and you would only publish the services you&#8217;d want to expose publicly. So let&#8217;s go ahead and publish the CxfCdi service as a <em>Public Service</em>. A <strong>Public Service</strong> is a service that consumers can use without having a <em>Contract</em> in place. In this case all the&#8217;d need to have is a valid username/password combo.</p>
+</div>
+<div class="sect2">
+<h3 id="_add_your_organization">2.1. Add your Organization</h3>
+<div class="paragraph">
+<p>If you don&#8217;t have an Organization already create one now by navigating to the API Management tab and clicking <em>Create a new Organization</em>. Create your Organization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_import_services">2.2. Import Services</h3>
+<div class="paragraph">
+<p>Within your Organization select <em>Services</em> and then click on the little dropdown next to the <em>New Service</em> button. Click on the <em>Import Service</em> popup to enter the <em>Import Services</em> wizzard. This wizzards allows you to bulk import services. In the <em>Find Services</em> 'quickstart' to find the quickstarts in the current namespace (or '*' for all services in the namespace). Then select to add the <em>CxfCdi Quickstart</em>, and when select the 'Public Service' check box (For this it&#8217;s ok that we don&#8217;t have any plans setup). Then click <em>Finish</em> and your new Service should show up under the list of Services for your Organization. Go ahead and click on the CxfCdi Service.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_swagger_apidocs">2.3. Swagger apidocs</h3>
+<div class="paragraph">
+<p>The CxfCdi service publishes a swagger.json service definition file that was imported by Apiman.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_publish_cxfcxf_service_to_the_gateway">2.4. Publish CxfCxf Service to the Gateway</h3>
+<div class="paragraph">
+<p>At this point we really need to do is to <em>Publish</em> the service. So let&#8217;s click on the Publish button. On the leftnav will now appear an 'Endpoint' entry. YOu can select this to see the URL under which the Gateway has now published the service. This should something like <a href="http://quickstart-java-cxfcdi.vagrant.f8/gateway/KurtOrg/v1.0/" class="bare">http://quickstart-java-cxfcdi.vagrant.f8/gateway/KurtOrg/v1.0/</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_simple_auth_policy">2.5. Add Simple Auth Policy</h3>
+
+</div>
+</div>
+</div>
+                        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/Api-Management">Api Management</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/Policies"> Policies</a>, <a href="https://KurtStam.github.io/tag/REST"> REST</a></aside>
+            </section>
+            <hr>
+            <footer class="post-footer">
+
+                <section class="share">
+                    <h4>Liked this post ? Share it.</h4>
+                    <a class="fi-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    </a>
+                    <a class="fi-social-twitter" href="https://twitter.com/share?text=Protect%20a%20Fabric8%20REST%20Service%20with%20Apiman&amp;url=https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    </a>
+                    <a class="fi-social-google-plus" href="https://plus.google.com/share?url=https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    </a>
+                </section>
+
+                <section class="author">
+                    <header>
+                        <span>About the author</span>
+                    </header>
+                    <section>
+                        <h4>Kurt Stam</h4>
+                        <img src="https://avatars.githubusercontent.com/u/35576?v=3">
+                        
+                        
+                    </section>
+                    <footer>
+                         <p></p>
+                    </footer>
+                </section>
+
+        <div class="clearfix"></div>
+                    <hr>
+
+            </footer>
+
+        <h3 class="title-disqus"><span class="fi-comments"></span>Discussions</h3>
+
+
+
+
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'kurtstamgithubio'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+</main>
+
+</div>
+
+</div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/outdatedBrowser.min.js?v=1.0.0"></script>
+    <![endif]-->
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/min/built.js?v=1.0.0"></script>
+
+    <script>
+      $(document).foundation();
+    </script>
+
+</body>
+</html>
