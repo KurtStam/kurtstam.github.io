@@ -8,7 +8,7 @@
 === Obtain the Fabric8 installer
 This first step is specfic to OSX, if you are running something else it maybe slightly different. In that case please check http://fabric8.io/guide/getStarted/vagrant.html
 ....
-git clone git@github.com:fabric8io/fabric8-installer.git
+git clone https@github.com/fabric8io/fabric8-installer.git
 cd fabric8-installer/vagrant/openshift
 vagrant plugin install landrush
 ....
@@ -39,7 +39,7 @@ Grab version 1.0.6 or newer, from https://github.com/openshift/origin/releases. 
 === Check out the iPaas repo
 Already Fabric8 supports a lot applications. If you would run all these applications, you would quickly swamp your machine. So by default Fabric8 ships with a minimal set of applications. In this case we are going to run Apiman, so we need to check out the fabric8-ipaas repo and run a maven install on that
 ....
-https://github.com/fabric8io/fabric8-ipaas
+git clone https://github.com/fabric8io/fabric8-ipaas
 cd fabric8-ipaas
 mvn install
 ....
