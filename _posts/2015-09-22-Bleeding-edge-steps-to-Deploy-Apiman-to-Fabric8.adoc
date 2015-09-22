@@ -74,6 +74,8 @@ mvn clean install fabric8:json docker:build  fabric8:apply
 In the fabric8-console nativate to the Admin portal and click on 'Manage Gateway/New Gateway' to add this new gateway, and for the configuration endpoint use:
 _http://apiman-gateway.vagrant.f8/api/_ and creds _admin/admin123!_. Then to click on 'Test Gateway' to make sure apiman can connect to the apiman-gateway.
 image::AddGateway.png[]
+[caption="Figure 1: "]
+.Adding the Gateway to Apiman.
 
 === Conclusion
 You now have Apiman running on Fabric8 and are ready to publish services to the Apiman Gateway. I will be talking about this in my next post so stay tuned!
