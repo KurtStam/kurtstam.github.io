@@ -1,12 +1,52 @@
-= Steps to Deploy Apiman to Fabric8 on Vagrant
+= Steps to Deploy Apiman to Fabric8 on Vagrant and OSX
 :hp-tags: Apiman, Fabric8
 :numbered:
 
-. Obtain the Fabric8 installer
-----
+Fabric8 is cloud infrastructure build on Kubernetes and DOcker. Fabric8 is fun to work with but Fabric8 is a fast moving train! If you want to be on it you need to hold on tight. In this post I list the minimal steps to get Apiman running on Fabric with the latest code. I'm assuming you have recent versions of Git, Java, Maven and Virtual Box installed your machine. If you do, then the following steps will get you up and running with Apiman on Fabric8.
+
+=== Obtain the Fabric8 installer
+The following steps are for OSX, if you are running something else check with http://fabric8.io/guide/getStarted/vagrant.html
+....
 git clone git@github.com:fabric8io/fabric8-installer.git
-----
-. Obtain and install the OpenShift client tools, version 1.0.6 or newer, from https://github.com/openshift/origin/releases. Pick the archive with platform architecture right for your machine and simply extract and copy them to a location so that they are on your PATH.
-. 
+cd fabric8-installer/vagrant/openshift
+vagrant plugin install landrush
+....
+Edit the Vagrant file so that you give about half your machine's hardware to the virtual machine you are about to build. For me this is
+....
+v.memory = 4096
+v.cpus = 2
+....
+Now you are ready to launch the fabric8 vm using
+....
+vagrant up
+....
+Depending on how fast your machine and internet connection is, this will take at least 20 minutes. 
+Don't for get to set the following environment variables
+....
+export KUBERNETES_DOMAIN=vagrant.f8
+export DOCKER_HOST=tcp://vagrant.f8:2375
+....
+So while this is going we can continue installing the client tooling. 
+
+=== Obtain and install the OpenShift client tools
+Grab version 1.0.6 or newer, from https://github.com/openshift/origin/releases. Pick the archive with platform architecture right for your machine and simply extract and copy them to a location so that they are on your PATH.
+
+=== Check out the iPaas and Quickstarts repo
+Already Fabric8 supports a lot applications. If you would run all these applications, you would quickly swamp your machine. So by default Fabric8 ships with a minimal set of applications. In this case we are going to run Apiman, so we need to check out the fabric8-ipaas repo and run a maven install on that
+....
+https://github.com/fabric8io/fabric8-ipaas
+cd fabric8-ipaas
+mvn install
+....
+and we also should check out the quickstarts repo
+....
+https://github.com/fabric8io/ipaas-quickstarts
+cd ipaas-quickstarts
+cd quikcstarts
+mvn install
+....
+
+=== 
+
 
 
