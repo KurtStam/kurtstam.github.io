@@ -1,0 +1,8 @@
+= Protect a Fabric8 REST Service with Apiman
+:hp-tags: Api Management, Fabric8, Policies, REST
+:numbered:
+
+*Apiman* is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. 
+*Fabric8* is cloud infrastructure build on Kubernetes and Docker. Please follow https://kurtstam.github.io/2015/09/22/Bleeding-edge-steps-to-Deploy-Apiman-to-Fabric8.html[these steps] to get Apiman running on Fabric8. In this post I will show you how to deploy a REST quickstart to Fabric8 and how to publish it as a Public Service on the Apiman Gateway protect by Simple Authentication.
+
+== Deploy a REST based service to Fabric8
