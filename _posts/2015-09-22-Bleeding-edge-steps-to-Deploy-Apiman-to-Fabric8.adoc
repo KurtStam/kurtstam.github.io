@@ -66,6 +66,10 @@ mvn clean install fabric8:json docker:build  fabric8:apply
 ....
 This will start the Apiman Service and it will active the _Api Management_ tab in the fabric8 console.
 
+image::Fabric8Apiman.png[]
+[caption="Figure 1: "]
+.Apiman on Fabric8.
+
 === Run the Apiman-Gateway
 Go into the fabric8-ipaas/apiman-gateway directory and run
 ....
@@ -75,7 +79,7 @@ In the fabric8-console nativate to the Admin portal and click on 'Manage Gateway
 _http://apiman-gateway.vagrant.f8/api/_ and creds _admin/admin123!_. Then to click on 'Test Gateway' to make sure apiman can connect to the apiman-gateway.
 
 image::AddGateway.png[]
-[caption="Figure 1: "]
+[caption="Figure 2: "]
 .Adding the Gateway to Apiman.
 
 === Conclusion
