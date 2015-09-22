@@ -36,18 +36,11 @@ So while this is going we can continue installing the client tooling.
 === Obtain and install the OpenShift client tools
 Grab version 1.0.6 or newer, from https://github.com/openshift/origin/releases. Pick the archive with platform architecture right for your machine and simply extract and copy them to a location so that they are on your PATH.
 
-=== Check out the iPaas and Quickstarts repo
+=== Check out the iPaas repo
 Already Fabric8 supports a lot applications. If you would run all these applications, you would quickly swamp your machine. So by default Fabric8 ships with a minimal set of applications. In this case we are going to run Apiman, so we need to check out the fabric8-ipaas repo and run a maven install on that
 ....
 https://github.com/fabric8io/fabric8-ipaas
 cd fabric8-ipaas
-mvn install
-....
-and we also should check out the quickstarts repo
-....
-https://github.com/fabric8io/ipaas-quickstarts
-cd ipaas-quickstarts
-cd quikcstarts
 mvn install
 ....
 
@@ -80,6 +73,7 @@ mvn clean install fabric8:json docker:build  fabric8:apply
 ....
 In the fabric8-console nativate to the Admin portal and click on 'Manage Gateway/New Gateway' to add this new gateway, and for the configuration endpoint use:
 _http://apiman-gateway.vagrant.f8/api/_ and creds _admin/admin123!_. Then to click on 'Test Gateway' to make sure apiman can connect to the apiman-gateway.
+image::AddGateway.png[]
 
 === Conclusion
 You now have Apiman running on Fabric8 and are ready to publish services to the Apiman Gateway. I will be talking about this in my next post so stay tuned!
