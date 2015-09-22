@@ -3,7 +3,7 @@
 :numbered:
 
 *Apiman* is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. 
-*Fabric8* is cloud infrastructure build on Kubernetes and Docker. Please follow https://kurtstam.github.io/2015/09/22/Bleeding-edge-steps-to-Deploy-Apiman-to-Fabric8.html[these steps] to get Apiman running on Fabric8. In this post I will show you how to deploy a REST quickstart to Fabric8 and how to publish it as a Public Service on the Apiman Gateway protect by Simple Authentication.
+*Fabric8* is cloud infrastructure build on Kubernetes and Docker. Please follow https://kurtstam.github.io/2015/09/22/Bleeding-edge-steps-to-Deploy-Apiman-to-Fabric8.html[these steps] to get Apiman running on Fabric8. In this post I will show you how to deploy a REST quickstart to Fabric8 and how to publish it as a Public Service on the Apiman Gateway protected by Simple Authentication.
 
 == Deploy a REST based service to Fabric8
 When Fabric8 is running follow these steps to deploy the CXFCDI quickstart
@@ -27,5 +27,12 @@ image::CxfCdi.png[]
 .CxfCdi service listing.
 
 == Publish and Protect the CxfCdi with a Simple Authentication Policy on the Apiman Gateway
+In the real world you would not expose the cxfcdi endpoint shown above. Instead you would only expose the Apiman Gateway on your firewall, and you would only publish the services you'd want to expose publicly. So let's go ahead and publish the CxfCdi service as a _Public Service_. A *Public Service* is a service that consumers can use without having a _Contract_ in place. In this case all the'd need to have is a valid username/password combo. 
+
+=== Add your Organization
+If you don't have an Organization already create one now by navigating to the API Management tab and clicking _Create a new Organization_. Create your Organization.
+
+=== Import Services
+Within your Organization select _Services_ and then click on the little dropdown next to the _New Service_ button. Click on the _Import Service_ popup to enter the _Import Services_ wizzard. This wizzards allows you to bulp import services. In the _Find Services_ search box type '*' to find all services in the current namespace in Kubernetes. Then select to add the _CxfCdi Quickstart_, and when select the 'public service' check box (For this it's ok that we don't have any plans setup). The click _Finish_.
 
 
