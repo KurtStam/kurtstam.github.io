@@ -3,12 +3,12 @@
 :numbered:
 
 *Apiman* is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. 
-*Fabric8* is cloud infrastructure build on Kubernetes and Docker. Fabric8 is fun to work with but Fabric8 is a fast moving train! If you want to be on it you need to hold on tight. In this post I list the minimal steps to get Apiman running on Fabric with the latest code. I'm assuming you have recent versions of Git, Java, Maven and Virtual Box installed your machine. If you do, then the following steps will get you up and running with Apiman on Fabric8 on Vagrant and OSX.
+*Fabric8* is cloud infrastructure build on Kubernetes and Docker. Fabric8 is fun to work with but Fabric8 is a fast moving train! If you want to be on it you need to hold on tight. In this post I list the minimal steps to get Apiman running on Fabric with the latest code. I'm assuming you have recent versions of Git, Java, Maven and VirtualBox installed your machine. If you do, then the following steps will get you up and running with Apiman on Fabric8 on Vagrant and OSX.
 
 === Obtain the Fabric8 installer
 This first step is specfic to OSX, if you are running something else it maybe slightly different. In that case please check http://fabric8.io/guide/getStarted/vagrant.html
 ....
-git clone https@github.com/fabric8io/fabric8-installer.git
+git clone https://github.com/fabric8io/fabric8-installer.git
 cd fabric8-installer/vagrant/openshift
 vagrant plugin install landrush
 ....
@@ -22,7 +22,7 @@ Now you are ready to launch the fabric8 vm using
 vagrant up
 ....
 Depending on how fast your machine and internet connection is, this will take at least 20 minutes. 
-Don't for get to set the following environment variables
+Don't forget to set the following environment variables
 ....
 export KUBERNETES_TRUST_CERT=true
 export DOCKER_IP=172.28.128.4
@@ -57,7 +57,7 @@ Before we can install Apiman we need to have ElasticSearch running as the Storag
 mvn install -DartifactId=elasticsearch -Dfabric8.version=<version>
 ....
 
-Currently we are at fabric8.version 1.2.28.
+Currently we are at fabric8.version 2.2.28. 
 
 === Run Apiman
 Go into the fabric8-ipaas/apiman directory and run
