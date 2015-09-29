@@ -1,5 +1,5 @@
 = Protect a Fabric8 REST Service with Apiman
-:hp-tags: Api Management, Fabric8, Policies, REST
+:hp-tags: API Management, Fabric8, Policies, REST
 :numbered:
 
 *Apiman* is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. 
