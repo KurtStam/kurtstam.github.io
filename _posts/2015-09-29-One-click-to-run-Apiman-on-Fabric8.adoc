@@ -10,6 +10,7 @@ If you already have fabric8 running you can skip to 'Run Apiman'.
 == Install Fabric8
 
 === Obtain the Fabric8 installer
+
 This first step is specfic to OSX, if you are running something else it maybe slightly different. In that case please check http://fabric8.io/guide/getStarted/vagrant.html
 ....
 git clone https://github.com/fabric8io/fabric8-installer.git
@@ -25,10 +26,10 @@ Now you are ready to launch the fabric8 vm using
 ....
 vagrant up
 ....
-Depending on how fast your machine and internet connection is, this will take at least 20 minutes. 
+Depending on how fast your machine and internet connection is, this takes 20 minutes or so. 
 Don't forget to set the following environment variables
 ....
-export KUBERNETES_TRUST_CERT=true
+export KUBERNETES_TRUST_CERTIFICATE=true
 export DOCKER_IP=172.28.128.4
 export DOCKER_HOST=tcp://172.28.128.4:2375
 export KUBERNETES_MASTER=https://172.28.128.4:8443
@@ -54,8 +55,7 @@ It will redirect to the Openshift Login screen on secure screen. The certificate
 In the fabric8 console navigate to the apps in your namespace and click the green 'Run' button
 
 image::runbutton.png[]
-[caption="Figure 1: "]
-.Run Button
+.Run Button.
 
 
 === Launch Apiman
