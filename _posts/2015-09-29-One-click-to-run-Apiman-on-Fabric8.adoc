@@ -5,4 +5,64 @@
 *Apiman* is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. 
 *Fabric8* is cloud infrastructure build on Kubernetes and Docker.
 
- 
+If you already have fabric8 running you can skip to 'Run Apiman'.
+
+== Install Fabric8
+
+=== Obtain the Fabric8 installer
+This first step is specfic to OSX, if you are running something else it maybe slightly different. In that case please check http://fabric8.io/guide/getStarted/vagrant.html
+....
+git clone https://github.com/fabric8io/fabric8-installer.git
+cd fabric8-installer/vagrant/openshift
+vagrant plugin install landrush
+....
+Edit the Vagrant file so that you give about half your machine's hardware to the virtual machine you are about to build. For me this is
+....
+v.memory = 4096
+v.cpus = 2
+....
+Now you are ready to launch the fabric8 vm using
+....
+vagrant up
+....
+Depending on how fast your machine and internet connection is, this will take at least 20 minutes. 
+Don't forget to set the following environment variables
+....
+export KUBERNETES_TRUST_CERT=true
+export DOCKER_IP=172.28.128.4
+export DOCKER_HOST=tcp://172.28.128.4:2375
+export KUBERNETES_MASTER=https://172.28.128.4:8443
+export KUBERNETES_DOMAIN=vagrant.f8
+export KUBERNETES_NAMESPACE=default
+....
+So while this is going we can continue installing the client tooling. 
+
+=== Obtain and install the OpenShift client tools
+Grab version 1.0.6 or newer, from https://github.com/openshift/origin/releases. Pick the archive with platform architecture right for your machine and simply extract and copy them to a location so that they are on your PATH.
+
+=== Open the Fabric8 Console
+Once the vagrant install completes we can open the fabric8-console at 
+....
+http://fabric8.vagrant.f8/
+....
+It will redirect to the Openshift Login screen on secure screen. The certificate on this screen is self signed, so you will have to accept certificate. Try Chrome if you have issues with this.
+
+== Run Apiman
+
+=== Navigate to the 'Apps' 
+
+image::runbutton.png[]
+[caption="Figure 1: "]
+.Run... Button.
+
+=== Select Apiman
+
+image::runapiman.png[]
+[caption="Figure 2: "]
+.Run Apiman.
+
+This will start ElasticSearch, Apiman and the Apiman Gateway.
+
+== Conclusion
+There is now new 'App Group' that gets you going with API Management on Fabric8 with one click.
+
