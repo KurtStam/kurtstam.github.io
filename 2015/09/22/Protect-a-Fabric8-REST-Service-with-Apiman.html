@@ -34,7 +34,7 @@
     <meta property="og:description" content="Apiman is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. Fabric8 is cloud infrastructure build on Kubernetes and Docker. Please follow these steps to get..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html" />
     <meta property="article:published_time" content="2015-09-22T04:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-09-29T14:41:36.641Z" />
+    <meta property="article:modified_time" content="2015-09-29T14:44:51.202Z" />
     <meta property="article:tag" content="Api Management" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Policies" />
@@ -60,7 +60,7 @@
     "headline": "Protect a Fabric8 REST Service with Apiman",
     "url": "https://KurtStam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html",
     "datePublished": "2015-09-22T04:00:00.000Z",
-    "dateModified": "2015-09-29T14:41:36.641Z",
+    "dateModified": "2015-09-29T14:44:51.202Z",
     "keywords": "Api Management,  Fabric8,  Policies,  REST",
     "description": "Apiman is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. Fabric8 is cloud infrastructure build on Kubernetes and Docker. Please follow these steps to get..."
 }
@@ -266,7 +266,7 @@ Then select to add the <em>CxfCdi Quickstart</em>, and when select the 'Public S
 </div>
 </div>
 <div class="sect1">
-<h2 id="_protect_the_cxfcdi_service_with_a_simple_authentication_policy">3. Protect the CxfCdi service with a Simple Authentication Policy</h2>
+<h2 id="_protect_the_cxfcdi_service_with_a_policies">3. Protect the CxfCdi service with a Policies</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>We now have a the service published on gateway however it is still not protected in any way! We need to add an authentication policy to make this happen. Since the service is already published we need to create a new version of this service in Apiman. So let&#8217;s create version 1.1.</p>
@@ -342,7 +342,7 @@ Then select to add the <em>CxfCdi Quickstart</em>, and when select the 'Public S
 </div>
 </div>
 <div class="paragraph">
-<p>This condition will be cleared when you wait 19 more seconds.</p>
+<p>This condition will be cleared when you wait 19 more seconds. Don&#8217;t for get to retire version 1.1 of the service (unless you have a good reason not to).</p>
 </div>
 </div>
 </div>
@@ -351,7 +351,13 @@ Then select to add the <em>CxfCdi Quickstart</em>, and when select the 'Public S
 <h2 id="_conclusion">4. Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We&#8217;ve shown how to publish a service on the gateway and how to apply policies. We&#8217;ve applied both a Basic Auth and a Rate limiting Policy.</p>
+<p>We&#8217;ve shown how to publish a service on the gateway and how to apply policies. We&#8217;ve applied both a Basic Auth and a Rate limiting Policy. The service in question was published as a <em>Public Service</em> which means it does not discriminate application of te policies based on 'who is calling'. If you do need to discriminate then you will need to set up Plans and Contracts. We will talk about that in a differnet post so stay tuned!</p>
+</div>
+<div class="paragraph">
+<p>Cheers,</p>
+</div>
+<div class="paragraph">
+<p>--Kurt</p>
 </div>
 </div>
 </div>
