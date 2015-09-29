@@ -9,9 +9,7 @@
 When Fabric8 is running follow these steps to deploy the CXFCDI quickstart
 ....
 git clone https://github.com/fabric8io/ipaas-quickstarts
-cd ipaas-quickstarts/quickstarts
-mvn install
-cd java/cxf-cdi/
+cd ipaas-quickstarts/quickstarts/java/cxf-cdi/
 mvn clean install fabric8:json docker:build  fabric8:apply
 ....
 When the build succeeds the CXFCDI service appears in the http://fabric8.vagrant.f8 console as shown below
@@ -27,19 +25,45 @@ image::CxfCdi.png[]
 .CxfCdi service listing.
 
 == Publish the CxfCdi service to the Apiman Gateway
-In the real world you would not expose the cxfcdi endpoint shown above. Instead you would only expose the Apiman Gateway on your firewall, and you would only publish the services you'd want to expose publicly. So let's go ahead and publish the CxfCdi service as a _Public Service_. A *Public Service* is a service that consumers can use without having a _Contract_ in place. In this case all the'd need to have is a valid username/password combo. 
+You may notice there is no authentication required to use this REST service. The easiest way to add security or any other policies is to 
+publish the service to the Apiman Gateway and to expose the gateway on your firewall. So let's go ahead and publish the CxfCdi service as a _Public Service_. A *Public Service* is a service that consumers can use without having a _Contract_ in place.
 
 === Add your Organization
 If you don't have an Organization already create one now by navigating to the API Management tab and clicking _Create a new Organization_. Create your Organization.
 
 === Import Services
-Within your Organization select _Services_ and then click on the little dropdown next to the _New Service_ button. Click on the _Import Service_ popup to enter the _Import Services_ wizzard. This wizzards allows you to bulk import services. In the _Find Services_ 'quickstart' to find the quickstarts in the current namespace (or '*' for all services in the namespace). Then select to add the _CxfCdi Quickstart_, and when select the 'Public Service' check box (For this it's ok that we don't have any plans setup). Then click _Finish_ and your new Service should show up under the list of Services for your Organization. Go ahead and click on the CxfCdi Service.
+Within your Organization select _Services_ and then click on the little dropdown next to the _New Service_ button. Click on the _Import Service_ popup to enter the _Import Services_ wizzard. 
+
+image::import.png[]
+[caption="Figure 3: "]
+.Service import.
+
+This wizzards allows you to bulk-import service endpoints by doing a lookup in Kubernetes. At this point it is worth mentioning that the following Kubernetes Service Annotations are used to find the service and swagger endpoint, which are defined as properties in the service pom (More on that in a different blog post):
+....
+<fabric8.annotations.service.servicePath>quickstart-java-cxf-cdi/cxfcdi</fabric8.annotations.service.servicePath>
+<fabric8.annotations.service.protocol>REST</fabric8.annotations.service.protocol>
+<fabric8.annotations.service.descriptionPath>quickstart-java-cxf-cdi/cxfcdi/swagger.json</fabric8.annotations.service.descriptionPath>
+<fabric8.annotations.service.descriptionType>SwaggerJSON</fabric8.annotations.service.descriptionType>
+....
+
+In the _Find Services_ searchbox type 'quickstart' to find the quickstarts in the current namespace (or '*' for all services in the namespace). 
+Then select to add the _CxfCdi Quickstart_, and when select the 'Public Service' check box (For this it's ok that we don't yet have any plans setup). Then click _Finish_ and your new Service should show up under the list of Services for your Organization. Go ahead and click on the CxfCdi Service. You should now see that it found the service endpoint of our service in the implementation tab
+
+image::service-implementation.png[]
+[caption="Figure 4: "]
+.Service implementation.
 
 === Swagger apidocs
-The CxfCdi service publishes a swagger.json service definition file that was imported by Apiman. 
+As mentioned above the CxfCdi service publishes a swagger.json service definition and this document that was imported by Apiman as shown in below
+
+image::service-definition.png[]
+[caption="Figure 5: "]
+.Service definition.
+
+This swagger document will be used to build the swagger editor page in Apiman. 
 
 === Publish CxfCxf Service to the Gateway
-At this point we really need to do is to _Publish_ the service. So let's click on the Publish button. On the leftnav will now appear an 'Endpoint' entry. YOu can select this to see the URL under which the Gateway has now published the service. This should something like http://quickstart-java-cxfcdi.vagrant.f8/gateway/KurtOrg/v1.0/
+At this point all we really need to do is to _Publish_ the service to the gateway. So let's click on the Publish button. On the leftnav will now appear an 'Endpoint' entry. You can select this to see the URL under which the Gateway has now published the service. This should something like http://quickstart-java-cxfcdi.vagrant.f8/gateway/KurtOrg/v1.0/
 
 == Protect the CxfCdi service with a Simple Authentication Policy 
 
