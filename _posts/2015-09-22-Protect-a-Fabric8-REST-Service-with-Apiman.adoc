@@ -60,18 +60,23 @@ image::service-definition.png[]
 [caption="Figure 5: "]
 .Service definition.
 
-This swagger document will be used to build the swagger editor page in Apiman. 
+This swagger document is used to build the swagger editor page in Apiman. 
 
 === Publish CxfCxf Service to the Gateway
-At this point all we really need to do is to _Publish_ the service to the gateway. So let's click on the Publish button. On the leftnav will now appear an 'Endpoint' entry. You can select this to see the URL under which the Gateway has now published the service. This should something like http://quickstart-java-cxfcdi.vagrant.f8/gateway/KurtOrg/v1.0/
+At this point all we really need to do is to _Publish_ the service to the gateway. So let's click on the Publish button. In the leftnav an  'Endpoint' tab will now appear. This shows the URL under which the Gateway has now published the service. This should something like http://quickstart-java-cxfcdi.vagrant.f8/gateway/KurtOrg/v1.0/
 
 == Protect the CxfCdi service with a Simple Authentication Policy 
-
+We now have a the service published on gateway however it is still not protected in any way. We need to add an authentication policy to make this happen. Since the service is already published we need to create a new version of this service in Apiman. So let's create version 1.1.
 
 === Add Simple Auth Policy
+Under version 1.1 we on _Policies_ tab we can now click on the _Add Policy_ button. On the policy screen select the _BASIC Authentication Policy_ and for the realm set 'quickstart', set a check in  and select a 'Static' identity source. Finally type 'admin' in the Username and Password box and click 'Add' and 'Add Policy'. Now you should have a _BASIC Authentication Policy_.
+
+image::service-policy.png[]
+[caption="Figure 6: "]
+.Service policy.
 
 === Publish version 1.1
-
+Finally if we publish this se
 
 == Conclusion
 
