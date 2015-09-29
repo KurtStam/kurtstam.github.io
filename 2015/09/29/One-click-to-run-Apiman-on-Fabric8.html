@@ -34,7 +34,7 @@
     <meta property="og:description" content="Apiman is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. Fabric8 is cloud infrastructure build on Kubernetes and Docker. If you already have fabric8 running..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/09/29/One-click-to-run-Apiman-on-Fabric8.html" />
     <meta property="article:published_time" content="2015-09-29T04:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-09-29T16:46:25.226Z" />
+    <meta property="article:modified_time" content="2015-09-29T16:49:00.978Z" />
     <meta property="article:tag" content="Api Management" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Install" />
@@ -59,7 +59,7 @@
     "headline": "One click to run Apiman on Fabric8",
     "url": "https://KurtStam.github.io/2015/09/29/One-click-to-run-Apiman-on-Fabric8.html",
     "datePublished": "2015-09-29T04:00:00.000Z",
-    "dateModified": "2015-09-29T16:46:25.226Z",
+    "dateModified": "2015-09-29T16:49:00.978Z",
     "keywords": "Api Management,  Fabric8,  Install",
     "description": "Apiman is a API Management application that help you add policies to your service and set up and enforce contracts between service producers and consumers. Fabric8 is cloud infrastructure build on Kubernetes and Docker. If you already have fabric8 running..."
 }
@@ -235,8 +235,6 @@ export KUBERNETES_NAMESPACE=default</pre>
 <div class="sect1">
 <h2 id="_run_apiman">2. Run Apiman</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_navigate_to_the_apps">2.1. Navigate to the 'Apps'</h3>
 <div class="paragraph">
 <p>In the fabric8 console navigate to the apps in your namespace and click the green 'Run' button</p>
 </div>
@@ -245,9 +243,6 @@ export KUBERNETES_NAMESPACE=default</pre>
 <img src="/images/runbutton.png" alt="runbutton.png">
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_launch_apiman">2.2. Launch Apiman</h3>
 <div class="paragraph">
 <div class="title">Run Button.</div>
 <p>Click to run the Apiman App group.</p>
@@ -260,7 +255,6 @@ export KUBERNETES_NAMESPACE=default</pre>
 <div class="paragraph">
 <div class="title">Run Apiman.</div>
 <p>This will start ElasticSearch, Apiman and the Apiman Gateway. Check out the Apps screen and see all these applications starting up. Note that at the moment we have one known issue which is a race condition between Apiman and ElasticSearch starting up. In some cases you may have to kill the Apiman pod to get around this.</p>
-</div>
 </div>
 </div>
 </div>
