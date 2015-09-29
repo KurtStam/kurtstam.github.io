@@ -116,7 +116,7 @@ On this screen you can also changes the order in which these policies are applie
 }
 ....
 
-This condition will be cleared when you wait a minute.
+This condition will be cleared when you wait 19 more seconds.
 
 == Conclusion
 
