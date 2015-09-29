@@ -51,12 +51,11 @@ It will redirect to the Openshift Login screen on secure screen. The certificate
 
 === Navigate to the 'Apps' 
 
-In the fabric8 console navigate to the apps in your namespace and click the green 'Run...' button
+In the fabric8 console navigate to the apps in your namespace and click the green 'Run' button
 
 image::runbutton.png[]
 [caption="Figure 1: "]
-.Run Button
-
+.Run Button.
 
 === Select Apiman
 
@@ -64,7 +63,7 @@ Click to run the Apiman App group.
 
 image::runapiman.png[]
 [caption="Figure 2: "]
-.Run Apiman
+.Run Apiman.
 
 This will start ElasticSearch, Apiman and the Apiman Gateway. Check out the Apps screen and see all these applications starting up. At the moment we have one known issue which is a race condition between Apiman and ElasticSearch starting up. In some cases you may have to kill the Apiman pod to get around this.
 
