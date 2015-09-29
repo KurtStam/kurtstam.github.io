@@ -52,6 +52,7 @@ It will redirect to the Openshift Login screen on secure screen. The certificate
 === Navigate to the 'Apps' 
 
 In the fabric8 console navigate to the apps in your namespace. The click the green 'Run...' button.
+
 image::runbutton.png[]
 [caption="Figure 1: "]
 .Run... Button.
