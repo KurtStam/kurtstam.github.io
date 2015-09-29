@@ -55,10 +55,10 @@ In the fabric8 console navigate to the apps in your namespace and click the gree
 
 image::runbutton.png[]
 [caption="Figure 1: "]
-.Run Button.
+.Run Button
 
 
-=== Select Apiman
+=== Launch Apiman
 
 Click to run the Apiman App group.
 
