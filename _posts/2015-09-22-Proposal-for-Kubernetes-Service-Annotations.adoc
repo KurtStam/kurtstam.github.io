@@ -75,7 +75,7 @@ The example fragment is taken from the https://github.com/fabric8io/ipaas-quicks
 
 == Conclusion
 
-We're proposing the use to Kubernetes Service Annotations to make it easier for service consumers to discover the actual service(s) on an endpoint. This includes information about the service path, protocol, description document and description type. 
+We're proposing the use to Kubernetes Service Annotations to make it easier for service consumers to discover the actual service(s) on an endpoint. This includes information about the service path, protocol, description document and description type. Note we did not prefix the annotion keys with any 'domain/' as we hope that these annotations can be adopted a generic Kubernetes annotations as every service developer runs into these issues. 
 
 
 
