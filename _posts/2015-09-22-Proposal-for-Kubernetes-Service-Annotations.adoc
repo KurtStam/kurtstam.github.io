@@ -9,6 +9,9 @@
 * Service Description Type - A number of Definition Languages (DL) have been developed to describe the service. Some of examples are WSDL, WADL and Swagger. In order to consume a decription document it is good to know the type of DL used.
 
 == Proposal
+
+=== Single endpoint info
+
 Kubernetes allows the creation of http://kubernetes.io/v1.0/docs/user-guide/annotations.html[Service Annotations]. Here we propose the use of the following annotations
 
 * 'servicepath' - the path part of the service endpoint url. An example value could be 'quickstart-java-cxf-cdi/cxfcdi',
@@ -16,7 +19,7 @@ Kubernetes allows the creation of http://kubernetes.io/v1.0/docs/user-guide/anno
 * 'descriptionpath' - the path part of the service description document's endpoint. It is a pretty safe assumption that the service self documents. An example value for a swagger 2.0 document can be 'quickstart-java-cxf-cdi/cxfcdi/swagger.json',
 * 'descriptiontype' - the type of Description Language used. Example values can be 'WSDL', 'WADL', 'SwaggerJSON', 'SwaggerYAML'.
 
-In the fragment below this is put together in the service section of the kubernetes.json
+The fragment below is taken from the service section of the kubernetes.json were these annotations are used
 
 .... 
 ...
@@ -25,15 +28,54 @@ In the fragment below this is put together in the service section of the kuberne
     "kind" : "Service",
     "metadata" : {
       "annotations" : {
-        "prometheus.io/port" : "9779",
         "protocol" : "REST",
         "servicepath" : "quickstart-java-cxf-cdi/cxfcdi",
         "descriptionpath" : "quickstart-java-cxf-cdi/cxfcdi/swagger.json",
-        "prometheus.io/scrape" : "true",
         "descriptiontype" : "SwaggerJSON"
       },
 ...
 ....
-kkk
+
+=== Multiple endpoint infos
+
+There is one more use case we should consider which is that there can be multiple distinct services withing one service endpoint, for example http://172.100.1.52/service1 and http://172.100.1.52/service2. If this is the case we propose that you can name these different services by postfixing the annotation key with the name of the service.
+
+.... 
+...
+  "objects" : [ {
+    "apiVersion" : "v1",
+    "kind" : "Service",
+    "metadata" : {
+      "annotations" : {
+        "protocol.service1" : "REST",
+        "servicepath.service1" : "service1",
+        "descriptionpath.service1" : "service1/swagger.json",
+        "descriptiontype.service1" : "SwaggerJSON"
+        "protocol.service2" : "REST",
+        "servicepath.service2" : "service2",
+        "descriptionpath.service2" : "service2/swagger.json",
+        "descriptiontype.service2" : "SwaggerJSON"
+      },
+...
+....
+
+== Example using the maven-fabric8-plugin
+
+The maven fabric8 plugin supports defining service annotation properties in pom which then turn into Kubernetes service annotations. Each annotation simply needs to start with 'fabric8.annotations.service.'. The fragment below shows an example of its use
+
+....
+...
+<fabric8.annotations.service.servicePath>quickstart-java-cxf-cdi/cxfcdi</fabric8.annotations.service.servicePath>
+<fabric8.annotations.service.protocol>REST</fabric8.annotations.service.protocol>
+<fabric8.annotations.service.descriptionPath>quickstart-java-cxf-cdi/cxfcdi/swagger.json</fabric8.annotations.service.descriptionPath>
+<fabric8.annotations.service.descriptionType>SwaggerJSON</fabric8.annotations.service.descriptionType>
+...
+....
+The example fragment is taken from the https://github.com/fabric8io/ipaas-quickstarts/blob/v2.2.36/quickstart/cdi/cxf/pom.xml#L59-L62[CXFCDI quickstart]. Note that this information is used when this service is https://kurtstam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html [imported into the API Manager].
+
+== Conclusion
+
+We're proposing the use to Kubernetes Service Annotations to make it easier for service consumers to discover the actual service(s) on an endpoint. This includes information about the service path, protocol, description document and description type. 
+
 
 
