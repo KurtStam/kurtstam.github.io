@@ -71,7 +71,7 @@ The maven fabric8 plugin supports defining service annotation properties in pom 
 <fabric8.annotations.service.descriptionType>SwaggerJSON</fabric8.annotations.service.descriptionType>
 ...
 ....
-The example fragment is taken from the https://github.com/fabric8io/ipaas-quickstarts/blob/v2.2.36/quickstart/cdi/cxf/pom.xml#L59-L62[CXFCDI quickstart]. Note that this information is used when this service is https://kurtstam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html [imported into the API Manager].
+The example fragment is taken from the https://github.com/fabric8io/ipaas-quickstarts/blob/v2.2.36/quickstart/cdi/cxf/pom.xml#L59-L62[CXFCDI quickstart]. Note that this information is used when this service is https://kurtstam.github.io/2015/09/22/Protect-a-Fabric8-REST-Service-with-Apiman.html[imported into the API Manager].
 
 == Conclusion
 
