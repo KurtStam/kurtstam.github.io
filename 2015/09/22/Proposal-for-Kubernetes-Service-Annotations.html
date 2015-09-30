@@ -34,7 +34,7 @@
     <meta property="og:description" content="1. Problem description Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root &quot;/&quot; of the localtion URL, i.e. http://172.100.1.52/. There are cases where this..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html" />
     <meta property="article:published_time" content="2015-09-22T04:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-09-30T13:53:19.082Z" />
+    <meta property="article:modified_time" content="2015-09-30T14:18:17.776Z" />
     <meta property="article:tag" content="Kubernetes" />
     <meta property="article:tag" content="Fabric8" />
     
@@ -58,7 +58,7 @@
     "headline": "Proposal for Kubernetes Service Annotations.",
     "url": "https://KurtStam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html",
     "datePublished": "2015-09-22T04:00:00.000Z",
-    "dateModified": "2015-09-30T13:53:19.082Z",
+    "dateModified": "2015-09-30T14:18:17.776Z",
     "keywords": "Kubernetes,  Fabric8",
     "description": "1. Problem description Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root &quot;/&quot; of the localtion URL, i.e. http://172.100.1.52/. There are cases where this..."
 }
@@ -154,7 +154,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root "/" of the localtion URL, i.e. <a href="http://172.100.1.52/" class="bare">http://172.100.1.52/</a>. There are cases where this is not possible and the actual service endpoint could be located at <a href="http://172.100.1.52/quickstart-java-cxf-cdi/cxfcdi" class="bare">http://172.100.1.52/quickstart-java-cxf-cdi/cxfcdi</a>. The Kubernetes metadata for a service does not capture the path part, making it hard to consume this service.</p>
+<p>Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root "/" of the localtion URL, i.e. <a href="http://172.100.1.52/" class="bare">http://172.100.1.52/</a>. There are cases where this is not possible and the actual service endpoint could be located at <a href="http://172.100.1.52/cxfcdi" class="bare">http://172.100.1.52/cxfcdi</a>. The Kubernetes metadata for a service does not capture the path part, making it hard to consume this service.</p>
 </li>
 <li>
 <p>Service Type - Services use different protocols that clients need to speak in order to communicate with the service, some examples of service level protocols are SOAP, REST (Yes I know, technically REST isn&#8217;t a protocol but an architectural style). For service consumers it can be hard to tell what protocol is expected.</p>
@@ -180,13 +180,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>'servicepath' - the path part of the service endpoint url. An example value could be 'quickstart-java-cxf-cdi/cxfcdi',</p>
+<p>'servicepath' - the path part of the service endpoint url. An example value could be 'cxfcdi',</p>
 </li>
 <li>
 <p>'protocol' - the protocol of the service. Example values can be 'SOAP' or 'REST',</p>
 </li>
 <li>
-<p>'descriptionpath' - the path part of the service description document&#8217;s endpoint. It is a pretty safe assumption that the service self documents. An example value for a swagger 2.0 document can be 'quickstart-java-cxf-cdi/cxfcdi/swagger.json',</p>
+<p>'descriptionpath' - the path part of the service description document&#8217;s endpoint. It is a pretty safe assumption that the service self documents. An example value for a swagger 2.0 document can be 'cxfcdi/swagger.json',</p>
 </li>
 <li>
 <p>'descriptiontype' - the type of Description Language used. Example values can be 'WSDL', 'WADL', 'SwaggerJSON', 'SwaggerYAML'.</p>
@@ -205,8 +205,8 @@
     "metadata" : {
       "annotations" : {
         "protocol" : "REST",
-        "servicepath" : "quickstart-java-cxf-cdi/cxfcdi",
-        "descriptionpath" : "quickstart-java-cxf-cdi/cxfcdi/swagger.json",
+        "servicepath" : "cxfcdi",
+        "descriptionpath" : "cxfcdi/swagger.json",
         "descriptiontype" : "SwaggerJSON"
       },
 ...</pre>
@@ -250,9 +250,9 @@
 <div class="literalblock">
 <div class="content">
 <pre>...
-&lt;fabric8.annotations.service.servicePath&gt;quickstart-java-cxf-cdi/cxfcdi&lt;/fabric8.annotations.service.servicePath&gt;
+&lt;fabric8.annotations.service.servicePath&gt;cxfcdi&lt;/fabric8.annotations.service.servicePath&gt;
 &lt;fabric8.annotations.service.protocol&gt;REST&lt;/fabric8.annotations.service.protocol&gt;
-&lt;fabric8.annotations.service.descriptionPath&gt;quickstart-java-cxf-cdi/cxfcdi/swagger.json&lt;/fabric8.annotations.service.descriptionPath&gt;
+&lt;fabric8.annotations.service.descriptionPath&gt;cxfcdi/swagger.json&lt;/fabric8.annotations.service.descriptionPath&gt;
 &lt;fabric8.annotations.service.descriptionType&gt;SwaggerJSON&lt;/fabric8.annotations.service.descriptionType&gt;
 ...</pre>
 </div>
