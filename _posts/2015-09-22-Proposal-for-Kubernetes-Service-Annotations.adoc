@@ -3,10 +3,37 @@
 :numbered:
 
 == Problem description
-* Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root "/" of the localtion URL, i.e. http://172.100.1.52/. There are cases where this is not possible and the actual service endpoint could be located at http://172.100.1.52/myapp/myservices/service1. The Kubernetes metadata for a service does not capture this, making it hard to consume this service. 
+* Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root "/" of the localtion URL, i.e. http://172.100.1.52/. There are cases where this is not possible and the actual service endpoint could be located at http://172.100.1.52/quickstart-java-cxf-cdi/cxfcdi. The Kubernetes metadata for a service does not capture the path part, making it hard to consume this service. 
 * Service Type - Services use different protocols that clients need to speak in order to communicate with the service, some examples of service level protocols are SOAP, REST (Yes I know, technically REST isn't a protocol but an architectural style). For service consumers it can be hard to tell what protocol is expected.
 * Service Description URL - To facilitate the consumption of the service by client, the location this document would be greatly helpful to the service consumer. In some cases the client side code can be generated from such a document. At the moment it is time consuming to find this document.
 * Service Description Type - A number of Definition Languages (DL) have been developed to describe the service. Some of examples are WSDL, WADL and Swagger. In order to consume a decription document it is good to know the type of DL used.
 
 == Proposal
+Kubernetes allows the creation of http://kubernetes.io/v1.0/docs/user-guide/annotations.html[Service Annotations]. Here we propose the use of the following annotations
+
+* 'servicepath' - the path part of the service endpoint url. An example value could be 'quickstart-java-cxf-cdi/cxfcdi',
+* 'protocol' - the protocol of the service. Example values can be 'SOAP' or 'REST',
+* 'descriptionpath' - the path part of the service description document's endpoint. It is a pretty safe assumption that the service self documents. An example value for a swagger 2.0 document can be 'quickstart-java-cxf-cdi/cxfcdi/swagger.json',
+* 'descriptiontype' - the type of Description Language used. Example values can be 'WSDL', 'WADL', 'SwaggerJSON', 'SwaggerYAML'.
+
+In the fragment below this is put together in the service section of the kubernetes.json
+
+.... 
+...
+  "objects" : [ {
+    "apiVersion" : "v1",
+    "kind" : "Service",
+    "metadata" : {
+      "annotations" : {
+        "prometheus.io/port" : "9779",
+        "protocol" : "REST",
+        "servicepath" : "quickstart-java-cxf-cdi/cxfcdi",
+        "descriptionpath" : "quickstart-java-cxf-cdi/cxfcdi/swagger.json",
+        "prometheus.io/scrape" : "true",
+        "descriptiontype" : "SwaggerJSON"
+      },
+...
+....
+kkk
+
 
