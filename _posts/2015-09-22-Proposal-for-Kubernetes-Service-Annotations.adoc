@@ -1,4 +1,12 @@
-= New Post.
-:hp-tags: Api Management, Fabric8, Policies, REST
+= Proposal for Kubernetes Service Annotations.
+:hp-tags: Kubernetes, Fabric8
 :numbered:
+
+== Problem description
+* Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root "/" of the localtion URL, i.e. http://172.100.1.52/. There are cases where this is not possible and the actual service endpoint could be located at http://172.100.1.52/myapp/myservices/service1. The Kubernetes metadata for a service does not capture this, making it hard to consume this service. 
+* Service Type - Services use different protocols that clients need to speak in order to communicate with the service, some examples of service level protocols are SOAP, REST (Yes I know, technically REST isn't a protocol but an architectural style). For service consumers it can be hard to tell what protocol is expected.
+* Service Description URL - To facilitate the consumption of the service by client, the location this document would be greatly helpful to the service consumer. In some cases the client side code can be generated from such a document. At the moment it is time consuming to find this document.
+* Service Description Type - A number of Definition Languages (DL) have been developed to describe the service. Some of examples are WSDL, WADL and Swagger. In order to consume a decription document it is good to know the type of DL used.
+
+== Proposal
 
