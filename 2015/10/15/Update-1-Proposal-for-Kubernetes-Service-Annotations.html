@@ -31,16 +31,16 @@
     <meta property="og:site_name" content="Fresh Espresso &amp; Open Source Cloud" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Update 1: Proposal for Kubernetes Service Annotations." />
-    <meta property="og:description" content="1. Problem description Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root &quot;/&quot; of the localtion URL, i.e. http://172.100.1.52/. There are cases where this..." />
+    <meta property="og:description" content="1. Original proposal The original proposal can be found at https://kurtstam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html. This updated proposal incorporates feedback from https://github.com/kubernetes/kubernetes/issues/14828. 2. Problem description Servi..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/10/15/Update-1-Proposal-for-Kubernetes-Service-Annotations.html" />
     <meta property="article:published_time" content="2015-10-15T04:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-10-15T18:21:50.294Z" />
+    <meta property="article:modified_time" content="2015-10-15T18:25:17.888Z" />
     <meta property="article:tag" content="Kubernetes" />
     <meta property="article:tag" content="Fabric8" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Update 1: Proposal for Kubernetes Service Annotations." />
-    <meta name="twitter:description" content="1. Problem description Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root &quot;/&quot; of the localtion URL, i.e. http://172.100.1.52/. There are cases where this..." />
+    <meta name="twitter:description" content="1. Original proposal The original proposal can be found at https://kurtstam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html. This updated proposal incorporates feedback from https://github.com/kubernetes/kubernetes/issues/14828. 2. Problem description Servi..." />
     <meta name="twitter:url" content="https://KurtStam.github.io/2015/10/15/Update-1-Proposal-for-Kubernetes-Service-Annotations.html" />
     
     <script type="application/ld+json">
@@ -58,9 +58,9 @@
     "headline": "Update 1: Proposal for Kubernetes Service Annotations.",
     "url": "https://KurtStam.github.io/2015/10/15/Update-1-Proposal-for-Kubernetes-Service-Annotations.html",
     "datePublished": "2015-10-15T04:00:00.000Z",
-    "dateModified": "2015-10-15T18:21:50.294Z",
+    "dateModified": "2015-10-15T18:25:17.888Z",
     "keywords": "Kubernetes,  Fabric8",
-    "description": "1. Problem description Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root &quot;/&quot; of the localtion URL, i.e. http://172.100.1.52/. There are cases where this..."
+    "description": "1. Original proposal The original proposal can be found at https://kurtstam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html. This updated proposal incorporates feedback from https://github.com/kubernetes/kubernetes/issues/14828. 2. Problem description Servi..."
 }
     </script>
 
@@ -149,7 +149,15 @@
 
             <section class="post-content">
                 <div class="sect1">
-<h2 id="_problem_description">1. Problem description</h2>
+<h2 id="_original_proposal">1. Original proposal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The original proposal can be found at <a href="https://kurtstam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html" class="bare">https://kurtstam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html</a>. This updated proposal incorporates feedback from <a href="https://github.com/kubernetes/kubernetes/issues/14828" class="bare">https://github.com/kubernetes/kubernetes/issues/14828</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_problem_description">2. Problem description</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -170,7 +178,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_proposal">2. Proposal</h2>
+<h2 id="_proposal">3. Proposal</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kubernetes allows the creation of <a href="http://kubernetes.io/v1.0/docs/user-guide/annotations.html">Service Annotations</a>. Here we propose the use of the following annotations</p>
@@ -213,7 +221,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_using_the_maven_fabric8_plugin">3. Example using the maven-fabric8-plugin</h2>
+<h2 id="_example_using_the_maven_fabric8_plugin">4. Example using the maven-fabric8-plugin</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The maven fabric8 plugin supports defining service annotation properties in pom which then turn into Kubernetes service annotations. Each annotation simply needs to start with 'fabric8.annotations.service.'. The fragment below shows an example of its use</p>
@@ -234,7 +242,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_conclusion">4. Conclusion</h2>
+<h2 id="_conclusion">5. Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>We&#8217;re proposing the use to Kubernetes Service Annotations to make it easier for service consumers to discover the actual service(s) on an endpoint. This includes information about the service path, protocol, description document and description type. Note that we incorporated feedback from <a href="https://github.com/kubernetes/kubernetes/issues/14828">standard Kubernetes annotation convention</a> and that we hope this convention will be standardized by Kubernetes as every service developer runs into these issues.</p>
