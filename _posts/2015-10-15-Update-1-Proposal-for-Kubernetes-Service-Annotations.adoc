@@ -1,4 +1,4 @@
-= Proposal for Kubernetes Service Annotations (Update 1).
+= Update 1: Proposal for Kubernetes Service Annotations.
 :hp-tags: Kubernetes, Fabric8
 :numbered:
 
