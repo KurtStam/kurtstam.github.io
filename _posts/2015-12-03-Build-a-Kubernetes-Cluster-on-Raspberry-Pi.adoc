@@ -1,0 +1,16 @@
+= Build a Kubernetes Cluster on Raspberry Pi
+:hp-tags: Kubernetes, RaspberryPi
+:numbered:
+
+== Required hardware
+
+To build this 4 Pi setup I used 
+
+* 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM.
+* 4 16 GB Micro SD cards - class 10. 
+* 1 60 W power supply with USB outlets 
+* 4 USB to Micro USB cables
+* 4 cat 5 network cables
+* 1 network hub (mine is an old 5 port 10/100 Mbs)
+
+It is important to get 
