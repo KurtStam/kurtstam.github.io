@@ -1,6 +1,6 @@
 = How to deploy the fabric8 console on docker
 
-:hp-tags: angularjs, fabric8, console, docker
+:hp-tags: angularjs, Fabric8, console, docker
 :numbered:
 
 The fabric8 console is written in docker and the source lives on github at: https://github.com/fabric8io/fabric8-console. To package the console up as a docker container first run
