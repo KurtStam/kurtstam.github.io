@@ -35,6 +35,10 @@ Do this for all 4 MicroSD cards. You can work on your lego casing while waiting.
 
 You can now power up the first Pi. By default to login use root/hypriot. You will need to set up DNS for each of the Pi's. If you don't want to hook up a monitor and keyboard to login at the console to figure out its IP and Mac address, then you can use nmap [3] to figure this out. If you have a DNS service provision it there, or else name the Pi's in /etc/hosts. I named my Pi's _rpi-master_, _rpi-node-1_, _rpi-node-2_ and _rpi-node-3_. With a quick reboot of each Pi you will see the names reflected at the cmd prompt. Note that if you skip the DNS step your Kubernetes cluster will not work. 
 
+== Add Swap (optional)
+
+I added 1Gb of swap space to my _rpi-master_ because it runs a few more Kubernetes components. 
+
 == Golang on Pi (optional)
 
 If you have a Linux or OSX machine you can simply compile the Kubernetes Go libraries for ARM on that, but if you want to can install Golang one the Pi too. For that run
@@ -48,7 +52,11 @@ If you have a Linux or OSX machine you can simply compile the Kubernetes Go libr
     cd src ./all.bash
 ....    
     
+== Install Kubernetes
 
+These instructions are to install the plain vanilla Kubernetes from Google. I had some issues compiling Openshift v3 due to some 64 bit dependencies, and I will get back to that later. I would like go support both. 
+
+=== Master
 
 == References
 
