@@ -90,6 +90,24 @@ To install these components onto the master, login to the master node and run
     ./build-master.sh
 ....
 
+Verify the running docker containers using _docker ps_
+....
+CONTAINER ID        IMAGE                                             COMMAND                  CREATED             STATUS              PORTS               NAMES
+d598e486daf5        hyperkube                                         "/hyperkube proxy --m"   3 days ago          Up 3 days                               k8s_kube-proxy.77350919_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_834f658a
+026c19a67f86        hyperkube                                         "/hyperkube scheduler"   3 days ago          Up 3 days                               k8s_kube-scheduler.9eefe01e_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_1dd7c2e9
+8f615b87cfda        hyperkube                                         "/hyperkube controlle"   3 days ago          Up 3 days                               k8s_kube-controller-manager.ff35e738_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_3a793f6d
+a737d9927c03        hyperkube                                         "/hyperkube apiserver"   3 days ago          Up 3 days                               k8s_kube-apiserver.41110286_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_9ce28f62
+0207a21ce18d        etcd                                              "etcd --data-dir=/var"   3 days ago          Up 3 days                               k8s_etcd.23d7fc08_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_9cd6d801
+a4174bf7cb98        gcr.io/google_containers/pause:0.8.0              "/pause"                 3 days ago          Up 3 days                               k8s_POD.e4cc795_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_6882abfe
+....
+and the now set _export KUBERNETES_MASTER=http://rpi-master:8080_ so your _kubectl_ can connect the kubernetes REST API on the master. Now let take a look at the running pods using _kubectl get pods_
+....
+NAME                         READY     STATUS    RESTARTS   AGE
+kube-controller-rpi-master   5/5       Running   0         10s
+....
+
+We can see that the _kube-controller-rpi-master_ pod contains runs 5 docker containers with the Kubernetes services mentioned above.
+
 
 === Install Kubernetes Node
 
@@ -138,7 +156,26 @@ Finally, on the master we need to fix up the Docker configuration so it accepts 
 ....
 where the IP address of machine, or you can user '0.0.0.0' to bind to all interfaces. Now we can remotely push docker images to the master. In my next post I'm going to deploy a fabric8, note that the docker images you want to run need to be based on an ARM architecture or else they won't run!
 
+=== Deploy a simple service
 
+Let's deploy a simply service, and scale to two pods to make sure things are working correctly
+....
+
+kubectl -s http://localhost:8080 run httpd --image=hypriot/rpi-busybox-httpd --port=80
+kubectl scale --replicas=2 rc httpd
+kubectl get pods -o wide
+....
+We see that eventhough we executed the command on the master is started a pod on node-2 and node-3.
+
+NAME                         READY     STATUS    RESTARTS   AGE       NODE
+httpd-4v1qw                  1/1       Running   0          9m        rpi-node-2
+httpd-qxcxu                  0/1       Pending   0          16s       rpi-node-3
+kube-controller-rpi-master   5/5       Running   0          1d        rpi-master
+kube-system-rpi-node-1       1/1       Running   0          33m       rpi-node-1
+kube-system-rpi-node-2       1/1       Running   0          43m       rpi-node-2
+kube-system-rpi-node-3       1/1       Running   0          53m       rpi-node-3
+
+That's it for now. In the next blog post I will talk about deploying fabric8 services. 
 
 == References
 
