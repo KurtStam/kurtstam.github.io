@@ -52,7 +52,7 @@ If you have a Linux or OSX machine you can simply compile the Kubernetes Go libr
     cd src ./all.bash
 ....    
     
-== Install Kubernetes
+== Intall Kubernetes
 
 These instructions are to install the plain vanilla Kubernetes from Google. I had some issues compiling Openshift v3 due to some 64 bit dependencies, and I will get back to that later. I would like go support both. 
 
@@ -60,9 +60,8 @@ These instructions are to install the plain vanilla Kubernetes from Google. I ha
 
 == References
 
-1. http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
+[[1., http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html]]
 2. http://blog.hypriot.com/downloads/
 3. https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html
-
 
 
