@@ -2,6 +2,7 @@
 :hp-tags: Kubernetes, RaspberryPi
 :numbered:
 
+
 == Required hardware
 
 To build this 4 Pi setup I used 
@@ -33,9 +34,11 @@ The first thing we need to do now is to get the operating system onto the MicroS
 
 Do this for all 4 MicroSD cards. You can work on your lego casing while waiting.
 
+
 == Power up and add DNS
 
 You can now power up the first Pi. By default to login use root/hypriot. You will need to set up DNS for each of the Pi's. If you don't want to hook up a monitor and keyboard to login at the console to figure out its IP and Mac address, then you can use nmap [3] to figure this out. If you have a DNS service provision it there, or else name the Pi's in /etc/hosts. I named my Pi's _rpi-master_, _rpi-node-1_, _rpi-node-2_ and _rpi-node-3_. With a quick reboot of each Pi you will see the names reflected at the cmd prompt. Note that if you skip the DNS step your Kubernetes cluster will not work. 
+
 
 == Add Swap (optional)
 
@@ -60,34 +63,50 @@ vm.swappiness = 1
 ....
 '1' means it will only use swap when the RAM use gets over 99%.
 
+
 == Intall Kubernetes
 
-These instructions are to install the plain vanilla Kubernetes from Google. I had some issues compiling Openshift v3 due to some 64 bit dependencies, and I will get back to that later. I would like go support both. All the code that I'm using is checked in under https://github.com/Project31.
-
-
-
+These instructions are to install the plain vanilla Kubernetes from Google. I had some issues compiling Openshift v3 due to some 64 bit dependencies, and I will get back to that later. I would like go support both. All the code that I'm using is checked in under https://github.com/Project31. If you want to compile your own Kubernetes binaries then visit [4].
 
 
 === Install Kubernetes Master
 
+The Kubernetes master runs the kubernetes REST API, a scheduler, kubernetes-proxy, a replication controller, and it uses etcd as a key-value store that is replicated with between other Kubernetes masters. For more details please see the Kubernetes documentation at [5].
 
 image::kubernetes-master.png[]
 [caption="Figure 2: "]
 .Kubernetes master components.
 
+To install these components onto the master, login to the master node and run
+....
+    git clone git@github.com:Project31/kubernetes-installer-rpi.git
+    cd kubernetes-install-rpi
+    ./build-master.sh
+....
+
 === Install Kubernetes Node
 
+The Kubernetes node only run the kubernetes proxy and the pods. 
 
 image::kubernetes-node.png[]
 [caption="Figure 3: "]
 .Kubernetes client components.
 
+To install these components on a node, login to the node and run
+....
+    git clone git@github.com:Project31/kubernetes-installer-rpi.git
+    cd kubernetes-install-rpi
+    ./build-worker.sh
+....
+
+Finally you need to point the node to its master.
 
 == References
 
 1. http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
 2. http://blog.hypriot.com/downloads/
 3. https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html
-4. http://kubernetes.io/v1.1/docs/design/architecture.html
+4. https://kurtstam.github.io/https://kurtstam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html
+5. http://kubernetes.io/v1.1/docs/design/architecture.html
 
 
