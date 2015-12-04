@@ -3,6 +3,8 @@
 :numbered:
 
 
+About a year ago I had the idea that deploying micro-services on Raspberry Pi's would be the perfect marriage. I work on the [Red Hat Fabric8][http://www.fabric8.io] project and this week I was able to deploy one of the Fabric8 quickstarts. Here is what I built.
+
 == Required hardware
 
 To build this 4 Pi setup I used 
@@ -70,7 +72,7 @@ vm.swappiness = 1
 '1' means it will only use swap when the RAM use gets over 99%.
 
 
-== Intall Kubernetes
+== Install Kubernetes
 
 These instructions are to install the plain vanilla Kubernetes from Google. I had some issues compiling Openshift v3 due to some 64 bit dependencies, and I will get back to that later. I would like go support both. All the code that I'm using is checked in under https://github.com/Project31. If you want to compile your own Kubernetes binaries then visit [4].
 
