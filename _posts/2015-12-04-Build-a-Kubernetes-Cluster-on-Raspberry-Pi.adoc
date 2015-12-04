@@ -7,7 +7,7 @@
 To build this 4 Pi setup I used 
 
 * 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM
-* 4 16 GB Micro SD cards - class 10
+* 4 16 GB MicroSD cards - class 10
 * 1 60 W power supply with USB outlets
 * 4 short USB to Micro USB cables for powering the Pi's
 * 4 short cat 5 network cables
@@ -17,6 +17,44 @@ To build this 4 Pi setup I used
 
 It is important to get class 10 MicroSD cards as this is the one component that affects the speed of the system greatly. You can easily get away with a smaller 20W powersupply for 4 Pi's, I'm planning on adding more Pi's later so I got a bigger one.) The network port on the Pi is 100 Mbs, so you can use your old hub.
 
+
+<image>
+
+== Flashing the MicroSD cards
+
+The first thing we need to do now is to get the operating system onto the MicroSD Cards. I'm using an Hypriot image. I did test a bunch of different images [1] including Pidora, Redsleeve/Centos7, ArchLinux, but concluded that Hypriot is the best for me at this point. Mostly because of the native Docker support and the image being small. You can download the latest hypriot image from [2].  The following instructions are OSX specific. 
+
+1. Insert the memory card in the card reader.
+2. Unmount the card (using the du utility)
+3. sudo dd bs=1m if=hypriot-rpi-20151103-224349.img of=/dev/disk2
+4. wait .. this may take 10 minutes or so.
+
+Do this for all 4 MicroSD cards. You can work on your lego casing while waiting.
+
+== Power up and add DNS
+
+You can now power up the first Pi. By default to login use root/hypriot. You will need to set up DNS for each of the Pi's. If you don't want to hook up a monitor and keyboard to login at the console to figure out its IP and Mac address, then you can use nmap [3] to figure this out. If you have a DNS service provision it there, or else name the Pi's in /etc/hosts. I named my Pi's _rpi-master_, _rpi-node-1_, _rpi-node-2_ and _rpi-node-3_. With a quick reboot of each Pi you will see the names reflected at the cmd prompt. Note that if you skip the DNS step your Kubernetes cluster will not work. 
+
+== Golang on Pi (optional)
+
+If you have a Linux or OSX machine you can simply compile the Kubernetes Go libraries for ARM on that, but if you want to can install Golang one the Pi too. For that run
+....
+    apt-get update 
+    apt-get upgrade
+    apt-get install gcc apt-get install make
+    git clone https://go.googlesource.com/go
+    cd go git fetch --all
+    git checkout go1.4.3
+    cd src ./all.bash
+....    
+    
+
+
+== References
+
+1. http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
+2. http://blog.hypriot.com/downloads/
+3. https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html
 
 
 
