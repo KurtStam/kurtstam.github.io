@@ -27,7 +27,7 @@ image::pi-kubed.png[]
 
 == Flashing the MicroSD cards
 
-The first thing we need to do now is to get the operating system onto the MicroSD Cards. I'm using an Hypriot image. I did test a bunch of different images [<<1>>] including Pidora, Redsleeve/Centos7, ArchLinux, but concluded that Hypriot is the best for me at this point. Mostly because of the native Docker support and the image being small. You can download the latest hypriot image from [2].  The following instructions are OSX specific. 
+The first thing we need to do now is to get the operating system onto the MicroSD Cards. I'm using an Hypriot image. I did test a bunch of different images <<1>> including Pidora, Redsleeve/Centos7, ArchLinux, but concluded that Hypriot is the best for me at this point. Mostly because of the native Docker support and the image being small. You can download the latest hypriot image from <<2>>.  The following instructions are OSX specific. 
 
 1. Insert the memory card in the card reader.
 2. Unmount the card (using the du utility)
@@ -182,9 +182,11 @@ That's it for now. In the next blog post I will talk about deploying fabric8 ser
 == References
 
 1. anchor:1[] http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
-2. [[2]] http://blog.hypriot.com/downloads/
-3. https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html
-4. https://kurtstam.github.io/https://kurtstam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html
-5. http://kubernetes.io/v1.1/docs/design/architecture.html
+2. anchor:2[] http://blog.hypriot.com/downloads/
+3. anchor:3[] https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html
+4. anchor:4[] https://kurtstam.github.io/https://kurtstam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html
+5. anchor:5[] http://kubernetes.io/v1.1/docs/design/architecture.html
+6. anchor:6[] http://sebgoa.blogspot.com
+
 
 
