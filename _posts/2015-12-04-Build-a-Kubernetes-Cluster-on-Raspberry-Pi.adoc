@@ -15,6 +15,8 @@ To build this 4 Pi setup I used
 * 1 network hub (mine is an old 5 port 10/100 Mbs I dusted off)
 * Lego's from your childhood. Just get creative. Trust me it feels good to build your own!
 
-It is important to get class 10 MicroSD cards as this is the one component that affects the speed of the system greatly. You can easily get away with a smaller 20W powersupply for 4 Pi's, I'm planning on adding more Pi's later so I got a bigger one.)
+It is important to get class 10 MicroSD cards as this is the one component that affects the speed of the system greatly. You can easily get away with a smaller 20W powersupply for 4 Pi's, I'm planning on adding more Pi's later so I got a bigger one.) The network port on the Pi is 100 Mbs, so you can use your old hub.
+
+
 
 
