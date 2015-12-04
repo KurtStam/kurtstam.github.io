@@ -132,15 +132,6 @@ Restart kubelet:
 systemctl restart kubelet
 ....
 
-Now  verify your nodes are registered
-....
-kubectl get nodes
-NAME         LABELS                              STATUS
-rpi-master   kubernetes.io/hostname=rpi-master   Ready
-rpi-node-1   kubernetes.io/hostname=rpi-node-1   Ready
-rpi-node-2   kubernetes.io/hostname=rpi-node-2   Ready
-rpi-node-3   kubernetes.io/hostname=rpi-node-3   Ready
-....
 
 and verify our proxy came up using _docker ps_
 ....
@@ -149,7 +140,15 @@ CONTAINER ID        IMAGE                                  COMMAND              
 e44575ff5064        hyperkube                              "/hyperkube proxy --m"   2 weeks ago         Up 2 weeks                              k8s_kube-proxy.ae30b68_kube-system-rpi-node-3_default_ae3b8f77f20e8ad97e8b65e3367f1eb2_0a1391d0
 f9bc07d9d480        gcr.io/google_containers/pause:0.8.0   "/pause"                 2 weeks ago         Up 2 weeks                              k8s_POD.e4cc795_kube-system-rpi-node-3_default_ae3b8f77f20e8ad97e8b65e3367f1eb2_6163cf4e
 ....
-
+The proxy is running! Now  verify the nodes are all registered
+....
+kubectl get nodes
+NAME         LABELS                              STATUS
+rpi-master   kubernetes.io/hostname=rpi-master   Ready
+rpi-node-1   kubernetes.io/hostname=rpi-node-1   Ready
+rpi-node-2   kubernetes.io/hostname=rpi-node-2   Ready
+rpi-node-3   kubernetes.io/hostname=rpi-node-3   Ready
+....
 
 Yay it worked!
 
