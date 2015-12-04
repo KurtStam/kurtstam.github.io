@@ -241,10 +241,10 @@ and the binaries for arm can be found in __output/dockerized/bin/linux/arm_.
 -rwxr-xr-x  1 kstam  admin   2933872 Nov 12 14:25 mungedocs
 -rwxr-xr-x  1 kstam  admin   5572640 Nov 12 14:25 src
 ....
-These binaries are simply uploaded to:
+These binaries are simply uploaded to: https://github.com/Project31/kubernetes-arm from where they will be downloaded during the _master_ and _node_ installation.
 
 
-=== Install the Master
+=== Install Kubernetes on the Master
 
 
 == References
@@ -252,6 +252,6 @@ These binaries are simply uploaded to:
 1. http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
 2. http://blog.hypriot.com/downloads/
 3. https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html
-4. 
+4. http://kubernetes.io/v1.1/docs/design/architecture.html
 
 
