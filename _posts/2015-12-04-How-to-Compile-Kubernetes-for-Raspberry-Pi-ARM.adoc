@@ -16,3 +16,171 @@ If you have a Linux or OSX machine you can simply compile the Kubernetes Go libr
     cd src ./all.bash
 ....
 
+=== Compile Kubernetes for ARM
+
+To compile Kubernetes for arm you need to checkout the Kubernetes from git and update he client and service compile targets which I have already done for you if you checkout https://github.com/Project31/kubernetes/. The compilation requires a Docker daemon, so on OSX use boot2docker, for example
+....
+boot2docker start
+....
+with output:
+....
+Waiting for VM and Docker daemon to start...
+.............oooo
+Started.
+Writing /Users/kstam/.boot2docker/certs/boot2docker-vm/ca.pem
+Writing /Users/kstam/.boot2docker/certs/boot2docker-vm/cert.pem
+Writing /Users/kstam/.boot2docker/certs/boot2docker-vm/key.pem
+
+To connect the Docker client to the Docker daemon, please set:
+    export DOCKER_HOST=tcp://192.168.59.103:2376
+    export DOCKER_CERT_PATH=/Users/kstam/.boot2docker/certs/boot2docker-vm
+    export DOCKER_TLS_VERIFY=1
+....
+
+Set the required system parameters and now to compile the binaries simply run
+....
+    git clone git@github.com:Project31/kubernetes.git
+    cd kubernetes/build
+    ./run.sh hack/build-cross.sh
+....
+
+This will output
+....
++++ [1204 10:50:30] Verifying Prerequisites....
++++ [1204 10:50:31] Building Docker image kube-build:cross.
++++ [1204 10:50:34] Building Docker image kube-build:build-f8d233d305.
++++ [1204 10:50:39] Running build command....
++++ [1204 15:50:41] Multiple platforms requested, but available 2G < threshold 11G, building platforms in serial
++++ [1204 15:50:41] Building go targets for linux/arm:
+    cmd/kube-proxy
+    cmd/kube-apiserver
+    cmd/kube-controller-manager
+    cmd/kubelet
+    cmd/kubemark
+    cmd/hyperkube
+    cmd/linkcheck
+    plugin/cmd/kube-scheduler
++++ [1204 15:51:11] Building go targets for linux/amd64:
+    cmd/kube-proxy
+    cmd/kube-apiserver
+    cmd/kube-controller-manager
+    cmd/kubelet
+    cmd/kubemark
+    cmd/hyperkube
+    cmd/linkcheck
+    plugin/cmd/kube-scheduler
++++ [1204 15:51:40] Multiple platforms requested, but available 2G < threshold 11G, building platforms in serial
++++ [1204 15:51:40] Building go targets for linux/amd64:
+    cmd/kubectl
+    cmd/integration
+    cmd/gendocs
+    cmd/genkubedocs
+    cmd/genman
+    cmd/mungedocs
+    cmd/genbashcomp
+    cmd/genconversion
+    cmd/gendeepcopy
+    cmd/genswaggertypedocs
+    examples/k8petstore/web-server/src
+    github.com/onsi/ginkgo/ginkgo
+    test/e2e/e2e.test
++++ [1204 15:51:52] Building go targets for linux/386:
+    cmd/kubectl
+    cmd/integration
+    cmd/gendocs
+    cmd/genkubedocs
+    cmd/genman
+    cmd/mungedocs
+    cmd/genbashcomp
+    cmd/genconversion
+    cmd/gendeepcopy
+    cmd/genswaggertypedocs
+    examples/k8petstore/web-server/src
+    github.com/onsi/ginkgo/ginkgo
+    test/e2e/e2e.test
++++ [1204 15:52:01] Building go targets for linux/arm:
+    cmd/kubectl
+    cmd/integration
+    cmd/gendocs
+    cmd/genkubedocs
+    cmd/genman
+    cmd/mungedocs
+    cmd/genbashcomp
+    cmd/genconversion
+    cmd/gendeepcopy
+    cmd/genswaggertypedocs
+    examples/k8petstore/web-server/src
+    github.com/onsi/ginkgo/ginkgo
+    test/e2e/e2e.test
++++ [1204 15:52:10] Building go targets for darwin/amd64:
+    cmd/kubectl
+    cmd/integration
+    cmd/gendocs
+    cmd/genkubedocs
+    cmd/genman
+    cmd/mungedocs
+    cmd/genbashcomp
+    cmd/genconversion
+    cmd/gendeepcopy
+    cmd/genswaggertypedocs
+    examples/k8petstore/web-server/src
+    github.com/onsi/ginkgo/ginkgo
+    test/e2e/e2e.test
++++ [1204 15:52:20] Building go targets for darwin/386:
+    cmd/kubectl
+    cmd/integration
+    cmd/gendocs
+    cmd/genkubedocs
+    cmd/genman
+    cmd/mungedocs
+    cmd/genbashcomp
+    cmd/genconversion
+    cmd/gendeepcopy
+    cmd/genswaggertypedocs
+    examples/k8petstore/web-server/src
+    github.com/onsi/ginkgo/ginkgo
+    test/e2e/e2e.test
++++ [1204 15:52:29] Building go targets for windows/amd64:
+    cmd/kubectl
+    cmd/integration
+    cmd/gendocs
+    cmd/genkubedocs
+    cmd/genman
+    cmd/mungedocs
+    cmd/genbashcomp
+    cmd/genconversion
+    cmd/gendeepcopy
+    cmd/genswaggertypedocs
+    examples/k8petstore/web-server/src
+    github.com/onsi/ginkgo/ginkgo
+    test/e2e/e2e.test
++++ [1204 15:52:39] Placing binaries
++++ [1204 10:52:56] Running build command....
++++ [1204 10:52:58] Output directory is local.  No need to copy results out.
+....
+and the binaries for arm can be found in __output/dockerized/bin/linux/arm_. 
+....
+-rwxr-xr-x  1 kstam  admin  36378096 Dec  4 10:52 e2e.test
+-rwxr-xr-x  1 kstam  admin  28074776 Nov 12 14:26 genbashcomp
+-rwxr-xr-x  1 kstam  admin  23070656 Nov 12 14:25 genconversion
+-rwxr-xr-x  1 kstam  admin  23064640 Nov 12 14:25 gendeepcopy
+-rwxr-xr-x  1 kstam  admin  28075952 Nov 12 14:26 gendocs
+-rwxr-xr-x  1 kstam  admin  49536096 Nov 12 14:25 genkubedocs
+-rwxr-xr-x  1 kstam  admin  28088896 Nov 12 14:26 genman
+-rwxr-xr-x  1 kstam  admin  11703416 Nov 12 14:25 genswaggertypedocs
+-rwxr-xr-x  1 kstam  admin   7626288 Dec  4 10:52 ginkgo
+-rwxr-xr-x  1 kstam  admin  49826704 Nov 12 14:20 hyperkube
+-rwxr-xr-x  1 kstam  admin  50032864 Nov 12 14:26 integration
+-rwxr-xr-x  1 kstam  admin  41280520 Dec  4 10:51 kube-apiserver
+-rwxr-xr-x  1 kstam  admin  35882152 Dec  4 10:51 kube-controller-manager
+-rwxr-xr-x  1 kstam  admin  25615024 Nov 12 14:20 kube-proxy
+-rwxr-xr-x  1 kstam  admin  24984232 Dec  4 10:51 kube-scheduler
+-rwxr-xr-x  1 kstam  admin  28069864 Nov 12 14:26 kubectl
+-rwxr-xr-x  1 kstam  admin  40450728 Nov 12 14:20 kubelet
+-rwxr-xr-x  1 kstam  admin  39144744 Nov 12 14:20 kubemark
+-rwxr-xr-x  1 kstam  admin   2764048 Nov 12 14:20 linkcheck
+-rwxr-xr-x  1 kstam  admin   2933872 Nov 12 14:25 mungedocs
+-rwxr-xr-x  1 kstam  admin   5572640 Nov 12 14:25 src
+....
+
+These binaries are simply uploaded to: https://github.com/Project31/kubernetes-arm from where they will be downloaded during a Kubernetes _master_ or _node_ installation.
