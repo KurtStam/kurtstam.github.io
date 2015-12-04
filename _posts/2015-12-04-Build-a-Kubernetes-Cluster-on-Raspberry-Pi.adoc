@@ -99,7 +99,27 @@ To install these components on a node, login to the node and run
     ./build-worker.sh
 ....
 
-Finally you need to point the node to its master.
+Finally you need to point the node to its master. Edit the _/etc/systemd/system/kubelet.service_ file and add the master's Kubernetes REST endpoint to the 'api-servers'.
+
+....
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/kubernetes/kubernetes
+
+[Service]
+ExecStart=/usr/bin/kubelet  \
+--api-servers=http://192.168.1.9:8080 \
+--allow-privileged=true \
+--config=/etc/kubernetes/manifests \
+--v=2
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+....
+
+=== 
 
 == References
 
