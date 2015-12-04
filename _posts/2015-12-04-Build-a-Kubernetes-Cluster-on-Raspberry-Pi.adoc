@@ -168,7 +168,7 @@ kubectl scale --replicas=2 rc httpd
 kubectl get pods -o wide
 ....
 We see that eventhough we executed the command on the master is started a pod on node-2 and node-3.
-
+....
 NAME                         READY     STATUS    RESTARTS   AGE       NODE
 httpd-4v1qw                  1/1       Running   0          9m        rpi-node-2
 httpd-qxcxu                  0/1       Pending   0          16s       rpi-node-3
@@ -176,7 +176,7 @@ kube-controller-rpi-master   5/5       Running   0          1d        rpi-master
 kube-system-rpi-node-1       1/1       Running   0          33m       rpi-node-1
 kube-system-rpi-node-2       1/1       Running   0          43m       rpi-node-2
 kube-system-rpi-node-3       1/1       Running   0          53m       rpi-node-3
-
+....
 That's it for now. In the next blog post I will talk about deploying fabric8 services. 
 
 == References
