@@ -103,44 +103,22 @@ To install these components on a node, login to the node and run
 ....
     git clone git@github.com:Project31/kubernetes-installer-rpi.git
     cd kubernetes-install-rpi
+....
+Now edit the kube-procy.yaml and set "--master=http://rpi-master:8080" to your kubernetes master.
+Then edit the _kubelet.service_ file and set your master's Kubernetes REST endpoint there as well. (which in my case is _http://192.168.1.9:8080_).
+
+Now you can run the install
+....
     ./build-worker.sh
 ....
 
-Finally you need to point the node to its master. Edit the _/etc/systemd/system/kubelet.service_ file and add the master's Kubernetes REST endpoint to the 'api-servers' (which in my case is _http://192.168.1.9:8080_).
-
-....
-[Unit]
-Description=Kubernetes Kubelet
-Documentation=https://github.com/kubernetes/kubernetes
-
-[Service]
-ExecStart=/usr/bin/kubelet  \
---api-servers=http://192.168.1.9:8080 \
---allow-privileged=true \
---config=/etc/kubernetes/manifests \
---v=2
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-....
-
-Set _export KUBERNETES_MASTER=http://rpi-master:8080_ so your _kubectl_ can connect the kubernetes REST API on the master. 
-Restart kubelet:
-....
-systemctl restart kubelet
-....
-
-
 and verify our proxy came up using _docker ps_
 ....
- docker ps
-CONTAINER ID        IMAGE                                  COMMAND                  CREATED             STATUS              PORTS               NAMES
-e44575ff5064        hyperkube                              "/hyperkube proxy --m"   2 weeks ago         Up 2 weeks                              k8s_kube-proxy.ae30b68_kube-system-rpi-node-3_default_ae3b8f77f20e8ad97e8b65e3367f1eb2_0a1391d0
-f9bc07d9d480        gcr.io/google_containers/pause:0.8.0   "/pause"                 2 weeks ago         Up 2 weeks                              k8s_POD.e4cc795_kube-system-rpi-node-3_default_ae3b8f77f20e8ad97e8b65e3367f1eb2_6163cf4e
+CONTAINER ID        IMAGE        COMMAND                  CREATED             STATUS              PORTS            NAMES
+cf4a9a2d7f35        hyperkube    "/hyperkube proxy --m"   40 seconds ago      Up 37 seconds                        k8s_kube-proxy...
+d9f8f937df4d        gcr.io/go... "/pause"                 43 seconds ago      Up 40 seconds                        k8s_POD.e4cc..
 ....
-The proxy is running! Now  verify the nodes are all registered
+The proxy is running! Set _export KUBERNETES_MASTER=http://rpi-master:8080_ so your _kubectl_ can connect the kubernetes REST API on the master. Now  verify the nodes are all registered
 ....
 kubectl get nodes
 NAME         LABELS                              STATUS
@@ -154,7 +132,7 @@ Yay it worked!
 
 === Open Docker for remote connections.
 
-Finally we need to fix up the Docker configuration so it accepts remote connections, so we can deploy something to it. Open the _/etc/default/docker_ file for editing and set the DOCKER_OPTS
+Finally, on the master we need to fix up the Docker configuration so it accepts remote connections, so we can deploy something to it. Open the _/etc/default/docker_ file for editing and set the DOCKER_OPTS
 ....
 	DOCKER_OPTS="-H tcp://192.168.1.9:2375 -H unix:///var/run/docker.sock --storage-driver=overlay -D"
 ....
