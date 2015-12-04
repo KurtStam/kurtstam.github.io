@@ -37,7 +37,26 @@ You can now power up the first Pi. By default to login use root/hypriot. You wil
 
 == Add Swap (optional)
 
-I added 1Gb of swap space to my _rpi-master_ because it runs a few more Kubernetes components. 
+I added 1Gb of swap space to my _rpi-master_ because it runs a few more Kubernetes components. Some people seems concerned that frequent writes to the MicroSD card will make it fail quickly. I therefor decided to set the swappiness such that in only uses the swap as a last resort.
+....
+    dd if=/dev/zero of=/swap/swapfile bs=1M count=1024
+    mkswap /swap/swapfile
+    swapon /swap/swapfile
+....
+Now you can check with 'top' that you have a 1 GB of swapspace
+....
+KiB Mem:    947468 total,   913096 used,    34372 free,    69884 buffers
+KiB Swap:  1048572 total,      484 used,  1048088 free,   667248 cached
+....
+To make the swap permanent between reboots add
+....
+/data/swapfile none swap sw 0 0
+....
+to you _/etc/fstab_ file. Finally in the _/etc/sysctl.conf_ I've set the swappiness to 1 to make it not very 'swappy'
+....
+vm.swappiness = 1
+....
+means it will only use swap when the RAM use gets over 99%.
 
 == Golang on Pi (optional)
 
