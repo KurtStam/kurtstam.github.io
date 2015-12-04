@@ -37,7 +37,13 @@ Do this for all 4 MicroSD cards. You can work on your lego casing while waiting.
 
 == Power up and add DNS
 
-You can now power up the first Pi. By default to login use root/hypriot. You will need to set up DNS for each of the Pi's. If you don't want to hook up a monitor and keyboard to login at the console to figure out its IP and Mac address, then you can use nmap [3] to figure this out. If you have a DNS service provision it there, or else name the Pi's in /etc/hosts. I named my Pi's _rpi-master_, _rpi-node-1_, _rpi-node-2_ and _rpi-node-3_. With a quick reboot of each Pi you will see the names reflected at the cmd prompt. Note that if you skip the DNS step your Kubernetes cluster will not work. 
+You can now power up the first Pi. By default to login use root/hypriot. You will need to set up DNS for each of the Pi's. If you don't want to hook up a monitor and keyboard to login at the console to figure out its IP and Mac address, then you can use nmap [3] to figure this out. If you have a DNS service provision it there, or else name the Pi's in /etc/hosts. I named my Pi's _rpi-master_, _rpi-node-1_, _rpi-node-2_ and _rpi-node-3_. With a quick reboot of each Pi you will see the names reflected at the cmd prompt. Note that if you skip the DNS step your Kubernetes cluster will not work. I added the following to my _/etc/hosts_ files on all machines
+....
+192.168.1.9     rpi-master
+192.168.1.21    rpi-node-1
+192.168.1.18    rpi-node-2
+192.168.1.23    rpi-node-3
+....
 
 
 == Add Swap (optional)
@@ -84,6 +90,7 @@ To install these components onto the master, login to the master node and run
     ./build-master.sh
 ....
 
+
 === Install Kubernetes Node
 
 The Kubernetes node only run the kubernetes proxy and the pods. 
@@ -99,7 +106,7 @@ To install these components on a node, login to the node and run
     ./build-worker.sh
 ....
 
-Finally you need to point the node to its master. Edit the _/etc/systemd/system/kubelet.service_ file and add the master's Kubernetes REST endpoint to the 'api-servers'.
+Finally you need to point the node to its master. Edit the _/etc/systemd/system/kubelet.service_ file and add the master's Kubernetes REST endpoint to the 'api-servers' (which in my case is _http://192.168.1.9:8080_).
 
 ....
 [Unit]
@@ -119,7 +126,27 @@ RestartSec=5
 WantedBy=multi-user.target
 ....
 
-=== 
+Set _export KUBERNETES_MASTER=http://rpi-master:8080_ so your _kubectl_ can connect the kubernetes REST API on the master. Now  verify your nodes are registered
+....
+kubectl get nodes
+NAME         LABELS                              STATUS
+rpi-master   kubernetes.io/hostname=rpi-master   Ready
+rpi-node-1   kubernetes.io/hostname=rpi-node-1   Ready
+rpi-node-2   kubernetes.io/hostname=rpi-node-2   Ready
+rpi-node-3   kubernetes.io/hostname=rpi-node-3   Ready
+....
+
+Yay it worked!
+
+=== Open Docker for remote connections.
+
+Finally we need to fix up the Docker configuration so it accepts remote connections, so we can deploy something to it. Open the _/etc/default/docker_ file for editing and set the DOCKER_OPTS
+....
+	DOCKER_OPTS="-H tcp://192.168.1.9:2375 -H unix:///var/run/docker.sock --storage-driver=overlay -D"
+....
+where the IP address of machine, or you can user '0.0.0.0' to bind to all interfaces. Now we can remotely push docker images to the master. In my next post I'm going to deploy a fabric8, note that the docker images you want to run need to be based on an ARM architecture or else they won't run!
+
+
 
 == References
 
