@@ -6,11 +6,15 @@
 
 To build this 4 Pi setup I used 
 
-* 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM.
-* 4 16 GB Micro SD cards - class 10. 
-* 1 60 W power supply with USB outlets 
-* 4 USB to Micro USB cables
-* 4 cat 5 network cables
-* 1 network hub (mine is an old 5 port 10/100 Mbs)
+* 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM
+* 4 16 GB Micro SD cards - class 10
+* 1 60 W power supply with USB outlets
+* 4 short USB to Micro USB cables for powering the Pi's
+* 4 short cat 5 network cables
+* 1 longer cat 5 network cable to hook into your network
+* 1 network hub (mine is an old 5 port 10/100 Mbs I dusted off)
+* Lego's from your childhood. Just get creative. Trust me it feels good to build your own!
 
-It is important to get class
+It is important to get class 10 MicroSD cards as this is the one component that affects the speed of the system greatly. You can easily get away with a smaller 20W powersupply for 4 Pi's, I'm planning on adding more Pi's later so I got a bigger one.)
+
+
