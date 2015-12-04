@@ -34,7 +34,7 @@
     <meta property="og:description" content="About a year ago I had the idea that deploying micro-services on Raspberry Pi&amp;#8217;s would be the perfect marriage. I work on the Red Hat Fabric8 project and this week I was able to deploy one of the..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html" />
     <meta property="article:published_time" content="2015-12-04T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-12-04T22:27:28.849Z" />
+    <meta property="article:modified_time" content="2015-12-04T22:28:11.899Z" />
     <meta property="article:tag" content="Kubernetes" />
     <meta property="article:tag" content="RaspberryPi" />
     
@@ -58,7 +58,7 @@
     "headline": "Build a Kubernetes Cluster on Raspberry Pi",
     "url": "https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html",
     "datePublished": "2015-12-04T05:00:00.000Z",
-    "dateModified": "2015-12-04T22:27:28.849Z",
+    "dateModified": "2015-12-04T22:28:11.899Z",
     "keywords": "Kubernetes,  RaspberryPi",
     "description": "About a year ago I had the idea that deploying micro-services on Raspberry Pi&amp;#8217;s would be the perfect marriage. I work on the Red Hat Fabric8 project and this week I was able to deploy one of the..."
 }
@@ -428,14 +428,16 @@ kubectl get pods -o wide</pre>
 <div class="paragraph">
 <p>We see that eventhough we executed the command on the master is started a pod on node-2 and node-3.</p>
 </div>
-<div class="paragraph">
-<p>NAME                         READY     STATUS    RESTARTS   AGE       NODE
+<div class="literalblock">
+<div class="content">
+<pre>NAME                         READY     STATUS    RESTARTS   AGE       NODE
 httpd-4v1qw                  1/1       Running   0          9m        rpi-node-2
 httpd-qxcxu                  0/1       Pending   0          16s       rpi-node-3
 kube-controller-rpi-master   5/5       Running   0          1d        rpi-master
 kube-system-rpi-node-1       1/1       Running   0          33m       rpi-node-1
 kube-system-rpi-node-2       1/1       Running   0          43m       rpi-node-2
-kube-system-rpi-node-3       1/1       Running   0          53m       rpi-node-3</p>
+kube-system-rpi-node-3       1/1       Running   0          53m       rpi-node-3</pre>
+</div>
 </div>
 <div class="paragraph">
 <p>That&#8217;s it for now. In the next blog post I will talk about deploying fabric8 services.</p>
