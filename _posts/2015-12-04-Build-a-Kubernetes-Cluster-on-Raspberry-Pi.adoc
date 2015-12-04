@@ -31,6 +31,10 @@ The first thing we need to do now is to get the operating system onto the MicroS
 
 Do this for all 4 MicroSD cards. You can work on your lego casing while waiting.
 
+image::pi-kubed.png[]
+[caption="Figure 1: "]
+.4 Pi setup running Kubernetes.
+
 == Power up and add DNS
 
 You can now power up the first Pi. By default to login use root/hypriot. You will need to set up DNS for each of the Pi's. If you don't want to hook up a monitor and keyboard to login at the console to figure out its IP and Mac address, then you can use nmap [3] to figure this out. If you have a DNS service provision it there, or else name the Pi's in /etc/hosts. I named my Pi's _rpi-master_, _rpi-node-1_, _rpi-node-2_ and _rpi-node-3_. With a quick reboot of each Pi you will see the names reflected at the cmd prompt. Note that if you skip the DNS step your Kubernetes cluster will not work. 
@@ -244,7 +248,19 @@ and the binaries for arm can be found in __output/dockerized/bin/linux/arm_.
 These binaries are simply uploaded to: https://github.com/Project31/kubernetes-arm from where they will be downloaded during the _master_ and _node_ installation.
 
 
-=== Install Kubernetes on the Master
+=== Install Kubernetes Master
+
+
+image::kubernetes-master.png[]
+[caption="Figure 2: "]
+.Kubernetes master components.
+
+=== Install Kubernetes Node
+
+
+image::kubernetes-node.png[]
+[caption="Figure 3: "]
+.Kubernetes client components.
 
 
 == References
