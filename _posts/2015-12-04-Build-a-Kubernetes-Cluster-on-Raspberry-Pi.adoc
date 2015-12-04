@@ -3,7 +3,7 @@
 :numbered:
 
 
-About a year ago I had the idea that deploying micro-services on Raspberry Pi's would be the perfect marriage. I work on the [Red Hat Fabric8][http://www.fabric8.io] project and this week I was able to deploy one of the Fabric8 quickstarts. Here is what I built.
+About a year ago I had the idea that deploying micro-services on Raspberry Pi's would be the perfect marriage. I work on the [http://www.fabric8.io][Red Hat Fabric8] project and this week I was able to deploy one of the Fabric8 quickstarts. Here is what I built.
 
 == Required hardware
 
