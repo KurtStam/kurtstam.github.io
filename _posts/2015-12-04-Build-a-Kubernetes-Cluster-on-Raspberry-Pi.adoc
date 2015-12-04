@@ -126,7 +126,13 @@ RestartSec=5
 WantedBy=multi-user.target
 ....
 
-Set _export KUBERNETES_MASTER=http://rpi-master:8080_ so your _kubectl_ can connect the kubernetes REST API on the master. Now  verify your nodes are registered
+Set _export KUBERNETES_MASTER=http://rpi-master:8080_ so your _kubectl_ can connect the kubernetes REST API on the master. 
+Restart kubelet:
+....
+systemctl restart kubelet
+....
+
+Now  verify your nodes are registered
 ....
 kubectl get nodes
 NAME         LABELS                              STATUS
@@ -135,6 +141,15 @@ rpi-node-1   kubernetes.io/hostname=rpi-node-1   Ready
 rpi-node-2   kubernetes.io/hostname=rpi-node-2   Ready
 rpi-node-3   kubernetes.io/hostname=rpi-node-3   Ready
 ....
+
+and verify our proxy came up using _docker ps_
+....
+ docker ps
+CONTAINER ID        IMAGE                                  COMMAND                  CREATED             STATUS              PORTS               NAMES
+e44575ff5064        hyperkube                              "/hyperkube proxy --m"   2 weeks ago         Up 2 weeks                              k8s_kube-proxy.ae30b68_kube-system-rpi-node-3_default_ae3b8f77f20e8ad97e8b65e3367f1eb2_0a1391d0
+f9bc07d9d480        gcr.io/google_containers/pause:0.8.0   "/pause"                 2 weeks ago         Up 2 weeks                              k8s_POD.e4cc795_kube-system-rpi-node-3_default_ae3b8f77f20e8ad97e8b65e3367f1eb2_6163cf4e
+....
+
 
 Yay it worked!
 
