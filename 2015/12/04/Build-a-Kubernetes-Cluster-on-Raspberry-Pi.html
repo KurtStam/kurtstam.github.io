@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Build a Kubernetes Cluster on Raspberry Pi</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//KurtStam.github.io/themes/ichi/favicon.ico">
+
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/fastclick.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/modernizr.js?v=1.0.0"></script>
+
+   
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/normalize.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/foundation.min.css?v=1.0.0" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/outdatedBrowser.min.css?v=1.0.0">
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/fonts/foundation-icons/foundation-icons.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/styles.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,700,400|Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="hubpress/styles/asciidoctor.css" />
+    <link rel="canonical" href="https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html" />
+    
+    <meta property="og:site_name" content="Fresh Espresso &amp; Open Source Cloud" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Build a Kubernetes Cluster on Raspberry Pi" />
+    <meta property="og:description" content="1. Required hardware To build this 4 Pi setup I used 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM 4 16 GB MicroSD cards - class 10 1 60 W power supply with USB..." />
+    <meta property="og:url" content="https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html" />
+    <meta property="article:published_time" content="2015-12-04T05:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-12-04T17:58:14.588Z" />
+    <meta property="article:tag" content="Kubernetes" />
+    <meta property="article:tag" content="RaspberryPi" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Build a Kubernetes Cluster on Raspberry Pi" />
+    <meta name="twitter:description" content="1. Required hardware To build this 4 Pi setup I used 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM 4 16 GB MicroSD cards - class 10 1 60 W power supply with USB..." />
+    <meta name="twitter:url" content="https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Fresh Espresso &amp; Open Source Cloud",
+    "author": {
+        "@type": "Person",
+        "name": "Kurt Stam",
+        "image": "https://avatars.githubusercontent.com/u/35576?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": null
+    },
+    "headline": "Build a Kubernetes Cluster on Raspberry Pi",
+    "url": "https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html",
+    "datePublished": "2015-12-04T05:00:00.000Z",
+    "dateModified": "2015-12-04T17:58:14.588Z",
+    "keywords": "Kubernetes,  RaspberryPi",
+    "description": "1. Required hardware To build this 4 Pi setup I used 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM 4 16 GB MicroSD cards - class 10 1 60 W power supply with USB..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="Fresh Espresso &amp; Open Source Cloud" href="https://KurtStam.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-Kubernetes tag-RaspberryPi">
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdate" href="http://outdatedbrowser.com/">Update my browser now</a></p>
+</div>
+
+<nav class="top-bar hide-for-large-up" data-topbar >
+  <ul class="title-area">
+    <li class="name">
+
+    </li>
+    <li class="home"><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+    <li class="toggle-topbar"><a href="#" id="trigger-overlay" class="fi-list"></a></li>
+  </ul>
+
+<div class="overlay overlay-scale">
+    <button type="button" class="overlay-close">Close</button>
+    <nav>
+        <ul>
+            <li><a href="https://KurtStam.github.io">Home</a></li>
+        </ul>
+    </nav>
+</div>
+
+</nav>
+
+<div class="row">
+
+<div class="small-16 medium-16 large-4 columns right head-area" >
+
+<header class="site-head">
+    <div class="vertical">
+        <div class="site-head-content inner">
+            <ul class="side-nav-ichi blog-menu show-for-large-up">
+                <li><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+                <li><a class="fi-torso" href="https://KurtStam.github.io/about"></a></li>
+                <li><a class="fi-mail" href="https://KurtStam.github.io/contact"></a></li>
+            </ul>
+            
+            <h1 class="blog-title">Fresh Espresso &amp; Open Source Cloud</h1>
+            <hr>
+            <p class="blog-description">I have a passion for all things open source. I live in Ipswich MA and work for Red Hat, on the fabric8 project. Fabric8 is a cloud micro-services platform so you can deploy your applications to an all open source cloud. I kayak on the Atlantic Ocean along the coastal North East from Massachusetts to Maine whenever I can.</p>
+            <div class="blog-network">
+<!--                 <a href="#" class="fi-social-pinterest"></a>
+                <a href="#" class="fi-social-linkedin"></a>
+                <a href="#" class="fi-social-behance"></a>
+                <a href="#" class="fi-social-deviant-art"></a>
+                <a href="#" class="fi-social-dribbble"></a>
+                <a href="#" class="fi-social-flickr"></a>
+                <a href="#" class="fi-social-github"></a>
+                <a href="#" class="fi-social-skype"></a>
+                <a href="#" class="fi-social-snapchat"></a>
+                <a href="#" class="fi-social-steam"></a>
+                <a href="#" class="fi-social-xbox"></a>
+                <a href="#" class="fi-social-reddit"></a> -->
+                  <a href="kurt.stam@gmail.com" class="fi-social-google-plus"></a>
+                  <a href="kurtstam" class="fi-social-github"></a>
+                  <a href="kurtstam" class="fi-social-twitter"></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+</div>
+
+
+<div class="small-16 medium-16 large-12 columns main-column left">
+    
+
+<main class="content" role="main">
+
+    <article class="post tag-Kubernetes tag-RaspberryPi">
+
+
+            <h1 class="post-title">Build a Kubernetes Cluster on Raspberry Pi</h1>
+
+            <span class="post-meta label"><time datetime="2015-12-04">04 Dec 2015</time></span>
+
+            <section class="post-content">
+                <div class="sect1">
+<h2 id="_required_hardware">1. Required hardware</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To build this 4 Pi setup I used</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM</p>
+</li>
+<li>
+<p>4 16 GB MicroSD cards - class 10</p>
+</li>
+<li>
+<p>1 60 W power supply with USB outlets</p>
+</li>
+<li>
+<p>4 short USB to Micro USB cables for powering the Pi&#8217;s</p>
+</li>
+<li>
+<p>4 short cat 5 network cables</p>
+</li>
+<li>
+<p>1 longer cat 5 network cable to hook into your network</p>
+</li>
+<li>
+<p>1 network hub (mine is an old 5 port 10/100 Mbs I dusted off)</p>
+</li>
+<li>
+<p>Lego&#8217;s from your childhood. Just get creative. Trust me it feels good to build your own!</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is important to get class 10 MicroSD cards as this is the one component that affects the speed of the system greatly. You can easily get away with a smaller 20W powersupply for 4 Pi&#8217;s, I&#8217;m planning on adding more Pi&#8217;s later so I got a bigger one.) The network port on the Pi is 100 Mbs, so you can use your old hub.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/pi-kubed.png" alt="pi kubed.png">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flashing_the_microsd_cards">2. Flashing the MicroSD cards</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">4 Pi setup running Kubernetes.</div>
+<p>The first thing we need to do now is to get the operating system onto the MicroSD Cards. I&#8217;m using an Hypriot image. I did test a bunch of different images [1] including Pidora, Redsleeve/Centos7, ArchLinux, but concluded that Hypriot is the best for me at this point. Mostly because of the native Docker support and the image being small. You can download the latest hypriot image from [2].  The following instructions are OSX specific.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Insert the memory card in the card reader.</p>
+</li>
+<li>
+<p>Unmount the card (using the du utility)</p>
+</li>
+<li>
+<p>sudo dd bs=1m if=hypriot-rpi-20151103-224349.img of=/dev/disk2</p>
+</li>
+<li>
+<p>wait .. this may take 10 minutes or so.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Do this for all 4 MicroSD cards. You can work on your lego casing while waiting.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_power_up_and_add_dns">3. Power up and add DNS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can now power up the first Pi. By default to login use root/hypriot. You will need to set up DNS for each of the Pi&#8217;s. If you don&#8217;t want to hook up a monitor and keyboard to login at the console to figure out its IP and Mac address, then you can use nmap [3] to figure this out. If you have a DNS service provision it there, or else name the Pi&#8217;s in /etc/hosts. I named my Pi&#8217;s <em>rpi-master</em>, <em>rpi-node-1</em>, <em>rpi-node-2</em> and <em>rpi-node-3</em>. With a quick reboot of each Pi you will see the names reflected at the cmd prompt. Note that if you skip the DNS step your Kubernetes cluster will not work. I added the following to my <em>/etc/hosts</em> files on all machines</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>192.168.1.9     rpi-master
+192.168.1.21    rpi-node-1
+192.168.1.18    rpi-node-2
+192.168.1.23    rpi-node-3</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_swap_optional">4. Add Swap (optional)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I added 1Gb of swap space to my <em>rpi-master</em> because it runs a few more Kubernetes components. Some people seem concerned that frequent writes to the MicroSD card will make it fail quickly. I therefore decided to set the 'swappiness' such that it only uses the swap as a last resort.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    dd if=/dev/zero of=/swap/swapfile bs=1M count=1024
+    mkswap /swap/swapfile
+    swapon /swap/swapfile</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can check with 'top' that you have a 1 GB of swapspace</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>KiB Mem:    947468 total,   913096 used,    34372 free,    69884 buffers
+KiB Swap:  1048572 total,      484 used,  1048088 free,   667248 cached</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To make the swap permanent between reboots add</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/swap/swapfile none swap sw 0 0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to you <em>/etc/fstab</em> file. Finally in the <em>/etc/sysctl.conf</em> I&#8217;ve set the swappiness to 1 to make it not very 'swappy'</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>vm.swappiness = 1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>'1' means it will only use swap when the RAM use gets over 99%.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_intall_kubernetes">5. Intall Kubernetes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These instructions are to install the plain vanilla Kubernetes from Google. I had some issues compiling Openshift v3 due to some 64 bit dependencies, and I will get back to that later. I would like go support both. All the code that I&#8217;m using is checked in under <a href="https://github.com/Project31" class="bare">https://github.com/Project31</a>. If you want to compile your own Kubernetes binaries then visit [4].</p>
+</div>
+<div class="sect2">
+<h3 id="_install_kubernetes_master">5.1. Install Kubernetes Master</h3>
+<div class="paragraph">
+<p>The Kubernetes master runs the kubernetes REST API, a scheduler, kubernetes-proxy, a replication controller, and it uses etcd as a key-value store that is replicated with between other Kubernetes masters. For more details please see the Kubernetes documentation at [5].</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/kubernetes-master.png" alt="kubernetes master.png">
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Kubernetes master components.</div>
+<p>To install these components onto the master, login to the master node and run</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    git clone git@github.com:Project31/kubernetes-installer-rpi.git
+    cd kubernetes-install-rpi
+    ./build-master.sh</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_kubernetes_node">5.2. Install Kubernetes Node</h3>
+<div class="paragraph">
+<p>The Kubernetes node only run the kubernetes proxy and the pods.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/kubernetes-node.png" alt="kubernetes node.png">
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Kubernetes client components.</div>
+<p>To install these components on a node, login to the node and run</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    git clone git@github.com:Project31/kubernetes-installer-rpi.git
+    cd kubernetes-install-rpi
+    ./build-worker.sh</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally you need to point the node to its master. Edit the <em>/etc/systemd/system/kubelet.service</em> file and add the master&#8217;s Kubernetes REST endpoint to the 'api-servers' (which in my case is <em><a href="http://192.168.1.9:8080" class="bare">http://192.168.1.9:8080</a></em>).</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/kubernetes/kubernetes
+
+[Service]
+ExecStart=/usr/bin/kubelet  \
+--api-servers=http://192.168.1.9:8080 \
+--allow-privileged=true \
+--config=/etc/kubernetes/manifests \
+--v=2
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set <em>export KUBERNETES_MASTER=http://rpi-master:8080</em> so your <em>kubectl</em> can connect the kubernetes REST API on the master. Now  verify your nodes are registered</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl get nodes
+NAME         LABELS                              STATUS
+rpi-master   kubernetes.io/hostname=rpi-master   Ready
+rpi-node-1   kubernetes.io/hostname=rpi-node-1   Ready
+rpi-node-2   kubernetes.io/hostname=rpi-node-2   Ready
+rpi-node-3   kubernetes.io/hostname=rpi-node-3   Ready</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Yay it worked!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_open_docker_for_remote_connections">5.3. Open Docker for remote connections.</h3>
+<div class="paragraph">
+<p>Finally we need to fix up the Docker configuration so it accepts remote connections, so we can deploy something to it. Open the <em>/etc/default/docker</em> file for editing and set the DOCKER_OPTS</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>	DOCKER_OPTS="-H tcp://192.168.1.9:2375 -H unix:///var/run/docker.sock --storage-driver=overlay -D"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where the IP address of machine, or you can user '0.0.0.0' to bind to all interfaces. Now we can remotely push docker images to the master. In my next post I&#8217;m going to deploy a fabric8, note that the docker images you want to run need to be based on an ARM architecture or else they won&#8217;t run!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">6. References</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html" class="bare">http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html</a></p>
+</li>
+<li>
+<p><a href="http://blog.hypriot.com/downloads/" class="bare">http://blog.hypriot.com/downloads/</a></p>
+</li>
+<li>
+<p><a href="https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html" class="bare">https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html</a></p>
+</li>
+<li>
+<p><a href="https://kurtstam.github.io/https://kurtstam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html" class="bare">https://kurtstam.github.io/https://kurtstam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html</a></p>
+</li>
+<li>
+<p><a href="http://kubernetes.io/v1.1/docs/design/architecture.html" class="bare">http://kubernetes.io/v1.1/docs/design/architecture.html</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+                        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/Kubernetes">Kubernetes</a>, <a href="https://KurtStam.github.io/tag/RaspberryPi"> RaspberryPi</a></aside>
+            </section>
+            <hr>
+            <footer class="post-footer">
+
+                <section class="share">
+                    <h4>Liked this post ? Share it.</h4>
+                    <a class="fi-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    </a>
+                    <a class="fi-social-twitter" href="https://twitter.com/share?text=Build%20a%20Kubernetes%20Cluster%20on%20Raspberry%20Pi&amp;url=https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    </a>
+                    <a class="fi-social-google-plus" href="https://plus.google.com/share?url=https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    </a>
+                </section>
+
+                <section class="author">
+                    <header>
+                        <span>About the author</span>
+                    </header>
+                    <section>
+                        <h4>Kurt Stam</h4>
+                        <img src="https://avatars.githubusercontent.com/u/35576?v=3">
+                        
+                        
+                    </section>
+                    <footer>
+                         <p></p>
+                    </footer>
+                </section>
+
+        <div class="clearfix"></div>
+                    <hr>
+
+            </footer>
+
+        <h3 class="title-disqus"><span class="fi-comments"></span>Discussions</h3>
+
+
+
+
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'kurtstamgithubio'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+</main>
+
+</div>
+
+</div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/outdatedBrowser.min.js?v=1.0.0"></script>
+    <![endif]-->
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/min/built.js?v=1.0.0"></script>
+
+    <script>
+      $(document).foundation();
+    </script>
+
+</body>
+</html>
