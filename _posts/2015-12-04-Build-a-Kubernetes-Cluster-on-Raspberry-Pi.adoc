@@ -181,7 +181,7 @@ That's it for now. In the next blog post I will talk about deploying fabric8 ser
 
 == References
 
-1. xref:1[] http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
+1. anchor:1[] http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
 2. [[2]] http://blog.hypriot.com/downloads/
 3. https://kurtstam.github.io/2015/07/14/Turn-your-Raspberry-Pi-2-into-a-Hotspot.html
 4. https://kurtstam.github.io/https://kurtstam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html
