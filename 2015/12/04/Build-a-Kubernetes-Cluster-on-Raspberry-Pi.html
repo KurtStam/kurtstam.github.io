@@ -34,7 +34,7 @@
     <meta property="og:description" content="1. Required hardware To build this 4 Pi setup I used 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM 4 16 GB MicroSD cards - class 10 1 60 W power supply with USB..." />
     <meta property="og:url" content="https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html" />
     <meta property="article:published_time" content="2015-12-04T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2015-12-04T20:34:19.058Z" />
+    <meta property="article:modified_time" content="2015-12-04T20:49:09.332Z" />
     <meta property="article:tag" content="Kubernetes" />
     <meta property="article:tag" content="RaspberryPi" />
     
@@ -58,7 +58,7 @@
     "headline": "Build a Kubernetes Cluster on Raspberry Pi",
     "url": "https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cluster-on-Raspberry-Pi.html",
     "datePublished": "2015-12-04T05:00:00.000Z",
-    "dateModified": "2015-12-04T20:34:19.058Z",
+    "dateModified": "2015-12-04T20:49:09.332Z",
     "keywords": "Kubernetes,  RaspberryPi",
     "description": "1. Required hardware To build this 4 Pi setup I used 4 Raspberry Pi 2 with a quad core CPU and 1 GB of RAM 4 16 GB MicroSD cards - class 10 1 60 W power supply with USB..."
 }
@@ -306,6 +306,32 @@ KiB Swap:  1048572 total,      484 used,  1048088 free,   667248 cached</pre>
     ./build-master.sh</pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Verify the running docker containers using <em>docker ps</em></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>CONTAINER ID        IMAGE                                             COMMAND                  CREATED             STATUS              PORTS               NAMES
+d598e486daf5        hyperkube                                         "/hyperkube proxy --m"   3 days ago          Up 3 days                               k8s_kube-proxy.77350919_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_834f658a
+026c19a67f86        hyperkube                                         "/hyperkube scheduler"   3 days ago          Up 3 days                               k8s_kube-scheduler.9eefe01e_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_1dd7c2e9
+8f615b87cfda        hyperkube                                         "/hyperkube controlle"   3 days ago          Up 3 days                               k8s_kube-controller-manager.ff35e738_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_3a793f6d
+a737d9927c03        hyperkube                                         "/hyperkube apiserver"   3 days ago          Up 3 days                               k8s_kube-apiserver.41110286_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_9ce28f62
+0207a21ce18d        etcd                                              "etcd --data-dir=/var"   3 days ago          Up 3 days                               k8s_etcd.23d7fc08_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_9cd6d801
+a4174bf7cb98        gcr.io/google_containers/pause:0.8.0              "/pause"                 3 days ago          Up 3 days                               k8s_POD.e4cc795_kube-controller-rpi-master_default_2d7688bceff12d2c89bf40c848f6e4dd_6882abfe</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and the now set <em>export KUBERNETES_MASTER=http://rpi-master:8080</em> so your <em>kubectl</em> can connect the kubernetes REST API on the master. Now let take a look at the running pods using <em>kubectl get pods</em></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>NAME                         READY     STATUS    RESTARTS   AGE
+kube-controller-rpi-master   5/5       Running   0         10s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can see that the <em>kube-controller-rpi-master</em> pod contains runs 5 docker containers with the Kubernetes services mentioned above.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_install_kubernetes_node">5.2. Install Kubernetes Node</h3>
@@ -378,6 +404,34 @@ rpi-node-3   kubernetes.io/hostname=rpi-node-3   Ready</pre>
 </div>
 <div class="paragraph">
 <p>where the IP address of machine, or you can user '0.0.0.0' to bind to all interfaces. Now we can remotely push docker images to the master. In my next post I&#8217;m going to deploy a fabric8, note that the docker images you want to run need to be based on an ARM architecture or else they won&#8217;t run!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deploy_a_simple_service">5.4. Deploy a simple service</h3>
+<div class="paragraph">
+<p>Let&#8217;s deploy a simply service, and scale to two pods to make sure things are working correctly</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl -s http://localhost:8080 run httpd --image=hypriot/rpi-busybox-httpd --port=80
+kubectl scale --replicas=2 rc httpd
+kubectl get pods -o wide</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We see that eventhough we executed the command on the master is started a pod on node-2 and node-3.</p>
+</div>
+<div class="paragraph">
+<p>NAME                         READY     STATUS    RESTARTS   AGE       NODE
+httpd-4v1qw                  1/1       Running   0          9m        rpi-node-2
+httpd-qxcxu                  0/1       Pending   0          16s       rpi-node-3
+kube-controller-rpi-master   5/5       Running   0          1d        rpi-master
+kube-system-rpi-node-1       1/1       Running   0          33m       rpi-node-1
+kube-system-rpi-node-2       1/1       Running   0          43m       rpi-node-2
+kube-system-rpi-node-3       1/1       Running   0          53m       rpi-node-3</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it for now. In the next blog post I will talk about deploying fabric8 services.</p>
 </div>
 </div>
 </div>
