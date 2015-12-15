@@ -26,5 +26,5 @@ oc edit oauthclient fabric8
 
 and replace 'vagrant.f8' with your domain.
 
-NOTE: If your new domain name ends in _.f8_ and you have DNS issues this may be from Landrush trying to do the resolving for you. Check your _/etc/resolver_ directory and if it has a _f8_ file, delete it.
+NOTE: If your new domain name ends in _.f8_ and you have DNS issues this may be from Landrush trying to do the resolving for you. Check your _/etc/resolver_ directory and if it has a _f8_ file, delete it, as you probably want it to resolve the _vagrant.f8_ domain only.
 
