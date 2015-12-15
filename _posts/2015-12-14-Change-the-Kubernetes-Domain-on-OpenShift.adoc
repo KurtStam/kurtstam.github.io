@@ -8,5 +8,7 @@ export KUBERNETES_DOMAIN=<yourdomain>
 oc delete route fabric8
 oc delete rc fabric8
 systemctl stop openshift
-docker kill <fabric-container-id>
-docker 
+docker kill <fabric8-container-id>
+docker rm <fabric8-container-id>
+docker rmi <fabric8-image-id>
+
