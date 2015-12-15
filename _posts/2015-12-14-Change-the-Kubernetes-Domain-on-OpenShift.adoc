@@ -11,4 +11,20 @@ systemctl stop openshift
 docker kill <fabric8-container-id>
 docker rm <fabric8-container-id>
 docker rmi <fabric8-image-id>
+systemctl start openshift
+gofabric8 deploy
+....
+
+Verify the new domain is updated using
+docker inspect <fabric8-container-id> | grep "OAUTH_AUTHORIZE_URI"
+
+Finally there is one more thing to do which is to update where the openshift needs to redirect to after authentication, use
+
+....
+oc edit oauthclient fabric8
+....
+
+and replace 'vagrant.f8' with your domain.
+
+NOTE: If your new domain name ends in _.f8_ and you have DNS issues this may be from Landrush trying to do the resolving for you. Check your _/etc/resolver_ directory and if it has a _f8_ file, delete it.
 
