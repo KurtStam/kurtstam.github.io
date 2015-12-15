@@ -1,0 +1,4 @@
+= Change the Kubernetes Domain on OpenShift
+:hp-tags: OpenShift, Fabric8, Kubernetes
+
+The KUBERNETES_DOMAIN is defaulted to _vagrant.f8_ in Fabric8, and if you forgot to set this system parametes before running the fabric8 install then you end up with routes containing the vagrant.f8 domain 
