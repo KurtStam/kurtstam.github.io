@@ -184,7 +184,7 @@ That's it for now. In the next blog post I will talk about deploying fabric8 ser
 
 == Conclusion
 
-
+First of all: it works! The kubernetes master may not have much memory left to run services, the nodes on the other hand have almost the entire 1 GB available for docker containers. And if you need more computing power you can simply add nodes. The extremely low price of this hardware platform combined with the Kubernetes cloud OS and the Fabric8 devops and iPaas capabilities make this truly disruptive technology; it truly is a 'cloud-in-a-box' for 200$. 
 
 == References
 
