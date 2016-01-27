@@ -1,9 +1,12 @@
-= Build a Kubernetes Cluster on Raspberry Pi
+= Build a Kubernetes Cloud on Raspberry Pi
 :hp-tags: Kubernetes, RaspberryPi
 :numbered:
 
+Do you want your own your very own cloud? Now you can! You can create your own data-center-in-a-box using nothing but cheap open source hardware and open source software. In this article I used 4 Raspberry Pi 2's and I spent about $200. I'm using the Kubernetes cloud operating system, and I'm using Fabric8 to build and deploy and manage my micro services. http://fabric8.io/[Fabric8] is an integrated open source DevOps and Integration Platform which works out of the box on any Kubernetes or OpenShift environment and provides Continuous Delivery, Management, ChatOps and a Chaos Monkey. In short: the best framework there is to develop and manage your micro-services on.
 
-About a year ago I had the idea that deploying micro-services on Raspberry Pi's would be the perfect marriage. I work on the http://www.fabric8.io[Red Hat Fabric8] project and this week I was able to deploy one of the Fabric8 quickstarts. Here is what I built.
+Never before was there a better match between the software architecture and the hardware it runs one. The Pi's are completely silent (no fan) and have a quite powerful quad core CPU, while the micro-services architecture makes each process relatively small so it can run on the 1 GB RAM memory contraint of each node. You can simply add more Pi's if you need more computing power. Finally it is just plain fun to play with the hardware rather then logging into a remote virtual machine at Amazon.
+
+Disclaimer: I work on the http://www.fabric8.io[Red Hat Fabric8] project.
 
 == Required hardware
 
@@ -150,7 +153,7 @@ rpi-node-3   kubernetes.io/hostname=rpi-node-3   Ready
 
 Yay it worked!
 
-=== Open Docker for remote connections.
+== Open Docker for remote connections.
 
 Finally, on the master we need to fix up the Docker configuration so it accepts remote connections, so we can deploy something to it. Open the _/etc/default/docker_ file for editing and set the DOCKER_OPTS
 ....
@@ -158,7 +161,7 @@ Finally, on the master we need to fix up the Docker configuration so it accepts 
 ....
 where the IP address of machine, or you can user '0.0.0.0' to bind to all interfaces. Now we can remotely push docker images to the master. In my next post I'm going to deploy a fabric8, note that the docker images you want to run need to be based on an ARM architecture or else they won't run!
 
-=== Deploy a simple service
+== Deploy a simple service
 
 Let's deploy a simply service, and scale to two pods to make sure things are working correctly
 ....
@@ -179,6 +182,10 @@ kube-system-rpi-node-3       1/1       Running   0          53m       rpi-node-3
 ....
 That's it for now. In the next blog post I will talk about deploying fabric8 services. 
 
+== Conclusion
+
+
+
 == References
 
 1. anchor:1[] http://kurtstam.blogspot.com/2015/03/pi-oneering-on-raspberry-pi-2-part-1.html
@@ -187,6 +194,7 @@ That's it for now. In the next blog post I will talk about deploying fabric8 ser
 4. anchor:4[] https://kurtstam.github.io/https://kurtstam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html
 5. anchor:5[] http://kubernetes.io/v1.1/docs/design/architecture.html
 6. anchor:6[] http://sebgoa.blogspot.com
+
 
 
 
