@@ -1,0 +1,17 @@
+= Minimal Centos 7 Image with Docker 
+:hp-tags: Centos, ARM, Docker
+
+Centos add the ARM 7 build to their release train. Red Hat has 
+
+
+== Download
+
+https://wiki.centos.org/Download, scroll down to the 'AltArch Releases' and select the armhfp (Arm32) for RaspnerryPi2. 
+
+
+== Flash
+
+sudo dd bs=1m if=CentOS-Userland-7-armv7hl-Minimal-1511-RaspberryPi2.img of=/dev/disk2
+
+== Add Docker
+
