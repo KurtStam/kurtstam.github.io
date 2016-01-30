@@ -17,7 +17,9 @@ image::k8s-service-scenario-1.png[]
 [caption="Figure 1: "]
 .Kubernetes Client A invoking Kubernetes Service C.
 
-The client service can use the system paramaters set in the docker container to find the `host` and `port` settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (`local` meaning `on the same node`). 
+The client service can use the system paramaters set in the docker container to find the `host` and `port` settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (`local` meaning `on the same node`).
+
+
 
 
 == Scenario 2 - External Client to K8s
