@@ -25,7 +25,7 @@ String host = KubernetesServices.serviceToHostOrBlank(serviceName);
 String port = KubernetesServices.serviceToPortOrBlank(serviceName);
 ....
 
-If you prefer a canonical name instead of the IP address, then do a DNS lookup, which returns a string formatted like
+Or if you prefer a canonical name instead of the IP address, then do a DNS lookup, which returns a string formatted like
 `<service-name>.<k8s-domain>.svc.cluster.local` or `<service-name>.<k8s-domain>` for short.
 ....
 InetAddress initAddress = InetAddress.getByName("C");
@@ -33,10 +33,11 @@ String host = initAddress.getCanonicalHostName();
 ....           
 
 
-Note that the IP address returned, and the canonical address of `<service-name>.<k8s-domain>` can only be used on the kubernetes cluster and can not be approached externally. 
+Note that the IP address returned, and the canonical address of `<service-name>.<k8s-domain>` can *only* be used on the kubernetes cluster and can *not* be used externally. If Client A is externally keep reading scenario 2.
 
 
 == Scenario 2 - External Client to K8s
+
 
 image::k8s-service-scenario-2.png[]
 [caption="Figure 2: "]
