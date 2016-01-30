@@ -34,7 +34,7 @@
     <meta property="og:description" content="Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..." />
     <meta property="og:url" content="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
     <meta property="article:published_time" content="2016-01-27T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-01-30T20:36:51.591Z" />
+    <meta property="article:modified_time" content="2016-01-30T20:40:29.026Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Kubernetes" />
@@ -59,7 +59,7 @@
     "headline": "How to call a Kubernetes Service on OpenShift",
     "url": "https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html",
     "datePublished": "2016-01-27T05:00:00.000Z",
-    "dateModified": "2016-01-30T20:36:51.591Z",
+    "dateModified": "2016-01-30T20:40:29.026Z",
     "keywords": "OpenShift,  Fabric8,  Kubernetes",
     "description": "Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..."
 }
@@ -179,19 +179,23 @@
 </div>
 </div>
 <div class="paragraph">
-<div class="title">Figure 1. Kubernetes Client A invoking Kubernetes Service C.</div>
+<div class="title">Kubernetes Client A invoking Kubernetes Service C.</div>
 <p>The client service can use the system paramaters set in the docker container to find the <code>host</code> and <code>port</code> settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (<code>local</code> meaning <code>on the same node</code>). The fragment below show</p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>String serviceName = "C";
 String host = KubernetesServices.serviceToHostOrBlank(serviceName);
-String port = KubernetesServices.serviceToPortOrBlank(serviceName);
-
-//if you prefer a canonical name instead of the IP address, then do a DNS lookup
-//which return a string formatted like
-//&lt;service-name&gt;.&lt;k8s-domain&gt;.svc.cluster.local or &lt;service-name&gt;.&lt;k8s-domain&gt; for short.
-InetAddress initAddress = InetAddress.getByName("C");
+String port = KubernetesServices.serviceToPortOrBlank(serviceName);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you prefer a canonical name instead of the IP address, then do a DNS lookup, which returns a string formatted like
+<code>&lt;service-name&gt;.&lt;k8s-domain&gt;.svc.cluster.local</code> or <code>&lt;service-name&gt;.&lt;k8s-domain&gt;</code> for short.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>InetAddress initAddress = InetAddress.getByName("C");
 String host = initAddress.getCanonicalHostName();</pre>
 </div>
 </div>
@@ -217,7 +221,7 @@ String host = initAddress.getCanonicalHostName();</pre>
 <div class="content">
 <img src="/images/k8s-service-scenario-3.png" alt="k8s service scenario 3.png">
 </div>
-<div class="title">Figure 1. Figure 2. External Client A invoking Kubernetes Service C.</div>
+<div class="title">Figure 1. External Client A invoking Kubernetes Service C.</div>
 </div>
 </div>
 </div>
@@ -228,7 +232,7 @@ String host = initAddress.getCanonicalHostName();</pre>
 <div class="content">
 <img src="/images/k8s-service-scenario-4.png" alt="k8s service scenario 4.png">
 </div>
-<div class="title">Figure 2. Figure 3. Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.</div>
+<div class="title">Figure 2. Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.</div>
 </div>
 </div>
 </div>
