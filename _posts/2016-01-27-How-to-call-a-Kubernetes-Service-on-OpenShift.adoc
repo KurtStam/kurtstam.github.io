@@ -11,7 +11,12 @@ Before we talk about calling a service, let's first talk about deploying a servi
 
 == Scenario 1 - K8s Client to K8s Service
 
-You client is a service on kubernetes and you simply want to call another service in the kubernetes domain. 
+You client is a service on kubernetes and you simply want to call another service in the kubernetes domain.
+
+image::k8s-service-scenario-1.png[]
+[caption="Figure 1: "]
+.Kubernetes Client A invoking Kubernetes Service C.
+
 
 
 
