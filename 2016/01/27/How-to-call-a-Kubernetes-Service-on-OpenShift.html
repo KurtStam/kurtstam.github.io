@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>How to call a Kubernetes Service on OpenShift</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//KurtStam.github.io/themes/ichi/favicon.ico">
+
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/fastclick.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/modernizr.js?v=1.0.0"></script>
+
+   
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/normalize.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/foundation.min.css?v=1.0.0" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/outdatedBrowser.min.css?v=1.0.0">
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/fonts/foundation-icons/foundation-icons.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/styles.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,700,400|Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="hubpress/styles/asciidoctor.css" />
+    <link rel="canonical" href="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
+    
+    <meta property="og:site_name" content="Fresh Espresso &amp; Open Source Cloud" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to call a Kubernetes Service on OpenShift" />
+    <meta property="og:description" content="Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..." />
+    <meta property="og:url" content="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
+    <meta property="article:published_time" content="2016-01-27T05:00:00.000Z" />
+    <meta property="article:modified_time" content="2016-01-30T20:04:50.215Z" />
+    <meta property="article:tag" content="OpenShift" />
+    <meta property="article:tag" content="Fabric8" />
+    <meta property="article:tag" content="Kubernetes" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How to call a Kubernetes Service on OpenShift" />
+    <meta name="twitter:description" content="Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..." />
+    <meta name="twitter:url" content="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Fresh Espresso &amp; Open Source Cloud",
+    "author": {
+        "@type": "Person",
+        "name": "Kurt Stam",
+        "image": "https://avatars.githubusercontent.com/u/35576?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": null
+    },
+    "headline": "How to call a Kubernetes Service on OpenShift",
+    "url": "https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html",
+    "datePublished": "2016-01-27T05:00:00.000Z",
+    "dateModified": "2016-01-30T20:04:50.215Z",
+    "keywords": "OpenShift,  Fabric8,  Kubernetes",
+    "description": "Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="Fresh Espresso &amp; Open Source Cloud" href="https://KurtStam.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-OpenShift tag-Fabric8 tag-Kubernetes">
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdate" href="http://outdatedbrowser.com/">Update my browser now</a></p>
+</div>
+
+<nav class="top-bar hide-for-large-up" data-topbar >
+  <ul class="title-area">
+    <li class="name">
+
+    </li>
+    <li class="home"><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+    <li class="toggle-topbar"><a href="#" id="trigger-overlay" class="fi-list"></a></li>
+  </ul>
+
+<div class="overlay overlay-scale">
+    <button type="button" class="overlay-close">Close</button>
+    <nav>
+        <ul>
+            <li><a href="https://KurtStam.github.io">Home</a></li>
+        </ul>
+    </nav>
+</div>
+
+</nav>
+
+<div class="row">
+
+<div class="small-16 medium-16 large-4 columns right head-area" >
+
+<header class="site-head">
+    <div class="vertical">
+        <div class="site-head-content inner">
+            <ul class="side-nav-ichi blog-menu show-for-large-up">
+                <li><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+                <li><a class="fi-torso" href="https://KurtStam.github.io/about"></a></li>
+                <li><a class="fi-mail" href="https://KurtStam.github.io/contact"></a></li>
+            </ul>
+            
+            <h1 class="blog-title">Fresh Espresso &amp; Open Source Cloud</h1>
+            <hr>
+            <p class="blog-description">I have a passion for all things open source. I live in Ipswich MA and work for Red Hat, on the fabric8 project. Fabric8 is a cloud micro-services platform so you can deploy your applications to an all open source cloud. I kayak on the Atlantic Ocean along the coastal North East from Massachusetts to Maine whenever I can.</p>
+            <div class="blog-network">
+<!--                 <a href="#" class="fi-social-pinterest"></a>
+                <a href="#" class="fi-social-linkedin"></a>
+                <a href="#" class="fi-social-behance"></a>
+                <a href="#" class="fi-social-deviant-art"></a>
+                <a href="#" class="fi-social-dribbble"></a>
+                <a href="#" class="fi-social-flickr"></a>
+                <a href="#" class="fi-social-github"></a>
+                <a href="#" class="fi-social-skype"></a>
+                <a href="#" class="fi-social-snapchat"></a>
+                <a href="#" class="fi-social-steam"></a>
+                <a href="#" class="fi-social-xbox"></a>
+                <a href="#" class="fi-social-reddit"></a> -->
+                  <a href="kurt.stam@gmail.com" class="fi-social-google-plus"></a>
+                  <a href="kurtstam" class="fi-social-github"></a>
+                  <a href="kurtstam" class="fi-social-twitter"></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+</div>
+
+
+<div class="small-16 medium-16 large-12 columns main-column left">
+    
+
+<main class="content" role="main">
+
+    <article class="post tag-OpenShift tag-Fabric8 tag-Kubernetes">
+
+
+            <h1 class="post-title">How to call a Kubernetes Service on OpenShift</h1>
+
+            <span class="post-meta label"><time datetime="2016-01-27">27 Jan 2016</time></span>
+
+            <section class="post-content">
+                <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Summery</em> -</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We use Openshift as our Kubernetes implementation.</p>
+</div>
+<div class="paragraph">
+<p>Before we talk about calling a service, let&#8217;s first talk about deploying a service. Let&#8217;s say we have created a RESTful service, and we&#8217;d like to deploy it to Kubernetes. The easiest way to do this is using the <a href="http://fabric8.io/gitbook/mavenPlugin.html">fabric8 maven plugin</a> in your pom. Along with the <a href="https://github.com/rhuss/docker-maven-plugin" class="bare">https://github.com/rhuss/docker-maven-plugin</a> [docker maven plugin], it allows create a docker container running your service with just setting a few configuration properties. For some ready to go examples see the <a href="https://github.com/fabric8io/ipaas-quickstarts" class="bare">https://github.com/fabric8io/ipaas-quickstarts</a> [Fabric8 iPaas quickstarts]. We&#8217;re not going to talk about the specifics, but at a high level what happens is that your service is wrapped inside a Docker image. This image is uploaded under the <a href="https://hub.docker.com/u/fabric8/">fabric8 user on dockerhub</a>. Note that the docker user is configured in the pom and if you&#8217;d prefer to use a private docker registry you can <code>set export DOCKER_REGISTRY=172.30.17.90:5000/TCP</code>. The fabric8 maven plugin also creates the configuration artifacts needed by Kubernetes which are a 'template', a 'service' and a 'replication-controler' configuration files formatted in JSON. The template references the docker image and when the template is deployed to kubernetes, kubernetes can instantiate a new instance of the service by instructing Docker to start up a new container based on the docker image. In most quickstarts you can do this all at once using <code>mvn -Pf8-local-deploy</code>. So let&#8217;s assume you managed all of this and you can see your new shiny service running in the Fabric8 console and now you want clients to call it. Depending on wether the client is part of the kubernetes domain or not and if you want to use the apiman gateway for this there are a few different scenarios.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scenario_1_k8s_client_to_k8s_service">Scenario 1 - K8s Client to K8s Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The client is a service on kubernetes and you want to invoke another service in the kubernetes domain. This scenario is depicted in figure 1.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/k8s-service-scenario-1.png" alt="k8s service scenario 1.png">
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Kubernetes Client A invoking Kubernetes Service C.</div>
+<p>The client service can use the system paramaters set in the docker container to find the <code>host</code> and <code>port</code> settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (<code>local</code> meaning <code>on the same node</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scenario_2_external_client_to_k8s">Scenario 2 - External Client to K8s</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scenario_3_k8s_client_to_k8s_service_via_the_apiman_gateway">Scenario 3 - K8s Client to K8s Service via the APIMan Gateway</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scanario_4_external_client_to_k8s_service_via_the_apiman_gateway">Scanario 4 - External Client to K8s Service via the APIMan Gateway</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+                        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/OpenShift">OpenShift</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/Kubernetes"> Kubernetes</a></aside>
+            </section>
+            <hr>
+            <footer class="post-footer">
+
+                <section class="share">
+                    <h4>Liked this post ? Share it.</h4>
+                    <a class="fi-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    </a>
+                    <a class="fi-social-twitter" href="https://twitter.com/share?text=How%20to%20call%20a%20Kubernetes%20Service%20on%20OpenShift&amp;url=https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    </a>
+                    <a class="fi-social-google-plus" href="https://plus.google.com/share?url=https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    </a>
+                </section>
+
+                <section class="author">
+                    <header>
+                        <span>About the author</span>
+                    </header>
+                    <section>
+                        <h4>Kurt Stam</h4>
+                        <img src="https://avatars.githubusercontent.com/u/35576?v=3">
+                        
+                        
+                    </section>
+                    <footer>
+                         <p></p>
+                    </footer>
+                </section>
+
+        <div class="clearfix"></div>
+                    <hr>
+
+            </footer>
+
+        <h3 class="title-disqus"><span class="fi-comments"></span>Discussions</h3>
+
+
+
+
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'kurtstamgithubio'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+</main>
+
+</div>
+
+</div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/outdatedBrowser.min.js?v=1.0.0"></script>
+    <![endif]-->
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/min/built.js?v=1.0.0"></script>
+
+    <script>
+      $(document).foundation();
+    </script>
+
+</body>
+</html>
