@@ -1,0 +1,22 @@
+= How to call a Kubernetes Service on OpenShift
+:hp-tags: OpenShift, Fabric8, Kubernetes
+
+_Summery_ - 
+
+== Introduction
+
+
+== Scenario 1 - K8s Client to K8s Service
+
+
+
+== Scenario 2 - External Client to K8s
+
+
+
+== Scenario 3 - K8s Client to K8s Service via the APIMan Gateway
+
+
+
+== Scanario 4 - External Client to K8s Service via the APIMan Gateway
+
