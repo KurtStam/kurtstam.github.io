@@ -34,7 +34,7 @@
     <meta property="og:description" content="Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..." />
     <meta property="og:url" content="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
     <meta property="article:published_time" content="2016-01-27T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-01-30T20:33:19.542Z" />
+    <meta property="article:modified_time" content="2016-01-30T20:33:54.177Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Kubernetes" />
@@ -59,7 +59,7 @@
     "headline": "How to call a Kubernetes Service on OpenShift",
     "url": "https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html",
     "datePublished": "2016-01-27T05:00:00.000Z",
-    "dateModified": "2016-01-30T20:33:19.542Z",
+    "dateModified": "2016-01-30T20:33:54.177Z",
     "keywords": "OpenShift,  Fabric8,  Kubernetes",
     "description": "Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..."
 }
@@ -182,16 +182,18 @@
 <div class="title">Kubernetes Client A invoking Kubernetes Service C.</div>
 <p>The client service can use the system paramaters set in the docker container to find the <code>host</code> and <code>port</code> settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (<code>local</code> meaning <code>on the same node</code>). The fragment below show</p>
 </div>
-<div class="paragraph">
-<p>&#8230;&#8203;
-String serviceName = "C";
+<div class="literalblock">
+<div class="content">
+<pre>String serviceName = "C";
 String host = KubernetesServices.serviceToHostOrBlank(serviceName);
-String port = KubernetesServices.serviceToPortOrBlank(serviceName);</p>
+String port = KubernetesServices.serviceToPortOrBlank(serviceName);
+
+//if you prefer a canonical name instead of the IP address, then do a DNS lookup
+//which return a string formatted like
+//&lt;service-name&gt;.&lt;k8s-domain&gt;.svc.cluster.local or &lt;service-name&gt;.&lt;k8s-domain&gt; for short.
+InetAddress initAddress = InetAddress.getByName("C");
+String host = initAddress.getCanonicalHostName();</pre>
 </div>
-<div class="paragraph">
-<p>InetAddress initAddress = InetAddress.getByName("C");
-String host = initAddress.getCanonicalHostName();
-&#8230;&#8203;</p>
 </div>
 <div class="paragraph">
 <p>Note that the IP address returned, and the canonical address of <code>&lt;service-name&gt;.&lt;k8s-domain&gt;</code> can only be used on the kubernetes cluster and can not be approached externally.</p>
