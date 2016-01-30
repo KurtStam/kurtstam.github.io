@@ -5,6 +5,10 @@ _Summery_ -
 
 == Introduction
 
+We use Openshift as our Kubernetes implementation. 
+
+Before we talk about calling a service, let's first talk about deploying a service. Let's say we have created a RESTful service, and we'd like to deploy it to Kubernetes. The easiest way to do this is using the http://fabric8.io/gitbook/mavenPlugin.html[fabric8 maven plugin] in your pom. Along with the https://github.com/rhuss/docker-maven-plugin [docker maven plugin], it allows create a docker container running your service with just setting a few configuration properties. For some ready to go examples see the https://github.com/fabric8io/ipaas-quickstarts [Fabric8 iPaas quickstarts]. We're not going to talk about the specifics, but at a high level what happens is that your service is wrapped inside a Docker image. This image is uploaded under the https://hub.docker.com/u/fabric8/[fabric8 user on dockerhub]. Note that the docker user is configured in the pom. 
+
 
 == Scenario 1 - K8s Client to K8s Service
 
