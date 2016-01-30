@@ -11,15 +11,28 @@ Before we talk about calling a service, let's first talk about deploying a servi
 
 == Scenario 1 - K8s Client to K8s Service
 
-The client is a service on kubernetes and you want to invoke another service in the kubernetes domain. This scenario is depicted in figure 1. 
+In scenario 1 the client is a service on kubernetes and you want to invoke another service in same kubernetes domain. This scenario is depicted in figure 1. 
 
 image::k8s-service-scenario-1.png[]
 [caption="Figure 1: "]
 .Kubernetes Client A invoking Kubernetes Service C.
 
-The client service can use the system paramaters set in the docker container to find the `host` and `port` settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (`local` meaning `on the same node`).
+The client service can use the system paramaters set in the docker container to find the `host` and `port` settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (`local` meaning `on the same node`). The fragment below show
+
+...
+String serviceName = "C";
+String host = KubernetesServices.serviceToHostOrBlank(serviceName);
+String port = KubernetesServices.serviceToPortOrBlank(serviceName);
+
+//if you prefer a canonical name instead of the IP address, then do a DNS lookup
+//which return a string formatted like
+//<service-name>.<k8s-domain>.svc.cluster.local or <service-name>.<k8s-domain> for short.
+InetAddress initAddress = InetAddress.getByName("C");
+String host = initAddress.getCanonicalHostName();
+...            
 
 
+Note that the IP address returned, and the canonical address of `<service-name>.<k8s-domain>` can only be used on the kubernetes cluster and can not be approached externally. 
 
 
 == Scenario 2 - External Client to K8s
