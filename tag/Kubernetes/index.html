@@ -109,62 +109,32 @@
         </header>
 
 
-    <article class="post tag-Kubernetes tag-RaspberryPi">
+    <article class="post tag-OpenShift tag-Fabric8 tag-Kubernetes">
         <header class="post-header">
-            <span class="post-meta"><time datetime="2015-12-04">04 Dec 2015</time> </span>
-            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html">How to Compile Kubernetes for Raspberry Pi ARM</a></h2>
+            <span class="post-meta"><time datetime="2016-01-27">27 Jan 2016</time> </span>
+            <h2 class="post-title"><a href="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html">How to call a Kubernetes Service on OpenShift</a></h2>
 
         </header>
         <section class="post-excerpt">
-            <p>1. Golang on Pi (optional) If you have a Linux or OSX machine you can simply compile the Kubernetes Go libraries for ARM on that, but if you want to can install Golang one the Pi too. For that run     apt-get update     apt-get upgrade     apt-get install gcc apt-get install make     git clone https://go.googlesource.com/go     cd go git fetch --all     git checkout go1.4.3     cd src ./all.bash&hellip;</p>
+            <p>Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&#8217;s first talk about deploying a service. Let&#8217;s say we have created a RESTful service, and we&#8217;d like to deploy it to Kubernetes. The easiest way to do this is using the fabric8 maven plugin in your pom. Along with the https://github.com/rhuss/docker-maven-plugin [d&hellip;</p>
         </section>
-        <a class="button read-more right small" href="https://KurtStam.github.io/2015/12/04/How-to-Compile-Kubernetes-for-Raspberry-Pi-ARM.html">Read more</a>
-        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/Kubernetes">Kubernetes</a>, <a href="https://KurtStam.github.io/tag/RaspberryPi"> RaspberryPi</a></aside>
+        <a class="button read-more right small" href="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html">Read more</a>
+        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/OpenShift">OpenShift</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/Kubernetes"> Kubernetes</a></aside>
         <div class="clearfix"></div>
     </article>
 
 
-    <article class="post tag-Kubernetes tag-RaspberryPi">
+    <article class="post tag-OpenShift tag-Fabric8 tag-Kubernetes">
         <header class="post-header">
-            <span class="post-meta"><time datetime="2015-12-04">04 Dec 2015</time> </span>
-            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cloud-on-Raspberry-Pi.html">Build a Kubernetes Cloud on Raspberry Pi</a></h2>
+            <span class="post-meta"><time datetime="2015-12-14">14 Dec 2015</time> </span>
+            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/12/14/Change-the-Kubernetes-Domain-on-OpenShift.html">Change the Kubernetes Domain on OpenShift</a></h2>
 
         </header>
         <section class="post-excerpt">
-            <p>Do you want your own your very own cloud? Now you can! You can create your own data-center-in-a-box using nothing but cheap open source hardware and open source software. In this article I used 4 Raspberry Pi 2&#8217;s and I spent about $200. I&#8217;m using the Kubernetes cloud operating system, and I&#8217;m using Fabric8 to build and deploy and manage my micro services. Fabric8 is an integrate&hellip;</p>
+            <p>The KUBERNETES_DOMAIN is defaulted to vagrant.f8 in Fabric8, and if you forgot to set this system parametes before running the fabric8 install then you end up with routes containing the vagrant.f8 domain. To fix this you will have to reinstall the console. First export KUBERNETES_DOMAIN=&lt;yourdomain&gt; oc delete route fabric8 oc delete rc fabric8 systemctl stop openshift docker kill &lt;fabric&hellip;</p>
         </section>
-        <a class="button read-more right small" href="https://KurtStam.github.io/2015/12/04/Build-a-Kubernetes-Cloud-on-Raspberry-Pi.html">Read more</a>
-        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/Kubernetes">Kubernetes</a>, <a href="https://KurtStam.github.io/tag/RaspberryPi"> RaspberryPi</a></aside>
-        <div class="clearfix"></div>
-    </article>
-
-
-    <article class="post tag-Kubernetes tag-Fabric8">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="2015-10-15">15 Oct 2015</time> </span>
-            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/10/15/Update-1-Proposal-for-Kubernetes-Service-Annotations.html">Update 1: Proposal for Kubernetes Service Annotations.</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p>1. Original proposal The original proposal can be found at https://kurtstam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html. This updated proposal incorporates feedback from https://github.com/kubernetes/kubernetes/issues/14828. 2. Problem description Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root "/" of the local&hellip;</p>
-        </section>
-        <a class="button read-more right small" href="https://KurtStam.github.io/2015/10/15/Update-1-Proposal-for-Kubernetes-Service-Annotations.html">Read more</a>
-        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/Kubernetes">Kubernetes</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a></aside>
-        <div class="clearfix"></div>
-    </article>
-
-
-    <article class="post tag-Kubernetes tag-Fabric8">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="2015-09-22">22 Sep 2015</time> </span>
-            <h2 class="post-title"><a href="https://KurtStam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html">Proposal for Kubernetes Service Annotations.</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p>1. Updated version There is an updated version of this proposal, see https://kurtstam.github.io/2015/10/15/Update-1-Proposal-for-Kubernetes-Service-Annotations.html 2. Problem description Service URL - Every Service has one (or more) endpoint. As a rule the endpoint should be located at the root "/" of the localtion URL, i.e. http://172.100.1.52/. There are cases where this is not possible and th&hellip;</p>
-        </section>
-        <a class="button read-more right small" href="https://KurtStam.github.io/2015/09/22/Proposal-for-Kubernetes-Service-Annotations.html">Read more</a>
-        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/Kubernetes">Kubernetes</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a></aside>
+        <a class="button read-more right small" href="https://KurtStam.github.io/2015/12/14/Change-the-Kubernetes-Domain-on-OpenShift.html">Read more</a>
+        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/OpenShift">OpenShift</a>, <a href="https://KurtStam.github.io/tag/Fabric8"> Fabric8</a>, <a href="https://KurtStam.github.io/tag/Kubernetes"> Kubernetes</a></aside>
         <div class="clearfix"></div>
     </article>
 
