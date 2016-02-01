@@ -34,7 +34,7 @@
     <meta property="og:description" content="Summery - Every kubernets service has different endpoints for the same service. Four scenarios are outlined that explain when to use what endpoint, depending on if the client is deployed on the kubernetes cluster or externally and/or if an..." />
     <meta property="og:url" content="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
     <meta property="article:published_time" content="2016-01-27T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-02-01T17:31:28.444Z" />
+    <meta property="article:modified_time" content="2016-02-01T17:41:20.658Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Kubernetes" />
@@ -59,7 +59,7 @@
     "headline": "How to call a Kubernetes Service on OpenShift",
     "url": "https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html",
     "datePublished": "2016-01-27T05:00:00.000Z",
-    "dateModified": "2016-02-01T17:31:28.444Z",
+    "dateModified": "2016-02-01T17:41:20.658Z",
     "keywords": "OpenShift,  Fabric8,  Kubernetes",
     "description": "Summery - Every kubernets service has different endpoints for the same service. Four scenarios are outlined that explain when to use what endpoint, depending on if the client is deployed on the kubernetes cluster or externally and/or if an..."
 }
@@ -271,7 +271,12 @@ String host = initAddress.getCanonicalHostName();</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Where <code>192.168.1.22</code> is the IP address of the Kubernetes Node that runs the <code>HAProxy</code> router. HAProxy listens to the <code>host&#8217;s</code> <code>0.0.0.0</code> network interfaces. You can add entries for each <code>node</code> that runs <code>HAProxy</code> and client calls will roundrobin over the nodes. Note that each <code>HAProxy pod</code> still load balances across all pods in the k8s-cluster (with some affinity rules).</p>
+<p>Where <code>192.168.1.22</code> is the IP address of the Kubernetes Node that runs the <code>HAProxy</code> router. HAProxy listens to the <code>host&#8217;s</code> <code>0.0.0.0</code> network interfaces. You can add entries for each <code>node</code> that runs <code>HAProxy</code> and client calls will roundrobin over the nodes. Note that each <code>HAProxy pod</code> still load balances across all pods in the k8s-cluster (with some affinity rules). In this scenario no lookup is required and the URL for the endpoint is predetermined and of format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://&lt;service-name&gt;.&lt;k8s-domain&gt;/</pre>
+</div>
 </div>
 </div>
 </div>
@@ -288,6 +293,14 @@ String host = initAddress.getCanonicalHostName();</pre>
 </div>
 <div class="paragraph">
 <div class="title">External Client A invoking Kubernetes Service C via the Apiman Gateway.</div>
+<p>In this scenario no lookup is required and the URL for the endpoint is predetermined and of format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>http://apiman-gateway.&lt;k8s-domain&gt;/gateway/&lt;orgName&gt;/&lt;serviceName&gt;/1.0</pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Note that if you want to force external clients over the gateway then it would make sense to remove the direct route to Service C from HAProxy.</p>
 </div>
 </div>
@@ -295,6 +308,28 @@ String host = initAddress.getCanonicalHostName();</pre>
 <div class="sect1">
 <h2 id="_conclusion">Conclusion</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Four scenarios are identified:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1. Scenario 1 - K8s Client to K8s Service</p>
+</li>
+<li>
+<p>2. Scenario 2 - K8s Client to K8s Service via the Apiman Gateway</p>
+</li>
+<li>
+<p>3. Scenario 3 - External Client to K8s</p>
+</li>
+<li>
+<p>4. Scanario 4 - External Client to K8s Service via the Apiman Gateway</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the table below we use Kubernetes domain of <code>stam.f8</code>, Kubernetes namespace of <code>default</code>, org-name of <code>kurtOrg</code>, service-name of <code>c</code> and service-version of <code>1.0</code>. The service port of the gateway is <code>7777</code> and the service port of service c is <code>8080</code>.</p>
+</div>
 <table class="tableblock frame-all grid-all spread">
 <caption class="title">Table 1. Summary of Endpoints for Service C with examples</caption>
 <colgroup>
@@ -320,7 +355,7 @@ String host = initAddress.getCanonicalHostName();</pre>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://apiman-gateway.&lt;k8s-namespace&gt;:&lt;gwPort&gt;/gateway/&lt;orgName&gt;/&lt;serviceName&gt;/1.0" class="bare">http://apiman-gateway.&lt;k8s-namespace&gt;:&lt;gwPort&gt;/gateway/&lt;orgName&gt;/&lt;serviceName&gt;/1.0</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://apiman-gateway.&lt;k8s-namespace&gt;:&lt;gwPort&gt;/gateway/&lt;org-name&gt;/&lt;service-name&gt;/service-version" class="bare">http://apiman-gateway.&lt;k8s-namespace&gt;:&lt;gwPort&gt;/gateway/&lt;org-name&gt;/&lt;service-name&gt;/service-version</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://apiman-gateway.default:7777/gateway/kurtOrg/c/1.0/" class="bare">http://apiman-gateway.default:7777/gateway/kurtOrg/c/1.0/</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -332,7 +367,7 @@ String host = initAddress.getCanonicalHostName();</pre>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://apiman-gateway.&lt;k8s-domain&gt;/gateway/&lt;orgName&gt;/&lt;serviceName&gt;/1.0" class="bare">http://apiman-gateway.&lt;k8s-domain&gt;/gateway/&lt;orgName&gt;/&lt;serviceName&gt;/1.0</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://apiman-gateway.&lt;k8s-domain&gt;/gateway/&lt;org-name&gt;/&lt;service-name&gt;/service-version" class="bare">http://apiman-gateway.&lt;k8s-domain&gt;/gateway/&lt;org-name&gt;/&lt;service-name&gt;/service-version</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://apiman-gateway.stam.f8/gateway/kurtOrg/c/1.0/" class="bare">http://apiman-gateway.stam.f8/gateway/kurtOrg/c/1.0/</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
