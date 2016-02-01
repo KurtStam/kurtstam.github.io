@@ -51,16 +51,21 @@ stam.f8.            IN      A       192.168.1.22       ; f8
 *.stam.f8.          IN      A       192.168.1.22       ; f8
 ....
 
-Where `192.168.1.22` is the IP address of my Kubernetes master (and Node, since it is a one node setup) where the route was created. 
-
+Where `192.168.1.22` is the IP address of the Kubernetes Node that runs the `HAProxy` router. HAProxy listens to the `host's` `0.0.0.0` network interfaces. You can add entries for each `node` that runs `HAProxy` and client calls will roundrobin over the nodes. Note that each `HAProxy pod` still load balances across all pods in the k8s-cluster (with some affinity rules).
 
 == Scenario 3 - K8s Client to K8s Service via the APIMan Gateway
 
-In the following scenario we are going to add the APIMan Gateway in the mix. If we want Service C to be a `managed endpoint`, then we should import it into APIMan and publish it to the Gateway. The Gateway will then enforce all the policies you want to have enforced. Please see the http://fabric8.io/guide/apiManagement.html[Fabric8 docs] for more info on API management. Once you /publish/ Service C to the APIMan gateway the APIMan UI will display an 
+In scenario 3 we are going to add the APIMan Gateway in the mix. If we want Service C to be a `managed endpoint`, then we should import it into APIMan and publish it to the Gateway. The Gateway will then enforce all the policies you want to have enforced. Please see the http://fabric8.io/guide/apiManagement.html[Fabric8 docs] for more info on API management. Once you /publish/ Service C to the APIMan gateway the APIMan UI will display an 'Endpoint` tab on the `Service` page. This gateway endpoint which takes the format of
+
+....
+http://apiman-gateway.<k8s-domain>/gateway/<org-name>/<service-name>/<service-version>
+....
 
 image::k8s-service-scenario-2.png[]
 [caption="Figure 3: "]
 .Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.
+
+Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C.  
 
 == Scanario 4 - External Client to K8s Service via the APIMan Gateway
 
