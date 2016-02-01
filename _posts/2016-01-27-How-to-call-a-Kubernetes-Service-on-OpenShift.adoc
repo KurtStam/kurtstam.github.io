@@ -65,10 +65,13 @@ image::k8s-service-scenario-2.png[]
 [caption="Figure 3: "]
 .Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.
 
-Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C. Note that the gateway makes a call to the Service Proxy, and the Service Proxy decides to which pod the request is dispatched. By default it takes the 'local' pod first.
+Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C. Note that the gateway makes a call to the Service Proxy, and the Service Proxy decides to which pod the request is dispatched. By default it takes 'local' pods first.
 
 == Scanario 4 - External Client to K8s Service via the APIMan Gateway
+
+In the final scenario we have Client A external to the Kubernetes Cluster, and we want to make a call to Service C via the APIMan gateway. This means that we need to use the apiman-gateway 'Route' on HAProxy. HAProxy will then invoke the gateway and the gateway looks at the `path` part of the request URL to figure out the call needs to go the Service C (on the given organization).
 
 image::k8s-service-scenario-4.png[]
 [caption="Figure 4: "]
 .External Client A invoking Kubernetes Service C via the APIMan Gateway.
+
