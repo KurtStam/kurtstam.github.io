@@ -26,7 +26,7 @@ String port = KubernetesServices.serviceToPortOrBlank(serviceName);
 ....
 
 Or if you prefer a canonical name instead of the IP address, then do a DNS lookup, which returns a string formatted like
-`<service-name>.<k8s-namespace>.svc.cluster.local` or `<service-name>.<k8s-namespace>` for short.
+`<service-name>.<k8s-namespace>.svc.cluster.local` (or `<service-name>.<k8s-namespace>` for short), use
 ....
 InetAddress initAddress = InetAddress.getByName("C");
 String host = initAddress.getCanonicalHostName();
