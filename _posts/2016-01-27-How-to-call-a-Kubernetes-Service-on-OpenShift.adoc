@@ -65,7 +65,7 @@ image::k8s-service-scenario-2.png[]
 [caption="Figure 3: "]
 .Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.
 
-Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C.  
+Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C. Note that the gateway makes a call to the Service Proxy, and the Service Proxy decides to which pod the request is dispatched. By default it takes the 'local' pod first.
 
 == Scanario 4 - External Client to K8s Service via the APIMan Gateway
 
