@@ -82,7 +82,11 @@ stam.f8.            IN      A       192.168.1.22       ; f8
 *.stam.f8.          IN      A       192.168.1.22       ; f8
 ....
 
-Where `192.168.1.22` is the IP address of the Kubernetes Node that runs the `HAProxy` router. HAProxy listens to the `host's` `0.0.0.0` network interfaces. You can add entries for each `node` that runs `HAProxy` and client calls will roundrobin over the nodes. Note that each `HAProxy pod` still load balances across all pods in the k8s-cluster (with some affinity rules).
+Where `192.168.1.22` is the IP address of the Kubernetes Node that runs the `HAProxy` router. HAProxy listens to the `host's` `0.0.0.0` network interfaces. You can add entries for each `node` that runs `HAProxy` and client calls will roundrobin over the nodes. Note that each `HAProxy pod` still load balances across all pods in the k8s-cluster (with some affinity rules). In this scenario no lookup is required and the URL for the endpoint is predetermined and of format:
+
+....
+http://<service-name>.<k8s-domain>/
+....
 
 
 == Scanario 4 - External Client to K8s Service via the Apiman Gateway
@@ -93,17 +97,35 @@ image::k8s-service-scenario-4.png[]
 [caption="Figure 4: "]
 .External Client A invoking Kubernetes Service C via the Apiman Gateway.
 
+In this scenario no lookup is required and the URL for the endpoint is predetermined and of format:
+
+....
+http://apiman-gateway.<k8s-domain>/gateway/<orgName>/<serviceName>/1.0
+....
+
+
+
 Note that if you want to force external clients over the gateway then it would make sense to remove the direct route to Service C from HAProxy. 
 
 == Conclusion
+
+Four scenarios are identified:
+
+* 1. Scenario 1 - K8s Client to K8s Service
+* 2. Scenario 2 - K8s Client to K8s Service via the Apiman Gateway
+* 3. Scenario 3 - External Client to K8s
+* 4. Scanario 4 - External Client to K8s Service via the Apiman Gateway
+
+In the table below we use Kubernetes domain of `stam.f8`, Kubernetes namespace of `default`, org-name of `kurtOrg`, service-name of `c` and service-version of `1.0`. The service port of the gateway is `7777` and the service port of service c is `8080`.
 
 .Summary of Endpoints for Service C with examples
 [options="header"]
 |=======================
 | Scenario | URL format | Example |
 | 1| http://<service-name>.<k8s-namespace>:<port>/	|	http://c.default:8080/|
-| 2| http://apiman-gateway.<k8s-namespace>:<gwPort>/gateway/<orgName>/<serviceName>/1.0	|	http://apiman-gateway.default:7777/gateway/kurtOrg/c/1.0/ |
+| 2| http://apiman-gateway.<k8s-namespace>:<gwPort>/gateway/<org-name>/<service-name>/service-version	|	http://apiman-gateway.default:7777/gateway/kurtOrg/c/1.0/ |
 | 3| http://<service-name>.<k8s-domain>/	|			http://c.stam.f8/ |
-| 4| http://apiman-gateway.<k8s-domain>/gateway/<orgName>/<serviceName>/1.0 | http://apiman-gateway.stam.f8/gateway/kurtOrg/c/1.0/ |
+| 4| http://apiman-gateway.<k8s-domain>/gateway/<org-name>/<service-name>/service-version | http://apiman-gateway.stam.f8/gateway/kurtOrg/c/1.0/ |
 |=======================
+
 
