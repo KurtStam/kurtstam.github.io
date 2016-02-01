@@ -40,7 +40,7 @@ Note that the IP address returned, and the canonical address of `<service-name>.
 
 In scenario 2 client A is a service external to Kubernetes and you want to invoke service C on a kubernetes cluster. This scenario is depicted in figure 2. 
 
-image::k8s-service-scenario-2.png[]
+image::k8s-service-scenario-3.png[]
 [caption="Figure 2: "]
 .External Client A invoking Kubernetes Service C.
 
@@ -56,8 +56,9 @@ Where `192.168.1.22` is the IP address of my Kubernetes master (and Node, since 
 
 == Scenario 3 - K8s Client to K8s Service via the APIMan Gateway
 
+In the following scenario we are going to add the APIMan Gateway in the mix. If we want Service C to be a `managed endpoint`, then we should import it into APIMan and publish it to the Gateway. The Gateway will then enforce all the policies you want to have enforced. Please see the http://fabric8.io/guide/apiManagement.html[Fabric8 docs] for more info on API management. Once you /publish/ Service C to the APIMan gateway the APIMan UI will display an 
 
-image::k8s-service-scenario-3.png[]
+image::k8s-service-scenario-2.png[]
 [caption="Figure 3: "]
 .Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.
 
