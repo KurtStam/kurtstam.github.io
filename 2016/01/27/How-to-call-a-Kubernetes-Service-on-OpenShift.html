@@ -34,7 +34,7 @@
     <meta property="og:description" content="Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..." />
     <meta property="og:url" content="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
     <meta property="article:published_time" content="2016-01-27T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-02-01T16:42:59.617Z" />
+    <meta property="article:modified_time" content="2016-02-01T16:44:57.575Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Kubernetes" />
@@ -59,7 +59,7 @@
     "headline": "How to call a Kubernetes Service on OpenShift",
     "url": "https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html",
     "datePublished": "2016-01-27T05:00:00.000Z",
-    "dateModified": "2016-02-01T16:42:59.617Z",
+    "dateModified": "2016-02-01T16:44:57.575Z",
     "keywords": "OpenShift,  Fabric8,  Kubernetes",
     "description": "Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..."
 }
@@ -248,7 +248,7 @@ String host = initAddress.getCanonicalHostName();</pre>
 </div>
 <div class="paragraph">
 <div class="title">Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.</div>
-<p>Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C.</p>
+<p>Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C. Note that the gateway makes a call to the Service Proxy, and the Service Proxy decides to which pod the request is dispatched. By default it takes the 'local' pod first.</p>
 </div>
 </div>
 </div>
