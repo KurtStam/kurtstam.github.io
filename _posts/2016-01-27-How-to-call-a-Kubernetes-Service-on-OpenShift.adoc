@@ -1,7 +1,7 @@
 = How to call a Kubernetes Service on OpenShift
 :hp-tags: OpenShift, Fabric8, Kubernetes
 
-_Summery_ - 
+_Summery_ - _Every kubernets service has different endpoints for the same service. Four scenarios are outlined that explain when to use what endpoint, depending on if the client is deployed on the kubernetes cluster or externally and/or if an API manager is used_.
 
 == Introduction
 
@@ -17,7 +17,7 @@ image::k8s-service-scenario-1.png[]
 [caption="Figure 1: "]
 .Kubernetes Client A invoking Kubernetes Service C.
 
-The client service can use the system paramaters set in the docker container to find the `host` and `port` settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (`local` meaning `on the same node`). The fragment below show
+The client service can use the system paramaters set in the docker container to find the `host` and `port` settings of Service C in the kubernetes domain. When invoking this service endpoint the service proxy connects to a one of the pods running behind the service. By default the service proxy tries to find local pods first (`local` meaning `on the same node`). The fragment below shows how to obtain the `host` and `port` setting of Service C
 
 ....
 String serviceName = "C";
@@ -33,12 +33,43 @@ String host = initAddress.getCanonicalHostName();
 ....           
 
 
-Note that the IP address returned, and the canonical address of `<service-name>.<k8s-domain>` can *only* be used on the kubernetes cluster and can *not* be used externally. If Client A is external to the Kubernetes cluster then keep reading scenario 2.
+Note that the IP address returned, and the canonical address of `<service-name>.<k8s-domain>` can *only* be used on the kubernetes cluster and can *not* be used externally. If Client A is external to the Kubernetes cluster then keep reading scenario 3, but before we get there let's make Service C `managed` using Apiman.
+
+== Scenario 2 - K8s Client to K8s Service via the Apiman Gateway
+
+In scenario 2 we are going to add the APIMan Gateway in the mix. If we want Service C to be a `managed endpoint`, then we should import it into Apiman and publish it to the Gateway. The Gateway will then enforce all the policies you want to have enforced. Please see the http://fabric8.io/guide/apiManagement.html[Fabric8 docs] for more info on API management. Once you /publish/ Service C to the APIMan gateway the APIMan UI will display an 'Endpoint` tab on the `Service` page. This gateway endpoint which takes the format of
+
+....
+http://apiman-gateway.<k8s-namespace>/gateway/<org-name>/<service-name>/<service-version>
+....
+
+image::k8s-service-scenario-2.png[]
+[caption="Figure 3: "]
+.Kubernetes Client A invoking Kubernetes Service C via the Apiman Gateway.
+
+Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C. Note that the gateway makes a call to the Service Proxy, and the Service Proxy decides to which pod the request is dispatched. By default it takes 'local' pods first.
+
+The fragment below shows how to obtain the `host` and `port` setting of Service C
+
+....
+String serviceName = "apiman-gateway";
+String host = KubernetesServices.serviceToHostOrBlank(serviceName);
+String port = KubernetesServices.serviceToPortOrBlank(serviceName);
+....
+
+Or if you prefer a canonical name instead of the IP address, then do a DNS lookup, which returns a string formatted like
+`<service-name>.<k8s-namespace>.svc.cluster.local` (or `<service-name>.<k8s-namespace>` for short), use
+....
+InetAddress initAddress = InetAddress.getByName("C");
+String host = initAddress.getCanonicalHostName();
+.... 
+
+And the full end point url the client should use is `http://<host>:<port>/gateway/<org-name>/C/1.0`, where `C` is the name of Service C and `1.0` is the version under which this service is published in Apiman.
 
 
-== Scenario 2 - External Client to K8s
+== Scenario 3 - External Client to K8s
 
-In scenario 2 client A is a service external to Kubernetes and you want to invoke service C on a kubernetes cluster. This scenario is depicted in figure 2. 
+In scenario 3 client A is a service external to Kubernetes and you want to invoke service C on a kubernetes cluster. This scenario is depicted in figure 2. 
 
 image::k8s-service-scenario-3.png[]
 [caption="Figure 2: "]
@@ -53,25 +84,21 @@ stam.f8.            IN      A       192.168.1.22       ; f8
 
 Where `192.168.1.22` is the IP address of the Kubernetes Node that runs the `HAProxy` router. HAProxy listens to the `host's` `0.0.0.0` network interfaces. You can add entries for each `node` that runs `HAProxy` and client calls will roundrobin over the nodes. Note that each `HAProxy pod` still load balances across all pods in the k8s-cluster (with some affinity rules).
 
-== Scenario 3 - K8s Client to K8s Service via the APIMan Gateway
 
-In scenario 3 we are going to add the APIMan Gateway in the mix. If we want Service C to be a `managed endpoint`, then we should import it into APIMan and publish it to the Gateway. The Gateway will then enforce all the policies you want to have enforced. Please see the http://fabric8.io/guide/apiManagement.html[Fabric8 docs] for more info on API management. Once you /publish/ Service C to the APIMan gateway the APIMan UI will display an 'Endpoint` tab on the `Service` page. This gateway endpoint which takes the format of
+== Scanario 4 - External Client to K8s Service via the Apiman Gateway
 
-....
-http://apiman-gateway.<k8s-domain>/gateway/<org-name>/<service-name>/<service-version>
-....
-
-image::k8s-service-scenario-2.png[]
-[caption="Figure 3: "]
-.Kubernetes Client A invoking Kubernetes Service C via the APIMan Gateway.
-
-Now Client A should use this gateway endpoint. The gateway will take care of enforcing the configured policies and makes the call to Service C. Note that the gateway makes a call to the Service Proxy, and the Service Proxy decides to which pod the request is dispatched. By default it takes 'local' pods first.
-
-== Scanario 4 - External Client to K8s Service via the APIMan Gateway
-
-In the final scenario we have Client A external to the Kubernetes Cluster, and we want to make a call to Service C via the APIMan gateway. This means that we need to use the apiman-gateway 'Route' on HAProxy. HAProxy will then invoke the gateway and the gateway looks at the `path` part of the request URL to figure out the call needs to go the Service C (on the given organization).
+In the final scenario we have Client A external to the Kubernetes Cluster, and we want to make a call to Service C via the Apiman gateway. This means that we need to use the apiman-gateway 'Route' on HAProxy. HAProxy will then invoke the gateway and the gateway looks at the `path` part of the request URL to figure out the call needs to go the Service C (on the given organization).
 
 image::k8s-service-scenario-4.png[]
 [caption="Figure 4: "]
-.External Client A invoking Kubernetes Service C via the APIMan Gateway.
+.External Client A invoking Kubernetes Service C via the Apiman Gateway.
+
+Note that if you want to force external clients over the gateway then it would make sense to remove the direct route to Service C from HAProxy. 
+
+== Conclusion
+
+| Scenario 1| http://<service-name>.<k8s-namespace>:<port>/	|	http://c.default:8080|
+| Scenario 2| http://apiman-gateway.<k8s-namespace>:<gwPort>/gateway/<orgName>/<serviceName>/1.0	|	http://apiman-gateway.default:7777/gateway/kurtOrg/c/1.0 |
+| Scenario 3| http://<service-name>.<k8s-domain>	|			http://c.stam.f8 |
+| Scenario 4| http://apiman-gateway.<k8s-domain>/gateway/<orgName>/<serviceName>/1.0 | http://apiman-gateway.stam.f8/gateway/kurtOrg/c/1.0 |
 
