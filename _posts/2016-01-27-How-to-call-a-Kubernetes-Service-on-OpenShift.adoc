@@ -43,6 +43,8 @@ image::k8s-service-scenario-2.png[]
 [caption="Figure 2: "]
 .External Client A invoking Kubernetes Service C.
 
+https://docs.openshift.org/latest/architecture/core_concepts/routes.html
+
 == Scenario 3 - K8s Client to K8s Service via the APIMan Gateway
 
 image::k8s-service-scenario-3.png[]
