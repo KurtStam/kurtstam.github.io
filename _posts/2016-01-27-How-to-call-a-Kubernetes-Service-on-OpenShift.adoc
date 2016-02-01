@@ -98,11 +98,12 @@ Note that if you want to force external clients over the gateway then it would m
 == Conclusion
 
 .Summary of Endpoints for Service C with examples
-[options="header,footer"]
+[options="header"]
 |=======================
-| Scenario 1| http://<service-name>.<k8s-namespace>:<port>/	|	http://c.default:8080|
-| Scenario 2| http://apiman-gateway.<k8s-namespace>:<gwPort>/gateway/<orgName>/<serviceName>/1.0	|	http://apiman-gateway.default:7777/gateway/kurtOrg/c/1.0 |
-| Scenario 3| http://<service-name>.<k8s-domain>	|			http://c.stam.f8 |
-| Scenario 4| http://apiman-gateway.<k8s-domain>/gateway/<orgName>/<serviceName>/1.0 | http://apiman-gateway.stam.f8/gateway/kurtOrg/c/1.0 |
+| Scenario | URL format | Example |
+| 1| http://<service-name>.<k8s-namespace>:<port>/	|	http://c.default:8080|
+| 2| http://apiman-gateway.<k8s-namespace>:<gwPort>/gateway/<orgName>/<serviceName>/1.0	|	http://apiman-gateway.default:7777/gateway/kurtOrg/c/1.0 |
+| 3| http://<service-name>.<k8s-domain>	|			http://c.stam.f8 |
+| 4| http://apiman-gateway.<k8s-domain>/gateway/<orgName>/<serviceName>/1.0 | http://apiman-gateway.stam.f8/gateway/kurtOrg/c/1.0 |
 |=======================
 
