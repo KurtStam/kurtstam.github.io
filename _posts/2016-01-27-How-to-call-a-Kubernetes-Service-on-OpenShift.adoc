@@ -131,8 +131,8 @@ In the table below we use Kubernetes domain of `stam.f8`, Kubernetes namespace o
 
 == Additional Resources
 
-[1] Openshift Routers: https://docs.openshift.org/latest/architecture/core_concepts/routes.html#available-router-plug-ins
-[2] Deploy a Router: https://docs.openshift.org/latest/install_config/install/deploy_router.html#creating-the-router-service-account
-[3] https://docs.openshift.org/latest/admin_guide/router.html
-[4] https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/services.md#the-gory-details-of-virtual-ips
+* [1] Openshift Routers: https://docs.openshift.org/latest/architecture/core_concepts/routes.html#available-router-plug-ins
+* [2] Deploy a Router: https://docs.openshift.org/latest/install_config/install/deploy_router.html#creating-the-router-service-account
+* [3] https://docs.openshift.org/latest/admin_guide/router.html
+* [4] https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/services.md#the-gory-details-of-virtual-ips
 
