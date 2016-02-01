@@ -34,7 +34,7 @@
     <meta property="og:description" content="Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..." />
     <meta property="og:url" content="https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html" />
     <meta property="article:published_time" content="2016-01-27T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-02-01T13:33:34.418Z" />
+    <meta property="article:modified_time" content="2016-02-01T15:29:27.396Z" />
     <meta property="article:tag" content="OpenShift" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Kubernetes" />
@@ -59,7 +59,7 @@
     "headline": "How to call a Kubernetes Service on OpenShift",
     "url": "https://KurtStam.github.io/2016/01/27/How-to-call-a-Kubernetes-Service-on-OpenShift.html",
     "datePublished": "2016-01-27T05:00:00.000Z",
-    "dateModified": "2016-02-01T13:33:34.418Z",
+    "dateModified": "2016-02-01T15:29:27.396Z",
     "keywords": "OpenShift,  Fabric8,  Kubernetes",
     "description": "Summery - Introduction We use Openshift as our Kubernetes implementation. Before we talk about calling a service, let&amp;#8217;s first talk about deploying a service. Let&amp;#8217;s say we have created a RESTful service, and we&amp;#8217;d..."
 }
@@ -171,7 +171,7 @@
 <h2 id="_scenario_1_k8s_client_to_k8s_service">Scenario 1 - K8s Client to K8s Service</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In scenario 1 the client is a service on kubernetes and you want to invoke another service in same kubernetes domain. This scenario is depicted in figure 1.</p>
+<p>In scenario 1 client A is a service on kubernetes and you want to invoke another service in same kubernetes domain. This scenario is depicted in figure 1.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -191,7 +191,7 @@ String port = KubernetesServices.serviceToPortOrBlank(serviceName);</pre>
 </div>
 <div class="paragraph">
 <p>Or if you prefer a canonical name instead of the IP address, then do a DNS lookup, which returns a string formatted like
-<code>&lt;service-name&gt;.&lt;k8s-domain&gt;.svc.cluster.local</code> or <code>&lt;service-name&gt;.&lt;k8s-domain&gt;</code> for short.</p>
+<code>&lt;service-name&gt;.&lt;k8s-namespace&gt;.svc.cluster.local</code> or <code>&lt;service-name&gt;.&lt;k8s-namespace&gt;</code> for short.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -200,13 +200,16 @@ String host = initAddress.getCanonicalHostName();</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Note that the IP address returned, and the canonical address of <code>&lt;service-name&gt;.&lt;k8s-domain&gt;</code> can <strong>only</strong> be used on the kubernetes cluster and can <strong>not</strong> be used externally. If Client A is externally keep reading scenario 2.</p>
+<p>Note that the IP address returned, and the canonical address of <code>&lt;service-name&gt;.&lt;k8s-domain&gt;</code> can <strong>only</strong> be used on the kubernetes cluster and can <strong>not</strong> be used externally. If Client A is external to the Kubernetes cluster then keep reading scenario 2.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_scenario_2_external_client_to_k8s">Scenario 2 - External Client to K8s</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>In scenario 2 client A is a service external to Kubernetes and you want to invoke service C on a kubernetes cluster. This scenario is depicted in figure 2.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="/images/k8s-service-scenario-2.png" alt="k8s service scenario 2.png">
@@ -214,7 +217,16 @@ String host = initAddress.getCanonicalHostName();</pre>
 </div>
 <div class="paragraph">
 <div class="title">External Client A invoking Kubernetes Service C.</div>
-<p><a href="https://docs.openshift.org/latest/architecture/core_concepts/routes.html" class="bare">https://docs.openshift.org/latest/architecture/core_concepts/routes.html</a></p>
+<p>This scenario requires a router and a route. On OpenShift the router of choice is <a href="http://www.haproxy.org/">HAProxy</a>, and when you <a href="http://fabric8.io/guide/mavenFabric8CreateRoutes.html">create a route</a> it creates a nice canonical address: <a href="http://&lt;servicename&gt;.&lt;k8s-domain&gt" class="bare">http://&lt;servicename&gt;.&lt;k8s-domain&gt</a>;. See also the <a href="https://docs.openshift.org/latest/architecture/core_concepts/routes.html#available-router-plug-ins">OpenShift docs</a> for the gory details. In order to get the DNS to resolve the canonical address you will need <a href="http://fabric8.io/guide/getStartedVagrant.html">Landrush, or dnsmasq</a> or you can add a zone file for your k8s-domain to your DNS server. In my case, my k8s-domain is <code>stam.f8</code> and I use the following</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>stam.f8.            IN      A       192.168.1.22       ; f8
+*.stam.f8.          IN      A       192.168.1.22       ; f8</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where <code>192.168.1.22</code> is the IP address of my Kubernetes master (and Node, since it is a one node setup) where the route was created.</p>
 </div>
 </div>
 </div>
