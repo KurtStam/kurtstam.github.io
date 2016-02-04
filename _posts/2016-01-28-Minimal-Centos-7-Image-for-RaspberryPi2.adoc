@@ -1,0 +1,45 @@
+= Minimal Centos 7 Image for RaspberryPi2 
+:hp-tags: Centos, ARM, Docker
+
+Centos added the ARM 7 build to their release train.
+
+
+== Download
+
+To download the Centos 7 minimal image for Raspberry Pi 2 go to 
+
+https://wiki.centos.org/Download, 
+
+and scroll down to the 'AltArch Releases' and select the armhfp (Arm32) for RaspberryPi2. 
+
+
+== Flash
+
+On my OSX box I issue:
+
+sudo dd bs=1m if=CentOS-Userland-7-armv7hl-Minimal-1511-RaspberryPi2.img of=/dev/disk2
+
+Double check that your SD Card reader is at /dev/disk2 or you'll be sorry..
+
+
+== First login
+
+I had some trouble finding the default login credentials but I finally found the documentation here:
+
+https://wiki.centos.org/SpecialInterestGroup/AltArch/Arm32#head-61f4a64fb0c44b1080d87dd0c618ed4d0c8ef8df
+
+with default creds `root/centos`
+
+
+== Use the entire SD Card
+
+By default the partition uses only 2GB. To make enlarge it use
+
+....
+touch /.rootfs-repartition
+systemctl reboot
+....
+
+== Add Docker?
+
+Sadly the Docker rpm is not available yet.
