@@ -9,13 +9,11 @@ Not too long ago http://www.davsclaus.com/2015/09/apache-camel-216-swagger-java-
 == Obtaining and deploying the camel-swagger quickstars
 
 It is assumed you have a running Fabric8 instance running on Openshift 3 with Apiman deployed. Check https://kurtstam.github.io/2015/09/29/One-click-to-run-Apiman-on-Fabric8.html[this] post if you don't. Next, fork and clone the ipaas-quickstarts repository
-
 ....
 git clone https://github.com/fabric8io/ipaas-quickstarts
 ....
 
 To deploy the quickstart login to your Kubernetes master and invoke the f8-local-deploy profile running maven
-
 ....
 oc login <your master>
 cd ipaas-quickstarts/quickstarts/cdi/camel-swagger
@@ -28,11 +26,9 @@ In the Fabric8 console look up the Apiman Application and find the link to the A
 
 image::apiman-catalog.png[]
 [caption="Figure 1: "]
-.Apiman Service Catalog.
-
+.Apiman Service Catalog
 
 The catalog display all services running on Kubernetes and you can start an import into Apiman right from the catalog to make this service available as a `managed` service. Also you can view the API description right from the Catalog. 
-
 
 image::apiman-swagger.png[]
 [caption="Figure 2: "]
