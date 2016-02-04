@@ -34,7 +34,7 @@
     <meta property="og:description" content="Introduction Not too long ago Claus Ibsen demo&amp;#8217;ed the camel-swagger module. The camel-swagger module allows you to describe your Camel REST service using Swagger DSL. In this blogpost we converted his example to run on Kubernetes using Fabric8...." />
     <meta property="og:url" content="https://KurtStam.github.io/2016/02/04/Kubernetes-API-Management-importing-a-Camel-with-serious-Swagger.html" />
     <meta property="article:published_time" content="2016-02-04T05:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-02-04T20:02:31.041Z" />
+    <meta property="article:modified_time" content="2016-02-04T20:05:07.596Z" />
     <meta property="article:tag" content="Fabric8" />
     <meta property="article:tag" content="Kubernetes" />
     <meta property="article:tag" content="Apiman" />
@@ -59,7 +59,7 @@
     "headline": "Kubernetes API Management importing a Camel with serious Swagger",
     "url": "https://KurtStam.github.io/2016/02/04/Kubernetes-API-Management-importing-a-Camel-with-serious-Swagger.html",
     "datePublished": "2016-02-04T05:00:00.000Z",
-    "dateModified": "2016-02-04T20:02:31.041Z",
+    "dateModified": "2016-02-04T20:05:07.596Z",
     "keywords": "Fabric8,  Kubernetes,  Apiman",
     "description": "Introduction Not too long ago Claus Ibsen demo&amp;#8217;ed the camel-swagger module. The camel-swagger module allows you to describe your Camel REST service using Swagger DSL. In this blogpost we converted his example to run on Kubernetes using Fabric8...."
 }
@@ -181,7 +181,7 @@ mvn -Pf8-local-deploy</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_show_the_camel_swagger_api_from_the_apiman_service_catalog">Show the camel-swagger API from the Apiman Service Catalog</h2>
+<h2 id="_show_the_camel_swagger_api_from_the_apiman_api_catalog">Show the camel-swagger API from the Apiman API Catalog</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the Fabric8 console look up the Apiman Application and find the link to the Apiman Console (look for <code>apiman.vagrant.f8</code>, if <code>vagrant.f8</code> is your Kubernetes domain.</p>
@@ -205,7 +205,7 @@ mvn -Pf8-local-deploy</pre>
 <h2 id="_conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The old Camel learned a new trick and can describe its RESTful service using SwaggerJSON. Apiman can import the SwaggerJSON DSL document and present service consumers with a central <code>Service Catalog</code> from where the service description can be viewed in the nice Swagger editor/viewer.</p>
+<p>The old Camel learned a new trick and can describe its RESTful service using SwaggerJSON. Apiman can import the SwaggerJSON DSL document and present service consumers with a central <code>API Catalog</code> from where the service description can be viewed in the nice Swagger editor/viewer.</p>
 </div>
 </div>
 </div>
