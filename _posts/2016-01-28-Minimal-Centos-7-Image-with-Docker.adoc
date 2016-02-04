@@ -13,5 +13,16 @@ https://wiki.centos.org/Download, scroll down to the 'AltArch Releases' and sele
 
 sudo dd bs=1m if=CentOS-Userland-7-armv7hl-Minimal-1511-RaspberryPi2.img of=/dev/disk2
 
+== First login
+
+https://wiki.centos.org/SpecialInterestGroup/AltArch/Arm32#head-61f4a64fb0c44b1080d87dd0c618ed4d0c8ef8df
+
+root/centos
+
+2GB partition by default.
+
+touch /.rootfs-repartition
+systemctl reboot
+
 == Add Docker
 
