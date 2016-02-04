@@ -26,7 +26,7 @@ mvn -Pf8-local-deploy
 
 In the Fabric8 console look up the Apiman Application and find the link to the Apiman Console (look for `apiman.vagrant.f8`, if `vagrant.f8` is your Kubernetes domain.
 
-image::service-catalog.png[]
+image::apiman-catalog.png[]
 [caption="Figure 1: "]
 .Apiman Service Catalog.
 
