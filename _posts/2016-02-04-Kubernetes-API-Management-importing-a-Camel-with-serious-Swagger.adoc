@@ -22,7 +22,6 @@ cd ipaas-quickstarts/quickstarts/cdi/camel-swagger
 mvn -Pf8-local-deploy
 ....
 
-
 == Show the camel-swagger API from the Apiman Service Catalog
 
 In the Fabric8 console look up the Apiman Application and find the link to the Apiman Console (look for `apiman.vagrant.f8`, if `vagrant.f8` is your Kubernetes domain.
@@ -37,8 +36,7 @@ The catalog display all services running on Kubernetes and you can start an impo
 
 image::apiman-swagger.png[]
 [caption="Figure 2: "]
-.Apiman Swagger Viewer.
-
+.Apiman Swagger Viewer
 
 == Conclusion
 
