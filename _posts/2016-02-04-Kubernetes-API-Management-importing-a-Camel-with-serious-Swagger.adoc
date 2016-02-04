@@ -6,7 +6,7 @@
 Not too long ago http://www.davsclaus.com/2015/09/apache-camel-216-swagger-java-and-api.html[Claus Ibsen demo'ed] the camel-swagger module. The http://camel.apache.org/swagger-java.html[camel-swagger module] allows you to describe your http://camel.apache.org/[Camel] REST service using Swagger DSL. In this blogpost we converted his example to run on `Kubernetes` using `Fabric8`. After deploying the service to Kubernetes we can then import the API into the API Manager that is http://www.apiman.io/latest/[Apiman]. Once imported the SwaggerJSON DSL is presented to API consumers in a nice viewer.
 
 
-== Obtaining and deploying the camel-swagger quickstars
+== Obtaining and deploying the camel-swagger quickstarts
 
 It is assumed you have a running Fabric8 instance running on Openshift 3 with Apiman deployed. Check https://kurtstam.github.io/2015/09/29/One-click-to-run-Apiman-on-Fabric8.html[this] post if you don't. Next, fork and clone the ipaas-quickstarts repository
 ....
