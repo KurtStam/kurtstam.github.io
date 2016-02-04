@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Minimal Centos 7 Image for RaspberryPi2</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//KurtStam.github.io/themes/ichi/favicon.ico">
+
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/fastclick.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/vendor/modernizr.js?v=1.0.0"></script>
+
+   
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/normalize.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/foundation.min.css?v=1.0.0" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/outdatedBrowser.min.css?v=1.0.0">
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/fonts/foundation-icons/foundation-icons.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//KurtStam.github.io/themes/ichi/assets/css/styles.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,700,400|Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="hubpress/styles/asciidoctor.css" />
+    <link rel="canonical" href="https://KurtStam.github.io/2016/01/28/Minimal-Centos-7-Image-for-RaspberryPi2.html" />
+    
+    <meta property="og:site_name" content="Fresh Espresso &amp; Open Source Cloud" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Minimal Centos 7 Image for RaspberryPi2" />
+    <meta property="og:description" content="Centos added the ARM 7 build to their release train. Download To download the Centos 7 minimal image for Raspberry Pi 2 go to https://wiki.centos.org/Download, and scroll down to the &#x27;AltArch Releases&#x27; and select the armhfp..." />
+    <meta property="og:url" content="https://KurtStam.github.io/2016/01/28/Minimal-Centos-7-Image-for-RaspberryPi2.html" />
+    <meta property="article:published_time" content="2016-01-28T05:00:00.000Z" />
+    <meta property="article:modified_time" content="2016-02-04T19:04:49.348Z" />
+    <meta property="article:tag" content="Centos" />
+    <meta property="article:tag" content="ARM" />
+    <meta property="article:tag" content="Docker" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Minimal Centos 7 Image for RaspberryPi2" />
+    <meta name="twitter:description" content="Centos added the ARM 7 build to their release train. Download To download the Centos 7 minimal image for Raspberry Pi 2 go to https://wiki.centos.org/Download, and scroll down to the &#x27;AltArch Releases&#x27; and select the armhfp..." />
+    <meta name="twitter:url" content="https://KurtStam.github.io/2016/01/28/Minimal-Centos-7-Image-for-RaspberryPi2.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Fresh Espresso &amp; Open Source Cloud",
+    "author": {
+        "@type": "Person",
+        "name": "Kurt Stam",
+        "image": "https://avatars.githubusercontent.com/u/35576?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": null
+    },
+    "headline": "Minimal Centos 7 Image for RaspberryPi2",
+    "url": "https://KurtStam.github.io/2016/01/28/Minimal-Centos-7-Image-for-RaspberryPi2.html",
+    "datePublished": "2016-01-28T05:00:00.000Z",
+    "dateModified": "2016-02-04T19:04:49.348Z",
+    "keywords": "Centos,  ARM,  Docker",
+    "description": "Centos added the ARM 7 build to their release train. Download To download the Centos 7 minimal image for Raspberry Pi 2 go to https://wiki.centos.org/Download, and scroll down to the &#x27;AltArch Releases&#x27; and select the armhfp..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="Fresh Espresso &amp; Open Source Cloud" href="https://KurtStam.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-Centos tag-ARM tag-Docker">
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdate" href="http://outdatedbrowser.com/">Update my browser now</a></p>
+</div>
+
+<nav class="top-bar hide-for-large-up" data-topbar >
+  <ul class="title-area">
+    <li class="name">
+
+    </li>
+    <li class="home"><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+    <li class="toggle-topbar"><a href="#" id="trigger-overlay" class="fi-list"></a></li>
+  </ul>
+
+<div class="overlay overlay-scale">
+    <button type="button" class="overlay-close">Close</button>
+    <nav>
+        <ul>
+            <li><a href="https://KurtStam.github.io">Home</a></li>
+        </ul>
+    </nav>
+</div>
+
+</nav>
+
+<div class="row">
+
+<div class="small-16 medium-16 large-4 columns right head-area" >
+
+<header class="site-head">
+    <div class="vertical">
+        <div class="site-head-content inner">
+            <ul class="side-nav-ichi blog-menu show-for-large-up">
+                <li><a class="fi-home" href="https://KurtStam.github.io"></a></li>
+                <li><a class="fi-torso" href="https://KurtStam.github.io/about"></a></li>
+                <li><a class="fi-mail" href="https://KurtStam.github.io/contact"></a></li>
+            </ul>
+            
+            <h1 class="blog-title">Fresh Espresso &amp; Open Source Cloud</h1>
+            <hr>
+            <p class="blog-description">I have a passion for all things open source. I live in Ipswich MA and work for Red Hat, on the fabric8 project. Fabric8 is a cloud micro-services platform so you can deploy your applications to an all open source cloud. I kayak on the Atlantic Ocean along the coastal North East from Massachusetts to Maine whenever I can.</p>
+            <div class="blog-network">
+<!--                 <a href="#" class="fi-social-pinterest"></a>
+                <a href="#" class="fi-social-linkedin"></a>
+                <a href="#" class="fi-social-behance"></a>
+                <a href="#" class="fi-social-deviant-art"></a>
+                <a href="#" class="fi-social-dribbble"></a>
+                <a href="#" class="fi-social-flickr"></a>
+                <a href="#" class="fi-social-github"></a>
+                <a href="#" class="fi-social-skype"></a>
+                <a href="#" class="fi-social-snapchat"></a>
+                <a href="#" class="fi-social-steam"></a>
+                <a href="#" class="fi-social-xbox"></a>
+                <a href="#" class="fi-social-reddit"></a> -->
+                  <a href="kurt.stam@gmail.com" class="fi-social-google-plus"></a>
+                  <a href="kurtstam" class="fi-social-github"></a>
+                  <a href="kurtstam" class="fi-social-twitter"></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+</div>
+
+
+<div class="small-16 medium-16 large-12 columns main-column left">
+    
+
+<main class="content" role="main">
+
+    <article class="post tag-Centos tag-ARM tag-Docker">
+
+
+            <h1 class="post-title">Minimal Centos 7 Image for RaspberryPi2</h1>
+
+            <span class="post-meta label"><time datetime="2016-01-28">28 Jan 2016</time></span>
+
+            <section class="post-content">
+                <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Centos added the ARM 7 build to their release train.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_download">Download</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To download the Centos 7 minimal image for Raspberry Pi 2 go to</p>
+</div>
+<div class="paragraph">
+<p><a href="https://wiki.centos.org/Download" class="bare">https://wiki.centos.org/Download</a>,</p>
+</div>
+<div class="paragraph">
+<p>and scroll down to the 'AltArch Releases' and select the armhfp (Arm32) for RaspberryPi2.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flash">Flash</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On my OSX box I issue:</p>
+</div>
+<div class="paragraph">
+<p>sudo dd bs=1m if=CentOS-Userland-7-armv7hl-Minimal-1511-RaspberryPi2.img of=/dev/disk2</p>
+</div>
+<div class="paragraph">
+<p>Double check that your SD Card reader is at /dev/disk2 or you&#8217;ll be sorry..</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_first_login">First login</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I had some trouble finding the default login credentials but I finally found the documentation here:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://wiki.centos.org/SpecialInterestGroup/AltArch/Arm32#head-61f4a64fb0c44b1080d87dd0c618ed4d0c8ef8df" class="bare">https://wiki.centos.org/SpecialInterestGroup/AltArch/Arm32#head-61f4a64fb0c44b1080d87dd0c618ed4d0c8ef8df</a></p>
+</div>
+<div class="paragraph">
+<p>with default creds <code>root/centos</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_use_the_entire_sd_card">Use the entire SD Card</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default the partition uses only 2GB. To make enlarge it use</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>touch /.rootfs-repartition
+systemctl reboot</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_docker">Add Docker?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sadly the Docker rpm is not available yet.</p>
+</div>
+</div>
+</div>
+                        <aside class="tags fi-pricetag-multiple">Posted on <a href="https://KurtStam.github.io/tag/Centos">Centos</a>, <a href="https://KurtStam.github.io/tag/ARM"> ARM</a>, <a href="https://KurtStam.github.io/tag/Docker"> Docker</a></aside>
+            </section>
+            <hr>
+            <footer class="post-footer">
+
+                <section class="share">
+                    <h4>Liked this post ? Share it.</h4>
+                    <a class="fi-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://KurtStam.github.io/2016/01/28/Minimal-Centos-7-Image-for-RaspberryPi2.html"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    </a>
+                    <a class="fi-social-twitter" href="https://twitter.com/share?text=Minimal%20Centos%207%20Image%20for%20RaspberryPi2&amp;url=https://KurtStam.github.io/2016/01/28/Minimal-Centos-7-Image-for-RaspberryPi2.html"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    </a>
+                    <a class="fi-social-google-plus" href="https://plus.google.com/share?url=https://KurtStam.github.io/2016/01/28/Minimal-Centos-7-Image-for-RaspberryPi2.html"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    </a>
+                </section>
+
+                <section class="author">
+                    <header>
+                        <span>About the author</span>
+                    </header>
+                    <section>
+                        <h4>Kurt Stam</h4>
+                        <img src="https://avatars.githubusercontent.com/u/35576?v=3">
+                        
+                        
+                    </section>
+                    <footer>
+                         <p></p>
+                    </footer>
+                </section>
+
+        <div class="clearfix"></div>
+                    <hr>
+
+            </footer>
+
+        <h3 class="title-disqus"><span class="fi-comments"></span>Discussions</h3>
+
+
+
+
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'kurtstamgithubio'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+</main>
+
+</div>
+
+</div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/outdatedBrowser.min.js?v=1.0.0"></script>
+    <![endif]-->
+    <script type="text/javascript" src="//KurtStam.github.io/themes/ichi/assets/js/min/built.js?v=1.0.0"></script>
+
+    <script>
+      $(document).foundation();
+    </script>
+
+</body>
+</html>
