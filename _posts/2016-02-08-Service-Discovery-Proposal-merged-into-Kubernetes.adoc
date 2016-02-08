@@ -1,0 +1,4 @@
+= Service Discovery Proposal merged into Kubernetes 
+:hp-tags: Fabric8, Kubernetes, Apiman
+
+Yay! My first official contribution to Kubernetes was just merged in.
