@@ -1,4 +1,28 @@
-= Service Discovery Proposal merged into Kubernetes 
+= Service Discovery Proposal on Kubernetes 
 :hp-tags: Fabric8, Kubernetes, Apiman
 
-Yay! My first official contribution to Kubernetes was just merged in.
+Yay! Good news for http://www.apiman.io/latest/[Apiman] on Kubernetes. My https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/service-discovery.md[first official contribution] to Kubernetes was just https://github.com/kubernetes/kubernetes/pull/20216#event-542681598[merged in]. The proposal speaks to using Kubernetes Service Annotations to determine endpoint information about a service API including a reference to a description document of the API. Some thing I've learned is that the namespace part of the annotation name should describe the `structure`, and the name itself goes to the right of the slash. I think that's pretty elegant. Naming things really is the hardest part of our job..
+
+Here is an exampe fragment taken from the https://github.com/fabric8io/ipaas-quickstarts/blob/v2.2.98/quickstart/cdi/cxf/pom.xml#L67[Fabric8 quickstarts].
+
+....
+...
+"objects" : [ {
+  "apiVersion" : "v1",
+  "kind" : "Service",
+  "metadata" : {
+    "annotations" : {
+      "api.service.kubernetes.io/protocol" : "REST",
+      "api.service.kubernetes.io/scheme" "http",
+      "api.service.kubernetes.io/path" : "cxfcdi",
+      "api.service.kubernetes.io/description-path" : "cxfcdi/swagger.json",
+      "api.service.kubernetes.io/description-language" : "SwaggerJSON"
+    },
+...
+....
+
+Hopefully service developers will start using this new standardized convention. Using the annotations will make it a snap to import your service API into an API management tool like Apiman. Now I have to update the  http://fabric8.io/guide/apimanImportService.html#kubernetes-service-annotations[Fabric8 docs].
+
+Cheers
+
+--Kurt
