@@ -1,0 +1,10 @@
+= Just some pictures of the RaspberryPi Cluster setup
+:hp-tags: OpenShift, Fabric8, Kubernetes
+
+
+
+image::rpi-cluster-setup-1.png[]
+image::rpi-cluster-setup-2.png[]
+image::rpi-cluster-setup-3.png[]
+image::rpi-cluster-setup-4.png[]
+image::rpi-cluster-setup-5.png[]
