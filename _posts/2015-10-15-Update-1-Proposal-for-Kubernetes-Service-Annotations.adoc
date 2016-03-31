@@ -2,8 +2,9 @@
 :hp-tags: Kubernetes, Fabric8
 :numbered:
 
-== This post is now old as the final proposal got accepted, please see:
+== This post is now old
 
+The final proposal got accepted, please see:
 * https://kurtstam.github.io/2016/02/08/Service-Discovery-Proposal-on-Kubernetes.html
 * https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/service-discovery.md
 
